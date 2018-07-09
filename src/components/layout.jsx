@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Layout, Menu, Breadcrumb, Icon, Button } from 'antd';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Home from './home';
-import Charts from './charts'
+import Charts from './charts';
+import WrappedAdvancedSearchForm from './requirement'
 
 const routes = [
     {
@@ -13,6 +14,10 @@ const routes = [
     {
         path: "/chart",
         sidebar: Charts
+    },
+    {
+        path: "/newRequirement",
+        sidebar: WrappedAdvancedSearchForm
     }
 ];
 const { Header, Content, Footer, Sider } = Layout;
@@ -54,7 +59,7 @@ class SiderDemo extends React.Component {
                                     key="sub1"
                                     title={<span><Icon type="setting" /><span>管理</span></span>}
                                 >
-                                    <Menu.Item key="11"><Link to="/chart">需求</Link></Menu.Item>
+                                    <Menu.Item key="11"><Link to="/newRequirement">需求</Link></Menu.Item>
                                 </SubMenu>
                             </Menu>
                         </Sider>

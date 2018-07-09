@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { Button } from 'antd';
 import './App.css';
-import SiderDemo from './components/layout'
+import MainPage from './apps/layout/layout'
 
 class App extends Component {
   render() {
     return (
-      <SiderDemo></SiderDemo>
+      <MainPage></MainPage>
     );
   }
 }
