@@ -12,7 +12,6 @@ const config = {
 const pool = new pg.Pool(config);
 
 let query = function (sql, values) {
-  console.log(sql)
   return new Promise((resolve, reject) => {
     pool.connect(function (err, client, done) {
       if (err) {
@@ -25,7 +24,7 @@ let query = function (sql, values) {
             console.error('查询出错', err);
             reject(null)
           } else {
-            console.log('查询结果', result);
+            // console.log('查询结果', result);
             resolve(result)
           }
         });
