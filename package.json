@@ -8,6 +8,7 @@
     "echarts-for-react": "^2.0.13",
     "lodash.clone": "^4.5.0",
     "lodash.clonedeep": "^4.5.0",
+    "pg": "^7.4.3",
     "react": "^16.4.1",
     "react-beautiful-dnd": "^8.0.2",
     "react-dom": "^16.4.1",
