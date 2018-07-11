@@ -19,7 +19,7 @@ func GetCommonConfigs() ([]Dictionary, error) {
 			log.Printf("scan friend error %s :", err)
 			break
 		}
-		log.Printf("dictionary %v", dictionary)
+		// log.Printf("dictionary %v", dictionary)
 		list = append(list, dictionary)
 	}
 	return list, err
