@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import cloneDeep from 'lodash.clonedeep';
 import ReactEcharts from 'echarts-for-react';
+import axios from 'axios';
+import qs from 'qs';
 
 class Charts extends Component {
   constructor(props) {
@@ -38,8 +40,8 @@ class Charts extends Component {
       clearInterval(this.timeTicket);
     }
     this.timeTicket = setInterval(this.fetchNewDate, 1000);
-
-    fetch("http://localhost:8000/apis/dictionaries", {
+    console.log(1233)
+    fetch("http://192.168.15.116:8000/apis/dictionaries", {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', },
       body: ''
@@ -49,6 +51,16 @@ class Charts extends Component {
       }).catch(function (e) {
         console.log("Oops, error");
       });
+    const data = { 'bar': 123, 'champion': 'France' };
+    const options = {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      data: qs.stringify(data),
+      url: "http://192.168.15.116:8000/apis/dictionaries",
+    };
+    axios(options).then(response => {
+      console.log(response)
+    });
   };
 
   componentWillUnmount() {
@@ -56,6 +68,8 @@ class Charts extends Component {
       clearInterval(this.timeTicket);
     }
   };
+
+
 
   getOption = () => ({
     title: {
