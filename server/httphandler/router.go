@@ -17,14 +17,22 @@ func corsWrapperHandler(next http.Handler) http.Handler{
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request){//force to HandlerFunc
 		start := time.Now()
 		addCors(&w)
-		log.Printf("Started %s %s", r.Method, string(r.URL.Path))
 		next.ServeHTTP(w, r)
 		log.Printf("Comleted %s in %v", r.URL.Path, time.Since(start))
 	})
 }
 
+func post(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.Method == "POST" {
+			log.Printf("Started %s %s", r.Method, string(r.URL.Path))
+			next.ServeHTTP(w, r)
+		}
+	})
+}
+
 func RouteAndListen() {
-	http.Handle("/apis/dictionaries", corsWrapperHandler(http.HandlerFunc(dictionaryHandlFunc)))
-	http.Handle("/apis/requirements", corsWrapperHandler(http.HandlerFunc(requirementHandlFunc)))
+	http.Handle("/apis/dictionaries", post(corsWrapperHandler(http.HandlerFunc(dictionaryHandlFunc))))
+	http.Handle("/apis/requirements", post(corsWrapperHandler(http.HandlerFunc(requirementHandlFunc))))
 	http.ListenAndServe(":8000", nil)
 }
