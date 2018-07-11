@@ -1,6 +1,7 @@
 package main
 
 import (
+	_ "resume/db"
 	server "resume/httphandler"
 )
 
