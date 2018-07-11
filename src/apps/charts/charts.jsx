@@ -41,16 +41,16 @@ class Charts extends Component {
     }
     this.timeTicket = setInterval(this.fetchNewDate, 1000);
     console.log(1233)
-    fetch("http://192.168.15.116:8000/apis/dictionaries", {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', },
-      body: ''
-    }).then(response => response.json())
-      .then(responseJson => {
-        console.log(responseJson);
-      }).catch(function (e) {
-        console.log("Oops, error");
-      });
+    // fetch("http://192.168.15.116:8000/apis/dictionaries", {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json', },
+    //   body: ''
+    // }).then(response => response.json())
+    //   .then(responseJson => {
+    //     console.log(responseJson);
+    //   }).catch(function (e) {
+    //     console.log("Oops, error");
+    //   });
     const data = { 'bar': 123, 'champion': 'France' };
     const options = {
       method: 'POST',

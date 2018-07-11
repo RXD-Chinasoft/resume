@@ -13,7 +13,7 @@ func addCors(w *http.ResponseWriter) {
 	(*w).Header().Set("content-type", "application/json")             //返回数据格式是json
 }
 
-func corsWrapperHandler(next http.Handler) http.Handler{
+func corsDecrator(next http.Handler) http.Handler{
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request){//force to HandlerFunc
 		log.Printf("Started %s %s", r.Method, string(r.URL.Path))
 		start := time.Now()
@@ -23,16 +23,22 @@ func corsWrapperHandler(next http.Handler) http.Handler{
 	})
 }
 
-func postFilter(dictionaryHandlFunc func(w http.ResponseWriter, r *http.Request)) func (w http.ResponseWriter, r *http.Request) {
+func methodFilter(handleFunc func(w http.ResponseWriter, r *http.Request), method string) func (w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
-		if r.Method == "POST" {
-			dictionaryHandlFunc(w, r)
+		if r.Method == method {
+			handleFunc(w, r)
 		}
 	}
 }
 
+const (
+	POST = "POST"
+	DELETE = "DELETE"
+	PUT = "PUT"
+)
 func RouteAndListen() {
-	http.Handle("/apis/dictionaries", corsWrapperHandler(http.HandlerFunc(postFilter(dictionaryHandlFunc))))
-	http.Handle("/apis/requirements", corsWrapperHandler(http.HandlerFunc(postFilter(requirementHandlFunc))))
+	http.Handle("/apis/dictionaries", corsDecrator(http.HandlerFunc(methodFilter(dictionaryHandlFunc, POST))))
+	http.Handle("/apis/requirements", corsDecrator(http.HandlerFunc(methodFilter(requirementHandlFunc, POST))))
+	http.Handle("/apis/requirement", corsDecrator(http.HandlerFunc(methodFilter(requirementHandlFunc, POST))))
 	http.ListenAndServe(":8000", nil)
 }
