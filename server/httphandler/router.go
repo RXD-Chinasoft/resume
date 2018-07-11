@@ -32,8 +32,9 @@ func methodFilter(handleFunc func(w http.ResponseWriter, r *http.Request), metho
 	}
 }
 
-func parseBody(handleFunc func(w http.ResponseWriter, r *http.Request, bbs []byte), errorString string, errorCode int) func (w http.ResponseWriter, r *http.Request) {
+func parseBodyWithBytes(handleFunc func(w http.ResponseWriter, r *http.Request, bbs []byte), errorString string, errorCode int) func (w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
+		log.Printf("body %v", r.Body)
 		res, err := ioutil.ReadAll(r.Body)
 		r.Body.Close()
 		if err != nil {
@@ -53,7 +54,7 @@ const (
 func RouteAndListen() {
 	http.Handle("/apis/dictionaries", corsDecrator(http.HandlerFunc(methodFilter(dictionaryHandlFunc, POST))))
 	http.Handle("/apis/requirements", corsDecrator(http.HandlerFunc(methodFilter(requirementsHandlFunc, POST))))
-	http.Handle("/apis/requirement", corsDecrator(http.HandlerFunc(methodFilter(parseBody(newRequirementHandlFunc, 
+	http.Handle("/apis/requirement", corsDecrator(http.HandlerFunc(methodFilter(parseBodyWithBytes(newRequirementHandlFunc, 
 		http.StatusText(http.StatusBadRequest), http.StatusBadRequest), POST))))
 	http.ListenAndServe(":8000", nil)
 }

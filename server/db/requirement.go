@@ -30,6 +30,6 @@ func GetRequirements() ([]Requirement, error) {
 }
 
 func NewRequirement(rqmt Requirement) error {
-
+	log.Printf("require %v", rqmt)
 	return nil
 }

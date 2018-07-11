@@ -51,17 +51,54 @@ class Charts extends Component {
     //   }).catch(function (e) {
     //     console.log("Oops, error");
     //   });
-    const data = { 'bar': 123, 'champion': 'France' };
+    
+    // const data = { 'bar': 123, 'champion': 'France' };
+    // const options = {
+    //   method: 'POST',
+    //   headers: { 'content-type': 'application/json' },
+    //   data: qs.stringify(data),
+    //   url: "http://192.168.15.116:8000/apis/dictionaries",
+    // };
+    // axios(options).then(response => {
+    //   console.log(response)
+    // });
+    this.newRequirement()
+  };
+
+  newRequirement = () => {
+    const data = { 
+      requirement: "test1",
+      area: "dalian",
+      count: 1,
+      saler: 101,
+      dm: 103,
+      priority: 4,
+      english: 1,
+      rqtype: 4,
+      rqstatus: 5,
+      client: "san",
+      salaryscope: "5000-10000",
+      challengetarget: "",
+      resumetarget: "",
+      turn: 2,
+      teamrange: "5000-10000",
+      candidate: "ming",
+      contact: "12345678932",
+      interviewaddr: "xxxxxxxxx",
+      projectaddr: "kanban",
+      createtime: "20180127",
+      descrpition: []
+    };
     const options = {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
-      data: qs.stringify(data),
-      url: "http://192.168.15.116:8000/apis/dictionaries",
+      data: JSON.stringify(data),
+      url: "http://192.168.15.116:8000/apis/requirement",
     };
     axios(options).then(response => {
       console.log(response)
     });
-  };
+  }
 
   componentWillUnmount() {
     if (this.timeTicket) {

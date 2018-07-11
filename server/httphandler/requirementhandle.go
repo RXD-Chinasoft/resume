@@ -29,8 +29,13 @@ func requirementsHandlFunc(w http.ResponseWriter, r *http.Request){
 }
 
 func newRequirementHandlFunc(w http.ResponseWriter, r *http.Request, bodyBytes []byte) {
-	log.Printf("params %s \n", bodyBytes)
+	log.Printf("params %s \n", string(bodyBytes))
 	requirement := Requirement{}
-	json.NewDecoder(strings.NewReader(string(bodyBytes))).Decode(&requirement)
-	db.NewRequirement(requirement)
+	err := json.NewDecoder(strings.NewReader(string(bodyBytes))).Decode(&requirement)
+	if err != nil {
+		log.Printf("error ===> %s \n", err)
+	} else {
+		db.NewRequirement(requirement)
+	}
+	
 }
