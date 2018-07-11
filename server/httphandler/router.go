@@ -35,10 +35,11 @@ const (
 	POST = "POST"
 	DELETE = "DELETE"
 	PUT = "PUT"
+	GET = "GET"
 )
 func RouteAndListen() {
 	http.Handle("/apis/dictionaries", corsDecrator(http.HandlerFunc(methodFilter(dictionaryHandlFunc, POST))))
-	http.Handle("/apis/requirements", corsDecrator(http.HandlerFunc(methodFilter(requirementHandlFunc, POST))))
-	http.Handle("/apis/requirement", corsDecrator(http.HandlerFunc(methodFilter(requirementHandlFunc, POST))))
+	http.Handle("/apis/requirements", corsDecrator(http.HandlerFunc(methodFilter(requirementsHandlFunc, POST))))
+	http.Handle("/apis/requirement", corsDecrator(http.HandlerFunc(methodFilter(newRequirementHandlFunc, POST))))
 	http.ListenAndServe(":8000", nil)
 }
