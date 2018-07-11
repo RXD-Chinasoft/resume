@@ -5,7 +5,7 @@ import (
 	"log"
 	"io/ioutil"
 	"encoding/json"
-	. "resume/entities"
+	. "resume/server/entities"
 )
 
 func dictionaryHandlFunc(w http.ResponseWriter, r *http.Request){

@@ -2,7 +2,7 @@ package db
 
 import (
 	"log"
-	. "resume/entities"
+	. "resume/server/entities"
 )
 
 func GetAll() {

@@ -1,8 +1,8 @@
 package main
 
 import (
-	_ "resume/db"
-	server "resume/httphandler"
+	_ "resume/server/db"
+	server "resume/server/httphandler"
 )
 
 type Result struct {
