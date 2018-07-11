@@ -23,6 +23,18 @@
   font-size: large;
 }
 
+.gutter-example .ant-row > div {
+  background: transparent;
+  border: 0;
+  background:rgb(20, 83, 157);
+}
+.gutter-box {
+  background:rgb(20, 83, 157);
+  padding: 15px 0;
+  color: aliceblue;
+  height: 50px
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
