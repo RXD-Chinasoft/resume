@@ -28,15 +28,9 @@ func requirementsHandlFunc(w http.ResponseWriter, r *http.Request){
 	}
 }
 
-func newRequirementHandlFunc(w http.ResponseWriter, r *http.Request){
-	res, err := ioutil.ReadAll(r.Body)
-	r.Body.Close()
-	if err != nil {
-		http.Error(w, http.StatusText(400), 400)
-	} else {
-		log.Printf("params %s \n", res)
-		requirement := Requirement{}
-		json.NewDecoder(strings.NewReader(string(res))).Decode(&requirement)
-	}
-	
+func newRequirementHandlFunc(w http.ResponseWriter, r *http.Request, bodyBytes []byte) {
+	log.Printf("params %s \n", bodyBytes)
+	requirement := Requirement{}
+	json.NewDecoder(strings.NewReader(string(bodyBytes))).Decode(&requirement)
+	db.NewRequirement(requirement)
 }

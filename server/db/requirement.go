@@ -28,3 +28,8 @@ func GetRequirements() ([]Requirement, error) {
 	}
 	return list, err
 }
+
+func NewRequirement(rqmt Requirement) error {
+
+	return nil
+}
