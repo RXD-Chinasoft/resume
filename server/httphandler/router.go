@@ -25,5 +25,6 @@ func corsWrapperHandler(next http.Handler) http.Handler{
 
 func RouteAndListen() {
 	http.Handle("/apis/dictionaries", corsWrapperHandler(http.HandlerFunc(dictionaryHandlFunc)))
+	http.Handle("/apis/requirements", corsWrapperHandler(http.HandlerFunc(requirementHandlFunc)))
 	http.ListenAndServe(":8000", nil)
 }
