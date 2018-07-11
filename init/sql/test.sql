@@ -49,10 +49,15 @@ CREATE TABLE IF NOT EXISTS dictionary (
     pkey integer
 ) WITH(OIDS=FALSE);
 
+CREATE TABLE IF NOT EXISTS kanban (
+    id serial NOT NULL, 
+    requirement integer,
+    matrix integer[][]
+) WITH(OIDS=FALSE);
+
 CREATE TABLE IF NOT EXISTS history (
     id serial NOT NULL, 
     requirement integer,
-    status integer[][],
     operations text[]
 ) WITH(OIDS=FALSE);
 

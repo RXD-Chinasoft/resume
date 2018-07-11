@@ -38,6 +38,17 @@ class Charts extends Component {
       clearInterval(this.timeTicket);
     }
     this.timeTicket = setInterval(this.fetchNewDate, 1000);
+
+    fetch("http://localhost:8000/apis/dictionaries", {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', },
+      body: ''
+    }).then(response => response.json())
+      .then(responseJson => {
+        console.log(responseJson);
+      }).catch(function (e) {
+        console.log("Oops, error");
+      });
   };
 
   componentWillUnmount() {
