@@ -43,6 +43,10 @@
   margin-top: 15px
 }
 
+.ant-form-item-label label {
+  color : white !important
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
