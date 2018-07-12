@@ -62,7 +62,10 @@ class Charts extends Component {
     // axios(options).then(response => {
     //   console.log(response)
     // });
-    this.newRequirement()
+
+
+    // this.newRequirement()
+    // this.getRequirements()
   };
 
   newRequirement = () => {
@@ -99,6 +102,20 @@ class Charts extends Component {
       console.log(response)
     });
   }
+
+  getRequirements() {
+    const options = {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      data: "",
+      url: "http://192.168.15.116:8000/apis/requirements",
+    };
+    axios(options).then(response => {
+      console.log(response)
+    });
+  }
+
+
 
   componentWillUnmount() {
     if (this.timeTicket) {
