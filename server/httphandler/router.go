@@ -54,5 +54,13 @@ func RouteAndListen() {
 		http.StatusText(http.StatusBadRequest), http.StatusBadRequest), http.MethodPost))))
 	http.Handle("/apis/requirementoff", corsDecrator(http.HandlerFunc(methodFilter(parseBodyWithBytes(removeRequirementHandleFunc, 
 		http.StatusText(http.StatusBadRequest), http.StatusBadRequest), http.MethodPost))))
+
+	http.Handle("/apis/candidates", corsDecrator(http.HandlerFunc(methodFilter(candidatesHandleFunc, http.MethodPost))))
+	http.Handle("/apis/candidate", corsDecrator(http.HandlerFunc(methodFilter(parseBodyWithBytes(newCandidateHandleFunc, 
+		http.StatusText(http.StatusBadRequest), http.StatusBadRequest), http.MethodPost))))
+	http.Handle("/apis/candidaterenewal", corsDecrator(http.HandlerFunc(methodFilter(parseBodyWithBytes(updateCandidateHandleFunc, 
+		http.StatusText(http.StatusBadRequest), http.StatusBadRequest), http.MethodPost))))
+	http.Handle("/apis/candidateoff", corsDecrator(http.HandlerFunc(methodFilter(parseBodyWithBytes(removeCandidateHandleFunc, 
+		http.StatusText(http.StatusBadRequest), http.StatusBadRequest), http.MethodPost))))
 	http.ListenAndServe(":8000", nil)
 }
