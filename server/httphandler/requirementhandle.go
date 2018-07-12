@@ -10,7 +10,7 @@ import (
 	. "resume/server/entities"
 )
 
-func requirementsHandlFunc(w http.ResponseWriter, r *http.Request){
+func requirementsHandleFunc(w http.ResponseWriter, r *http.Request){
 	res, err := ioutil.ReadAll(r.Body)
 	r.Body.Close()
 	if err != nil {
@@ -28,14 +28,34 @@ func requirementsHandlFunc(w http.ResponseWriter, r *http.Request){
 	}
 }
 
-func newRequirementHandlFunc(w http.ResponseWriter, r *http.Request, bodyBytes []byte) {
-	log.Printf("params %s \n", string(bodyBytes))
+func newRequirementHandleFunc(w http.ResponseWriter, r *http.Request, bodyBytes []byte) {
+	log.Printf("new params %s \n", string(bodyBytes))
 	requirement := Requirement{}
 	err := json.NewDecoder(strings.NewReader(string(bodyBytes))).Decode(&requirement)
 	if err != nil {
 		log.Printf("error ===> %s \n", err)
+		http.Error(w, http.StatusText(400), 400)
 	} else {
-		db.NewRequirement(requirement)
+		err = db.NewRequirement(requirement)
+		if err != nil {
+			http.Error(w, http.StatusText(500), 500)
+		}
+	}
+	
+}
+
+func updateRequirementHandleFunc(w http.ResponseWriter, r *http.Request, bodyBytes []byte) {
+	log.Printf("update params %s \n", string(bodyBytes))
+	requirement := Requirement{}
+	err := json.NewDecoder(strings.NewReader(string(bodyBytes))).Decode(&requirement)
+	if err != nil {
+		log.Printf("error ===> %s \n", err)
+		http.Error(w, http.StatusText(400), 400)
+	} else {
+		err = db.UpdateRequirement(requirement)
+		if err != nil {
+			http.Error(w, http.StatusText(500), 500)
+		}
 	}
 	
 }

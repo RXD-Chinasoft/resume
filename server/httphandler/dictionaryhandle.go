@@ -8,7 +8,7 @@ import (
 	"resume/server/db"
 )
 
-func dictionaryHandlFunc(w http.ResponseWriter, r *http.Request){
+func dictionaryHandleFunc(w http.ResponseWriter, r *http.Request){
 	res, err := ioutil.ReadAll(r.Body)
 	r.Body.Close()
 	log.Printf("from %s \n", res)

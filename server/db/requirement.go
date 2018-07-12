@@ -41,3 +41,16 @@ func NewRequirement(rqmt Requirement) error {
 	}
 	return nil
 }
+
+func UpdateRequirement(rqmt Requirement) error {
+	log.Printf("update %v", rqmt)
+	_, err := db.Exec("UPDATE requirement SET requirement=$1, area=$2, count=$3, saler=$4, dm=$5, priority=$6, english=$7, rqtype=$8, rqstatus=$9, client=$10, salaryscope=$11," + 
+		" challengetarget=$12, resumetarget=$13, turn=$14, teamrange=$15, candidate=$16, contact=$17, interviewaddr=$18, projectaddr=$19, createtime=$20, descrpition=$21 WHERE id=$22", 
+		rqmt.Requirement, rqmt.Area, rqmt.Count, rqmt.Saler, rqmt.Dm, rqmt.Priority, rqmt.English, rqmt.Rqtype, rqmt.Rqstatus, rqmt.Client, rqmt.Salaryscope, rqmt.Challengetarget, rqmt.Resumetarget, 
+		rqmt.Turn, rqmt.Teamrange, rqmt.Candidate, rqmt.Contact, rqmt.Interviewaddr, rqmt.Projectaddr, rqmt.Createtime, pq.Array(rqmt.Descrpition), rqmt.Id)
+	if err != nil {
+		log.Printf("update error %s", err)
+		return err
+	}
+	return nil
+}

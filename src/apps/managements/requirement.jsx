@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
 import { Form, Row, Col, Input, Button, Icon } from 'antd';
 
+import { updateRequirement } from './../service/doc'
+
 const FormItem = Form.Item;
 
 class AdvancedSearchForm extends React.Component {
+
+  componentDidMount() {
+    updateRequirement()
+  }
+
   state = {
     expand: false,
   };
@@ -40,7 +47,7 @@ class AdvancedSearchForm extends React.Component {
               }],
             })(
               <Input placeholder="placeholder" />
-            )}
+              )}
           </FormItem>
         </Col>
       );

@@ -45,16 +45,12 @@ func parseBodyWithBytes(handleFunc func(w http.ResponseWriter, r *http.Request, 
 	}
 }
 
-const (
-	POST = "POST"
-	DELETE = "DELETE"
-	PUT = "PUT"
-	GET = "GET"
-)
 func RouteAndListen() {
-	http.Handle("/apis/dictionaries", corsDecrator(http.HandlerFunc(methodFilter(dictionaryHandlFunc, POST))))
-	http.Handle("/apis/requirements", corsDecrator(http.HandlerFunc(methodFilter(requirementsHandlFunc, POST))))
-	http.Handle("/apis/requirement", corsDecrator(http.HandlerFunc(methodFilter(parseBodyWithBytes(newRequirementHandlFunc, 
-		http.StatusText(http.StatusBadRequest), http.StatusBadRequest), POST))))
+	http.Handle("/apis/dictionaries", corsDecrator(http.HandlerFunc(methodFilter(dictionaryHandleFunc, http.MethodPost))))
+	http.Handle("/apis/requirements", corsDecrator(http.HandlerFunc(methodFilter(requirementsHandleFunc, http.MethodPost))))
+	http.Handle("/apis/requirement", corsDecrator(http.HandlerFunc(methodFilter(parseBodyWithBytes(newRequirementHandleFunc, 
+		http.StatusText(http.StatusBadRequest), http.StatusBadRequest), http.MethodPost))))
+	http.Handle("/apis/requirementrenewal", corsDecrator(http.HandlerFunc(methodFilter(parseBodyWithBytes(updateRequirementHandleFunc, 
+		http.StatusText(http.StatusBadRequest), http.StatusBadRequest), http.MethodPost))))
 	http.ListenAndServe(":8000", nil)
 }
