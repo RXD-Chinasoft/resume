@@ -37,6 +37,7 @@ CREATE TABLE IF NOT EXISTS candidate (
     risk integer,
     descrpition character varying(500),
     filepath character varying(100),
+    createtime character varying(50),
     message character varying(500)
 ) WITH(OIDS=FALSE);
 

@@ -37,3 +37,18 @@ type Requirement struct {
     Createtime string `json:"createtime" db:"createtime"`
     Descrpition []string `json:"descrpition" db:"descrpition"`
 }
+
+type Candidate struct {
+	Id int64 `json:"id" db:"id"`
+    Requirement int64 `json:"requirement" db:"requirement"`
+    Candidate string `json:"candidate" db:"candidate"`
+    Hiringmanager int64 `json:"hiringmanager" db:"hiringmanager"`
+    Saler int64 `json:"saler" db:"saler"`
+    Dm int64 `json:"dm" db:"dm"`
+    Status int64 `json:"status" db:"status"`
+    Risk int64 `json:"risk" db:"risk"`
+    Descrpition string `json:"descrpition" db:"descrpition"`
+    Filepath string `json:"filepath" db:"filepath"`
+    Createtime string `json:"createtime" db:"createtime"`
+    Message string `json:"message" db:"message"`
+}
