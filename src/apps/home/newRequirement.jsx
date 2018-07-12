@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Button, Modal, Form, Input, Radio } from 'antd';
-
+import { Button, Modal, Form, Input, Radio, Row, Col } from 'antd';
+import DropDownButton from './dropdown'
 const FormItem = Form.Item;
 
 const RequirementCreateForm = Form.create()(
@@ -11,12 +11,50 @@ const RequirementCreateForm = Form.create()(
       return (
         <Modal
           visible={visible}
-          title="Create a new collection"
+          // title="Create a new collection"
           okText="Create"
           onCancel={onCancel}
           onOk={onCreate}
+          width
         >
-          <Form layout="vertical">
+          <div style={{ background: 'blue' }}>
+            <div>
+              <Row>
+                <label className="titleBox" style={{ color: 'white' }} >需求ID</label>
+                <input placeholder="请输入职位名称" className="titleBox" />
+                <label className="titleBox" style={{ color: 'white' }} >地域</label>
+                <input placeholder="请输入地域" className="titleBox" />
+                <label className="titleBox" style={{ color: 'white' }}> 人数</label>
+                <input placeholder="请输入人数" className="titleBox" />
+              </Row>
+            </div>
+
+            <div>
+              <Row gutter={16} style={{ marginTop: '30px', width: '100%' }}>
+                <Col className="gutter-row" span={14}>
+                  <Col className="gutter-row" span={12}>
+                    <Row>
+                      <Col className="gutter-row" span={6}><label className="content" style={{ color: 'white' , marginTop: 10}}>客户需求ID</label></Col>
+                      <Col className="gutter-row" span={6}><Input placeholder="请输入职位名称" style={{ width: 200 }} /></Col>
+                    </Row>
+                  </Col>
+                  <Col className="gutter-row" span={12}>
+                    <Row>
+                      <Col className="gutter-row" span={6}><label style={{ color: 'white' , marginTop: 10 }}>所属部门</label></Col>
+                      <Col className="gutter-row" span={6}><DropDownButton>
+                      </DropDownButton></Col>
+                    </Row>
+                  </Col>
+                </Col>
+                <Col className="gutter-row" span={10}>
+
+                </Col>
+              </Row>
+
+            </div>
+          </div>
+
+          {/* <Form layout="vertical">
             <FormItem label="Title">
               {getFieldDecorator('title', {
                 rules: [{ required: true, message: 'Please input the title of collection!' }],
@@ -37,7 +75,7 @@ const RequirementCreateForm = Form.create()(
                 </Radio.Group>
               )}
             </FormItem>
-          </Form>
+          </Form> */}
         </Modal>
       );
     }
