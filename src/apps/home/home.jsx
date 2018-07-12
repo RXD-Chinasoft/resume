@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { Button } from 'antd';
-import RequirementCreateForm from './newRequirement'
+import ToolBar from './toolbar'
 import { Row, Col } from 'antd';
 
 // fake data generator
@@ -175,7 +175,7 @@ class Home extends Component {
     render() {
         return (
             <div>
-                <div style={{ padding: '10px' }}>
+                {/* <div style={{ padding: '10px' }}>
                     <Button type="primary" onClick={this.showModal}>创建职位</Button>
                     <Button style={{ marginLeft: '10px' }} type="primary">创建候选人</Button>
                 </div>
@@ -184,13 +184,8 @@ class Home extends Component {
                     visible={this.state.visible}
                     onCancel={this.handleCancel}
                     onCreate={this.handleCreate}
-                />
-                {/* <CandidateCreateForm
-                    wrappedComponentRef={this.saveFormRef}
-                    visible={this.state.visible}
-                    onCancel={this.handleCancel}
-                    onCreate={this.handleCreate}
                 /> */}
+                <ToolBar />
                 <div style={{ display: 'flex' }}>
                     <Row gutter={16} style={{ marginTop: '10px', width: '100%', textAlign: 'center', }}>
                         <DragDropContext onDragEnd={this.onDragEnd}>
