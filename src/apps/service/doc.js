@@ -86,9 +86,10 @@ export const updateRequirement = () => {
 
 export const delRequirement = () => {
     const options = {
-        method: 'DELETE',
+        method: 'POST',
         headers: { 'content-type': 'application/json' },
-        url: "http://192.168.15.116:8000/apis/requirement/" + 1,
+        data: JSON.stringify({ id: 2 }),
+        url: "http://192.168.15.116:8000/apis/requirementoff",
     };
     axios(options).then(response => {
         console.log(response)

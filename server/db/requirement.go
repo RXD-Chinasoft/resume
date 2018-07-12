@@ -54,3 +54,13 @@ func UpdateRequirement(rqmt Requirement) error {
 	}
 	return nil
 }
+
+func DeleteRequirement(id int) error {
+	log.Printf("delete %d", id)
+	_, err := db.Exec("DELETE FROM requirement WHERE id=$1", id)
+	if err != nil {
+		log.Printf("delete error %s", err)
+		return err
+	}
+	return nil
+}

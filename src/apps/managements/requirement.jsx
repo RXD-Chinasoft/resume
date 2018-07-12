@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { Form, Row, Col, Input, Button, Icon } from 'antd';
 
-import { updateRequirement } from './../service/doc'
+import { updateRequirement, delRequirement } from './../service/doc'
 
 const FormItem = Form.Item;
 
 class AdvancedSearchForm extends React.Component {
 
   componentDidMount() {
-    updateRequirement()
+    delRequirement()
   }
 
   state = {

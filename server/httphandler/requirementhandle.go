@@ -59,3 +59,19 @@ func updateRequirementHandleFunc(w http.ResponseWriter, r *http.Request, bodyByt
 	}
 	
 }
+
+func removeRequirementHandleFunc(w http.ResponseWriter, r *http.Request, bodyBytes []byte) {
+	log.Printf("remove params %s \n", string(bodyBytes))
+	key := struct {Id int `json:"id" db:"id"`}{}
+	err := json.NewDecoder(strings.NewReader(string(bodyBytes))).Decode(&key)
+	if err != nil {
+		log.Printf("error ===> %s \n", err)
+		http.Error(w, http.StatusText(400), 400)
+	} else {
+		err = db.DeleteRequirement(key.Id)
+		if err != nil {
+			http.Error(w, http.StatusText(500), 500)
+		}
+	}
+	
+}

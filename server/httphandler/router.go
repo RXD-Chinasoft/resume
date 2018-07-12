@@ -52,5 +52,7 @@ func RouteAndListen() {
 		http.StatusText(http.StatusBadRequest), http.StatusBadRequest), http.MethodPost))))
 	http.Handle("/apis/requirementrenewal", corsDecrator(http.HandlerFunc(methodFilter(parseBodyWithBytes(updateRequirementHandleFunc, 
 		http.StatusText(http.StatusBadRequest), http.StatusBadRequest), http.MethodPost))))
+	http.Handle("/apis/requirementoff", corsDecrator(http.HandlerFunc(methodFilter(parseBodyWithBytes(removeRequirementHandleFunc, 
+		http.StatusText(http.StatusBadRequest), http.StatusBadRequest), http.MethodPost))))
 	http.ListenAndServe(":8000", nil)
 }
