@@ -185,6 +185,12 @@ class Home extends Component {
                     onCancel={this.handleCancel}
                     onCreate={this.handleCreate}
                 />
+                {/* <CandidateCreateForm
+                    wrappedComponentRef={this.saveFormRef}
+                    visible={this.state.visible}
+                    onCancel={this.handleCancel}
+                    onCreate={this.handleCreate}
+                /> */}
                 <div style={{ display: 'flex' }}>
                     <Row gutter={16} style={{ marginTop: '10px', width: '100%', textAlign: 'center', }}>
                         <DragDropContext onDragEnd={this.onDragEnd}>
