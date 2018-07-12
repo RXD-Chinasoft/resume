@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { Button } from 'antd';
-import RequirementCreateForm from './newRequirement'
+import ToolBar from './toolbar'
 import { Row, Col } from 'antd';
 
 // fake data generator
@@ -81,7 +81,6 @@ class Home extends Component {
         selected: getBlanks1(0),
         blanks: getBlanks2(0),
         blanks3: getBlanks3(0),
-        visible: false,
     };
 
     /**
@@ -145,46 +144,12 @@ class Home extends Component {
         }
     };
 
-    showModal = () => {
-        this.setState({ visible: true });
-    }
-
-    handleCancel = () => {
-        this.setState({ visible: false });
-    }
-
-    handleCreate = () => {
-        const form = this.formRef.props.form;
-        form.validateFields((err, values) => {
-            if (err) {
-                return;
-            }
-
-            console.log('Received values of form: ', values);
-            form.resetFields();
-            this.setState({ visible: false });
-        });
-    }
-
-    saveFormRef = (formRef) => {
-        this.formRef = formRef;
-    }
-
     // Normally you would want to split things out into separate components.
     // But in this example everything is just done in one place for simplicity
     render() {
         return (
             <div>
-                <div style={{ padding: '10px' }}>
-                    <Button type="primary" onClick={this.showModal}>创建职位</Button>
-                    <Button style={{ marginLeft: '10px' }} type="primary">创建候选人</Button>
-                </div>
-                <RequirementCreateForm
-                    wrappedComponentRef={this.saveFormRef}
-                    visible={this.state.visible}
-                    onCancel={this.handleCancel}
-                    onCreate={this.handleCreate}
-                />
+                <ToolBar />
                 <div style={{ display: 'flex' }}>
                     <Row gutter={16} style={{ marginTop: '10px', width: '100%', textAlign: 'center', }}>
                         <DragDropContext onDragEnd={this.onDragEnd}>
