@@ -268,7 +268,7 @@ const RequirementCreateForm = Form.create()(
                     labelCol={{ span: 6 }}
                     wrapperCol={{ span: 18 }}
                   >
-                    {getFieldDecorator('bumen', {
+                    {getFieldDecorator('department', {
                       rules: [{ required: false, message: 'Please select one!' }],
                     })(
                       <Select
