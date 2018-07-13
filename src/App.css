@@ -46,6 +46,9 @@
 .ant-form-item-label label {
   color : white !important
 }
+.backgroundColor{
+  background:rgb(20, 83, 157);
+}
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }

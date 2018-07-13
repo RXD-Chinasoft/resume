@@ -31,302 +31,379 @@ const RequirementCreateForm = Form.create()(
           onOk={onCreate}
           width={"90%"}
         >
-          <div className="backgroundColor">
-            <Row>
+          <Form
+            className="ant-advanced-search-form"
+            onSubmit={this.handleCreate}
+            style={{ background: "#186dd6", paddingTop: 10, marginRight: 18, marginLeft: 18, color: "white" }}
+          >
+            <Row gutter={24} style={{ borderBottom: "solid 1px white" }}>
               <Col className="gutter-row" span={18}>
-                <Col className="gutter-row" span={8}>
+                <Col span={8} style={{ paddingTop: 8 }}>
                   <FormItem
                     {...formItemLayout}
                     label="需求ID"
-                    hasFeedback
-                    validateStatus="success3"
-                    style={{ color: 'white' }}
+                    style={{ color: "white" }}
                   >
-                    <Input placeholder="请输入职位名称" id="success3" style={{ width: '200px' }} />
+                    <Input placeholder="请输入需求ID" style={{ width: '200px', marginLeft: '34px' }} />
                   </FormItem>
                 </Col>
-                <Col className="gutter-row" span={8}>
+                <Col span={8} style={{ paddingTop: 8 }}>
                   <FormItem
                     {...formItemLayout}
                     label="地域"
-                    hasFeedback
-                    validateStatus="success1"
-                    style={{ color: 'white' }}
+                    style={{ color: "white" }}
                   >
-                    <Input placeholder="请输入地域" id="success1" />
+                    <Input placeholder="请输入地域" style={{ width: '200px', marginLeft: '34px' }} />
                   </FormItem>
                 </Col>
-
-                <Col className="gutter-row" span={8}>
+                <Col span={8} style={{ paddingTop: 8 }}>
                   <FormItem
                     {...formItemLayout}
                     label="人数"
-                    hasFeedback
-                    validateStatus="success2"
-                    style={{ color: 'white' }}
+                    style={{ color: "white" }}
                   >
-                    <Input placeholder="请输入人数" id="success2" />
+                    <Input placeholder="请输入人数" style={{ width: '200px', marginLeft: '34px' }} />
                   </FormItem>
                 </Col>
               </Col>
               <Col className="gutter-row" span={6}>
-                <h2 style={{ color: 'white' }}>{moment(new Date()).format("YYYY-MM-DD")}</h2>
+                <h3 style={{ color: 'white', paddingTop: 12, marginLeft: '20px' }}>{moment(new Date()).format("YYYY-MM-DD")}</h3>
               </Col>
             </Row>
 
-            <Row gutter={16} style={{ marginTop: '15px', width: '100%' }}>
-              <Col className="gutter-row" span={14}>
-                <Col className="gutter-row" span={12}>
+
+
+            <Row gutter={24} style={{ borderBottom: "solid 1px white" }}>
+              <Col span={14} style={{ paddingTop: 8 }}>
+                <Col span={12} style={{ paddingTop: 8 }}>
                   <FormItem
                     {...formItemLayout}
                     label="客户需求ID"
-                    hasFeedback
-                    validateStatus="success2"
                   >
-                    <Input placeholder="请输入职位名称" id="success2" style={{ width: '200px', marginLeft: '10px' }} />
+                    <Input placeholder="请输入客户需求ID" style={{ width: '200px', marginLeft: '34px' }} />
                   </FormItem>
 
                   <FormItem
-                    {...formItemLayout}
                     label="销售负责人"
-                    hasFeedback
-                    validateStatus="error1"
+                    labelCol={{ span: 6 }}
+                    wrapperCol={{ span: 18 }}
                   >
-                    <Select defaultValue="1" style={{ width: '200px', marginLeft: '10px' }}>
-                      <Option value="1">Option 1</Option>
-                      <Option value="2">Option 2</Option>
-                      <Option value="3">Option 3</Option>
-                    </Select>
+                    {getFieldDecorator('xiaoshou', {
+                      rules: [{ required: true, message: 'Please select one!' }],
+                    })(
+                      <Select
+                        placeholder="Select a option"
+                        onChange={this.handleSelectChange}
+                        style={{ width: '200px', marginLeft: '20px' }}
+                      >
+                        <Option value="1">销售负责人1</Option>
+                        <Option value="2">销售负责人2</Option>
+                      </Select>
+                    )}
                   </FormItem>
-
                   <FormItem
-                    {...formItemLayout}
                     label="优先度"
-                    hasFeedback
-                    validateStatus="error1"
+                    labelCol={{ span: 6 }}
+                    wrapperCol={{ span: 18 }}
                   >
-                    <Select defaultValue="1" style={{ width: '200px', marginLeft: '10px' }}>
-                      <Option value="1">Option 1</Option>
-                      <Option value="2">Option 2</Option>
-                      <Option value="3">Option 3</Option>
-                    </Select>
+                    {getFieldDecorator('youxiandu', {
+                      rules: [{ required: true, message: 'Please select one!' }],
+                    })(
+                      <Select
+                        placeholder="Select a option"
+                        onChange={this.handleSelectChange}
+                        style={{ width: '200px', marginLeft: '20px' }}
+                      >
+                        <Option value="1">优先度1</Option>
+                        <Option value="2">优先度2</Option>
+                      </Select>
+                    )}
                   </FormItem>
-
                   <FormItem
-                    {...formItemLayout}
                     label="需求类型"
-                    hasFeedback
-                    validateStatus="error1"
+                    labelCol={{ span: 6 }}
+                    wrapperCol={{ span: 18 }}
                   >
-                    <Select defaultValue="1" style={{ width: '200px', marginLeft: '10px' }}>
-                      <Option value="1">Option 1</Option>
-                      <Option value="2">Option 2</Option>
-                      <Option value="3">Option 3</Option>
-                    </Select>
+                    {getFieldDecorator('xuqiuleixing', {
+                      rules: [{ required: true, message: 'Please select one!' }],
+                    })(
+                      <Select
+                        placeholder="Select a option"
+                        onChange={this.handleSelectChange}
+                        style={{ width: '200px', marginLeft: '20px' }}
+                      >
+                        <Option value="1">需求类型1</Option>
+                        <Option value="2">需求类型2</Option>
+                      </Select>
+                    )}
                   </FormItem>
-
                   <FormItem
                     {...formItemLayout}
                     label="客户"
-                    hasFeedback
-                    validateStatus="success2"
                   >
-                    <Input placeholder="请输入客户名称" id="success2" style={{ width: '200px', marginLeft: '10px' }} />
+                    <Input placeholder="请输入客户姓名" style={{ width: '200px', marginLeft: '34px' }} />
                   </FormItem>
 
                   <FormItem
                     {...formItemLayout}
                     label="挑战目标"
-                    hasFeedback
-                    validateStatus="success2"
                   >
-                    <Input placeholder="请输入挑战目标" id="success2" style={{ width: '200px', marginLeft: '10px' }} />
+                    <Input placeholder="请输入挑战目标" style={{ width: '200px', marginLeft: '34px' }} />
                   </FormItem>
 
                   <FormItem
-                    {...formItemLayout}
                     label="客轮面试"
-                    hasFeedback
-                    validateStatus="success2"
+                    labelCol={{ span: 6 }}
+                    wrapperCol={{ span: 18 }}
                   >
-                    <Input placeholder="请输入客面轮次" id="success2" style={{ width: '200px', marginLeft: '10px' }} />
+                    {getFieldDecorator('kelunmianshi', {
+                      rules: [{ required: true, message: 'Please select one!' }],
+                    })(
+                      <Select
+                        placeholder="Select a option"
+                        onChange={this.handleSelectChange}
+                        style={{ width: '200px', marginLeft: '20px' }}
+                      >
+                        <Option value="1">客轮面试1</Option>
+                        <Option value="2">客轮面试2</Option>
+                      </Select>
+                    )}
                   </FormItem>
-
                   <FormItem
                     {...formItemLayout}
                     label="面试联系人"
-                    hasFeedback
-                    validateStatus="success2"
                   >
-                    <Input placeholder="请输入面试联系人" id="success2" style={{ width: '200px', marginLeft: '10px' }} />
+                    <Input placeholder="请输入面试联系人" style={{ width: '200px', marginLeft: '34px' }} />
                   </FormItem>
-
 
                 </Col>
-                <Col className="gutter-row" span={12}>
+                <Col span={12} style={{ paddingTop: 5 }}>
                   <FormItem
-                    {...formItemLayout}
                     label="所属部门"
-                    hasFeedback
-                    validateStatus="error1"
+                    labelCol={{ span: 6 }}
+                    wrapperCol={{ span: 18 }}
                   >
-                    <Select defaultValue="1" style={{ width: '200px', marginLeft: '10px' }}>
-                      <Option value="1">部门 1</Option>
-                      <Option value="2">部门 2</Option>
-                      <Option value="3">部门 3</Option>
-                    </Select>
+                    {getFieldDecorator('bumen', {
+                      rules: [{ required: true, message: 'Please select one!' }],
+                    })(
+                      <Select
+                        placeholder="Select a option"
+                        onChange={this.handleSelectChange}
+                        style={{ width: '200px', marginLeft: '20px' }}
+                      >
+                        <Option value="1">部门1</Option>
+                        <Option value="2">部门2</Option>
+                      </Select>
+                    )}
                   </FormItem>
                   <FormItem
-                    {...formItemLayout}
                     label="交付负责人"
-                    hasFeedback
-                    validateStatus="error1"
+                    labelCol={{ span: 6 }}
+                    wrapperCol={{ span: 18 }}
                   >
-                    <Select defaultValue="1" style={{ width: '200px', marginLeft: '10px' }}>
-                      <Option value="1">Option 1</Option>
-                      <Option value="2">Option 2</Option>
-                      <Option value="3">Option 3</Option>
-                    </Select>
+                    {getFieldDecorator('jiaofu', {
+                      rules: [{ required: true, message: 'Please select one!' }],
+                    })(
+                      <Select
+                        placeholder="Select a option"
+                        onChange={this.handleSelectChange}
+                        style={{ width: '200px', marginLeft: '20px' }}
+                      >
+                        <Option value="1">交付负责人1</Option>
+                        <Option value="2">交付负责人2</Option>
+                      </Select>
+                    )}
                   </FormItem>
-
                   <FormItem
-                    {...formItemLayout}
                     label="英语"
-                    hasFeedback
-                    validateStatus="error1"
+                    labelCol={{ span: 6 }}
+                    wrapperCol={{ span: 18 }}
                   >
-                    <Select defaultValue="1" style={{ width: '200px', marginLeft: '10px' }}>
-                      <Option value="1">Option 1</Option>
-                      <Option value="2">Option 2</Option>
-                      <Option value="3">Option 3</Option>
-                    </Select>
+                    {getFieldDecorator('yingyu', {
+                      rules: [{ required: true, message: 'Please select one!' }],
+                    })(
+                      <Select
+                        placeholder="Select a option"
+                        onChange={this.handleSelectChange}
+                        style={{ width: '200px', marginLeft: '20px' }}
+                      >
+                        <Option value="1">四级</Option>
+                        <Option value="2">六级</Option>
+                      </Select>
+                    )}
                   </FormItem>
-
                   <FormItem
-                    {...formItemLayout}
                     label="需求状态"
-                    hasFeedback
-                    validateStatus="error1"
+                    labelCol={{ span: 6 }}
+                    wrapperCol={{ span: 18 }}
                   >
-                    <Select defaultValue="1" style={{ width: '200px', marginLeft: '10px' }}>
-                      <Option value="1">Option 1</Option>
-                      <Option value="2">Option 2</Option>
-                      <Option value="3">Option 3</Option>
-                    </Select>
+                    {getFieldDecorator('xuqiuzhuangtai', {
+                      rules: [{ required: true, message: 'Please select one!' }],
+                    })(
+                      <Select
+                        placeholder="Select a option"
+                        onChange={this.handleSelectChange}
+                        style={{ width: '200px', marginLeft: '20px' }}
+                      >
+                        <Option value="1">需求状态1</Option>
+                        <Option value="2">需求状态2</Option>
+                      </Select>
+                    )}
                   </FormItem>
-
                   <FormItem
                     {...formItemLayout}
                     label="薪资"
-                    hasFeedback
-                    validateStatus="success2"
                   >
-                    <Input placeholder="请输入薪资范围" id="success2" style={{ width: '200px', marginLeft: '10px' }} />
+                    <Input placeholder="请输入薪资范围" style={{ width: '200px', marginLeft: '34px' }} />
                   </FormItem>
-
                   <FormItem
                     {...formItemLayout}
                     label="周简历目标"
-                    hasFeedback
-                    validateStatus="success2"
                   >
-                    <Input placeholder="请输入目标" id="success2" style={{ width: '200px', marginLeft: '10px' }} />
+                    <Input placeholder="请输入目标" style={{ width: '200px', marginLeft: '34px' }} />
                   </FormItem>
-
                   <FormItem
                     {...formItemLayout}
                     label="团队规模"
-                    hasFeedback
-                    validateStatus="success2"
                   >
-                    <Input placeholder="请输入规模" id="success2" style={{ width: '200px', marginLeft: '10px' }} />
+                    <Input placeholder="请输入规模" style={{ width: '200px', marginLeft: '34px' }} />
                   </FormItem>
-
                   <FormItem
                     {...formItemLayout}
                     label="联系人电话"
-                    hasFeedback
-                    validateStatus="success2"
                   >
-                    <Input placeholder="请输入电话" id="success2" style={{ width: '200px', marginLeft: '10px' }} />
+                    <Input placeholder="请输入联系人电话" style={{ width: '200px', marginLeft: '34px' }} />
                   </FormItem>
                 </Col>
               </Col>
 
-
-              <Row>
-                <Col className="gutter-row" span={14}>
-                  <Col className="gutter-row" span={10}>
-                    <FormItem
-                      {...formItemLayout}
-                      label="面试地址"
-                      hasFeedback
-                      validateStatus="success2"
-                    >
-                      <Input placeholder="请输入面试地址" id="success2" style={{ width: '550px', marginLeft: '20px' }} />
-                    </FormItem>
-                  </Col>
-                </Col>
-              </Row>
-              <Row>
-                <Col className="gutter-row" span={14}>
-                  <Col className="gutter-row" span={10}>
-                    <FormItem
-                      {...formItemLayout}
-                      label="项目地址"
-                      hasFeedback
-                      validateStatus="success2"
-                    >
-                      <Input placeholder="请输入项目地址" id="success2" style={{ width: '550px', marginLeft: '20px' }} />
-                    </FormItem>
-                  </Col>
-                </Col>
-              </Row>
-
-              <Col className="gutter-row" span={10}>
+              <Col span={10} style={{ paddingTop: 8 }}>
 
               </Col>
             </Row>
 
-          </div>
-
-
-          {/* <div style={{ background: 'blue' }}>
-            <div>
-              <Row>
-                <label className="titleBox" style={{ color: 'white' }} >需求ID</label>
-                <input placeholder="请输入职位名称" className="titleBox" />
-                <label className="titleBox" style={{ color: 'white' }} >地域</label>
-                <input placeholder="请输入地域" className="titleBox" />
-                <label className="titleBox" style={{ color: 'white' }}> 人数</label>
-                <input placeholder="请输入人数" className="titleBox" />
-              </Row>
-            </div>
-
-            <div>
-              <Row gutter={16} style={{ marginTop: '30px', width: '100%' }}>
-                <Col className="gutter-row" span={14}>
-                  <Col className="gutter-row" span={12}>
-                    <Row>
-                      <Col className="gutter-row" span={6}><label className="content" style={{ color: 'white', marginTop: 10 }}>客户需求ID</label></Col>
-                      <Col className="gutter-row" span={6}><Input placeholder="请输入职位名称" style={{ width: 200 }} /></Col>
-                    </Row>
-                  </Col>
-                  <Col className="gutter-row" span={12}>
-                    <Row>
-                      <Col className="gutter-row" span={6}><label style={{ color: 'white', marginTop: 10 }}>所属部门</label></Col>
-                      <Col className="gutter-row" span={6}><DropDownButton>
-                      </DropDownButton></Col>
-                    </Row>
-                  </Col>
-                </Col>
+            <Row>
+              <Col className="gutter-row" span={14}>
                 <Col className="gutter-row" span={10}>
-
+                  <FormItem
+                    {...formItemLayout}
+                    label="面试地址"
+                    hasFeedback
+                  >
+                    <Input placeholder="请输入面试地址" style={{ width: '540px', marginLeft: '44px' }} />
+                  </FormItem>
                 </Col>
-              </Row>
+              </Col>
+            </Row>
+            <Row>
+              <Col className="gutter-row" span={14}>
+                <Col className="gutter-row" span={10}>
+                  <FormItem
+                    {...formItemLayout}
+                    label="项目地址"
+                    hasFeedback
+                  >
+                    <Input placeholder="请输入项目地址" style={{ width: '540px', marginLeft: '44px' }} />
+                  </FormItem>
+                </Col>
+              </Col>
+            </Row>
 
-            </div>
-          </div> */}
+            {/* <Row gutter={24} style={{ borderBottom: "solid 1px white" }}>
+              <Col span={8} style={{ paddingTop: 8 }}>
+                <FormItem
+                  label="当前状态"
+                  labelCol={{ span: 6 }}
+                  wrapperCol={{ span: 18 }}
+                >
+                  {getFieldDecorator('status', {
+                    rules: [{ required: true, message: 'Please select one!' }],
+                  })(
+                    <Select
+                      placeholder="Select a option"
+                      onChange={this.handleSelectChange}
+                    >
+                      <Option value="1">前状态1</Option>
+                      <Option value="2">dang前状态2</Option>
+                    </Select>
+                  )}
+                </FormItem>
+              </Col>
+              <Col span={8} style={{ paddingTop: 8 }}>
+                <FormItem
+                  label="风险等级"
+                  labelCol={{ span: 6 }}
+                  wrapperCol={{ span: 18 }}
+                >
+                  {getFieldDecorator('risk', {
+                    rules: [{ required: true, message: 'Please select one!' }],
+                  })(
+                    <Select
+                      placeholder="Select a option"
+                      onChange={this.handleSelectChange}
+                    >
+                      <Option value="1">asdfasdf</Option>
+                      <Option value="2">fddddd</Option>
+                    </Select>
+                  )}
+                </FormItem>
+              </Col>
+            </Row>
+
+            <Row gutter={24} style={{ borderBottom: "solid 1px white" }}>
+              <Col span={24} style={{ paddingTop: 8 }}>
+                <FormItem
+                  label="描述"
+                  labelCol={{ span: 2 }}
+                  wrapperCol={{ span: 20 }}
+                >
+                  {getFieldDecorator('describe', {
+                    rules: [{ required: true, message: 'Please input one!' }],
+                  })(
+                    <TextArea rows={4} />
+                  )}
+                </FormItem>
+              </Col>
+            </Row>
+            <Row gutter={24} style={{ borderBottom: "solid 1px white" }}>
+              <Col span={24} style={{ paddingTop: 8 }}>
+                <FormItem
+                  labelCol={{ span: 2 }}
+                  wrapperCol={{ span: 20 }}
+                  label="Upload"
+                >
+                  {getFieldDecorator('upload', {
+                    valuePropName: 'fileList',
+                    getValueFromEvent: this.normFile,
+                  })(
+                    <Upload name="logo" listType="picture">
+                      <Button>
+                        <Icon type="upload" /> Click to upload
+              </Button>
+                    </Upload>
+                  )}
+                </FormItem>
+              </Col>
+            </Row>
+            <Row gutter={24} style={{ borderBottom: "solid 1px white" }}>
+              <Col span={24} style={{ paddingTop: 8 }}>
+                <FormItem
+                  label="留言"
+                  labelCol={{ span: 2 }}
+                  wrapperCol={{ span: 20 }}
+                >
+                  {getFieldDecorator('msg', {
+                    rules: [{ required: true, message: 'Please input one!' }],
+                  })(
+                    <TextArea rows={4} />
+                  )}
+                </FormItem>
+              </Col>
+            </Row> */}
+
+          </Form>
+
+
 
           {/* <Form layout="vertical">
             <FormItem label="Title">
