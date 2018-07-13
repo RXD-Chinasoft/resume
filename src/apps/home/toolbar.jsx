@@ -106,7 +106,7 @@ class ToolBar extends Component {
             projectaddr: formData.projectaddr,//项目地址
             createtime: "20180713",
             descrpition: [],
-            matrix: [[],[],[],[],[],[],[],[]],
+            matrix: ['', '', '', '', '', '', '', ''],
             clientrequirment: "123",
             department: 1
         }

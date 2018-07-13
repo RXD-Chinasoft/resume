@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS requirement (
     projectaddr character varying(200),
     createtime character varying(50),
     descrpition text[],
-    matrix integer[][],
+    matrix text[],
     clientrequirment character varying(100),
     department integer
 ) WITH(OIDS=FALSE);
