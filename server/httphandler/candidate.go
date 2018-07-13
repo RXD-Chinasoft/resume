@@ -8,8 +8,6 @@ import (
 	"encoding/json"
 	"resume/server/db"
 	. "resume/server/entities"
-	"encoding/base64"
-	"os"
 )
 
 func candidatesHandleFunc(w http.ResponseWriter, r *http.Request){
@@ -31,7 +29,7 @@ func candidatesHandleFunc(w http.ResponseWriter, r *http.Request){
 }
 
 func newCandidateHandleFunc(w http.ResponseWriter, r *http.Request, bodyBytes []byte) {
-	log.Printf("new params %s \n", string(bodyBytes))
+	// log.Printf("new params %s \n", string(bodyBytes))
 	candidate := Candidate{}
 	err := json.NewDecoder(strings.NewReader(string(bodyBytes))).Decode(&candidate)
 	if err != nil {
@@ -39,33 +37,12 @@ func newCandidateHandleFunc(w http.ResponseWriter, r *http.Request, bodyBytes []
 		http.Error(w, http.StatusText(400), 400)
 	} else {
 		if candidate.File != "" {
-			decodeBytes, err := base64.StdEncoding.DecodeString(candidate.File)
+			filepath, err := uploadbase64(candidate.File, candidate.Filename)
 			if err != nil {
-				log.Printf("decode error ===> %s \n", err)
-				http.Error(w, http.StatusText(500), 500)
+				http.Error(w, err.Error(), 500)
 				return
 			}
-			err = os.MkdirAll("./upload/", 0666)
-			if err != nil {
-				log.Printf("MkdirAll error ===> %s \n", err)
-				http.Error(w, http.StatusText(500), 500)
-				return
-			}
-			path := "./upload/" + candidate.Filename
-			dst, err := os.Create(path)
-			dst.Close()
-			if err != nil {
-				log.Printf("create error ===> %s \n", err)
-				http.Error(w, http.StatusText(500), 500)
-				return
-			}
-			err = ioutil.WriteFile("./upload/" + candidate.Filename, decodeBytes, 0666)
-			if err != nil {
-				log.Printf("write error ===> %s \n", err)
-				http.Error(w, http.StatusText(500), 500)
-				return
-			}
-			candidate.File = path
+			candidate.File = filepath
 		}
 		err = db.NewCandidate(candidate)
 		if err != nil {
