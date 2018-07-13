@@ -3,6 +3,7 @@ import CandidateCreateForm from './newCandidate'
 import RequirementCreateForm from './newRequirement'
 import { Button } from 'antd';
 import { CreateCandidate } from './../service/homeService'
+import { CreateRequirement } from './../service/homeService'
 
 class ToolBar extends Component {
 
@@ -20,15 +21,18 @@ class ToolBar extends Component {
     }
 
     handleRqCreate = (e) => {
+        e.preventDefault();
+
         const form = this.rqFormRef.props.form;
+        console.log('handleRqCreate', e, form)
         form.validateFields((err, values) => {
             if (err) {
                 return;
             }
-
             console.log('Received values of form: ', values);
             form.resetFields();
-            this.setState({ rqVisible: false });
+            this.setState({ cdVisible: false });
+            CreateRequirement(this.convertFromRq(values))
         });
     }
 
@@ -45,6 +49,7 @@ class ToolBar extends Component {
     }
 
     handleCdCreate = (e) => {
+        console.log('handleCdCreate', e)
         e.preventDefault();
         const form = this.cdFormRef.props.form;
         form.validateFields((err, values) => {
@@ -72,6 +77,31 @@ class ToolBar extends Component {
             createtime: "20180608",
             message: formData.msg,
         };
+    }
+    convertFromRq = (formData) => {
+        return {
+            requirement: formData.requirement,//需求ID
+            area: formData.area,//地域
+            count: Number(formData.count),//人数
+            saler: Number(formData.saler),//销售负责人
+            dm: Number(formData.dm),//交付负责人
+            priority: Number(formData.priority),//优先级
+            english: Number(formData.english),//英语
+            rqtype: Number(formData.rqtype),//需求类型
+            rqstatus: Number(formData.rqstatus),//需求状态
+            client: formData.client,//客户姓名
+            salaryscope: formData.salaryscope,//薪资范围
+            challengetarget: formData.challengetarget,//挑战目标
+            resumetarget: formData.resumetarget,//周简历目标
+            turn: Number(formData.turn),//客面轮次
+            teamrange: formData.teamrange,//规模
+            candidate: formData.candidate,//面试联系人
+            contact: formData.contact,//联系人电话
+            interviewaddr: formData.interviewaddr,//面试地址
+            projectaddr: formData.projectaddr,//项目地址
+            createtime: "20180713",
+            descrpition: []
+        }
     }
 
     saveCdFormRef = (formRef) => {

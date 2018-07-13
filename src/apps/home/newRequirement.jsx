@@ -17,8 +17,17 @@ const formItemLayout = {
   },
 };
 
+
+
 const RequirementCreateForm = Form.create()(
   class extends React.Component {
+    handleSelectChange = (value) => {
+      console.log('chooseValue', value);
+      this.props.form.setFieldsValue({
+        note: `Hi, ${value === 'male' ? 'man' : 'lady'}!`,
+      });
+    }
+
     render() {
       const { visible, onCancel, onCreate, form } = this.props;
       const { getFieldDecorator } = form;
@@ -44,7 +53,18 @@ const RequirementCreateForm = Form.create()(
                     label="需求ID"
                     style={{ color: "white" }}
                   >
-                    <Input placeholder="请输入需求ID" style={{ width: '200px', marginLeft: '34px' }} />
+                    {getFieldDecorator('requirement', {
+                      rules: [
+                        // {
+                        //   type: 'email', message: 'The input is not valid E-mail!',
+                        // },
+                        {
+                          required: true, message: 'Please input your name!',
+                        }],
+                    })(
+                      <Input placeholder="请输入需求ID" style={{ width: '200px', marginLeft: '34px' }} />
+                    )}
+
                   </FormItem>
                 </Col>
                 <Col span={8} style={{ paddingTop: 8 }}>
@@ -53,7 +73,18 @@ const RequirementCreateForm = Form.create()(
                     label="地域"
                     style={{ color: "white" }}
                   >
-                    <Input placeholder="请输入地域" style={{ width: '200px', marginLeft: '34px' }} />
+                    {getFieldDecorator('area', {
+                      rules: [
+                        // {
+                        //   type: 'email', message: 'The input is not valid E-mail!',
+                        // },
+                        {
+                          required: true, message: 'Please input your name!',
+                        }],
+                    })(
+                      <Input placeholder="请输入地域" style={{ width: '200px', marginLeft: '34px' }} />
+                    )}
+
                   </FormItem>
                 </Col>
                 <Col span={8} style={{ paddingTop: 8 }}>
@@ -62,7 +93,17 @@ const RequirementCreateForm = Form.create()(
                     label="人数"
                     style={{ color: "white" }}
                   >
-                    <Input placeholder="请输入人数" style={{ width: '200px', marginLeft: '34px' }} />
+                    {getFieldDecorator('count', {
+                      rules: [
+                        // {
+                        //   type: 'email', message: 'The input is not valid E-mail!',
+                        // },
+                        {
+                          required: true, message: 'Please input your name!',
+                        }],
+                    })(
+                      <Input placeholder="请输入人数" style={{ width: '200px', marginLeft: '34px' }} />
+                    )}
                   </FormItem>
                 </Col>
               </Col>
@@ -73,14 +114,25 @@ const RequirementCreateForm = Form.create()(
 
 
 
-            <Row gutter={24} style={{ borderBottom: "solid 1px white" }}>
+            <Row gutter={24}>
               <Col span={14} style={{ paddingTop: 8 }}>
                 <Col span={12} style={{ paddingTop: 8 }}>
                   <FormItem
                     {...formItemLayout}
                     label="客户需求ID"
                   >
-                    <Input placeholder="请输入客户需求ID" style={{ width: '200px', marginLeft: '34px' }} />
+                    {getFieldDecorator('requirementID', {
+                      rules: [
+                        // {
+                        //   type: 'email', message: 'The input is not valid E-mail!',
+                        // },
+                        {
+                          required: false, message: 'Please input your name!',
+                        }],
+                    })(
+                      <Input placeholder="请输入客户需求ID" style={{ width: '200px', marginLeft: '34px' }} />
+                    )}
+
                   </FormItem>
 
                   <FormItem
@@ -88,7 +140,7 @@ const RequirementCreateForm = Form.create()(
                     labelCol={{ span: 6 }}
                     wrapperCol={{ span: 18 }}
                   >
-                    {getFieldDecorator('xiaoshou', {
+                    {getFieldDecorator('saler', {
                       rules: [{ required: true, message: 'Please select one!' }],
                     })(
                       <Select
@@ -106,8 +158,8 @@ const RequirementCreateForm = Form.create()(
                     labelCol={{ span: 6 }}
                     wrapperCol={{ span: 18 }}
                   >
-                    {getFieldDecorator('youxiandu', {
-                      rules: [{ required: true, message: 'Please select one!' }],
+                    {getFieldDecorator('priority', {
+                      rules: [{ required: false, message: 'Please select one!' }],
                     })(
                       <Select
                         placeholder="Select a option"
@@ -124,7 +176,7 @@ const RequirementCreateForm = Form.create()(
                     labelCol={{ span: 6 }}
                     wrapperCol={{ span: 18 }}
                   >
-                    {getFieldDecorator('xuqiuleixing', {
+                    {getFieldDecorator('rqtype', {
                       rules: [{ required: true, message: 'Please select one!' }],
                     })(
                       <Select
@@ -141,14 +193,36 @@ const RequirementCreateForm = Form.create()(
                     {...formItemLayout}
                     label="客户"
                   >
-                    <Input placeholder="请输入客户姓名" style={{ width: '200px', marginLeft: '34px' }} />
+                    {getFieldDecorator('client', {
+                      rules: [
+                        // {
+                        //   type: 'email', message: 'The input is not valid E-mail!',
+                        // },
+                        {
+                          required: true, message: 'Please input your name!',
+                        }],
+                    })(
+                      <Input placeholder="请输入客户姓名" style={{ width: '200px', marginLeft: '34px' }} />
+                    )}
+
                   </FormItem>
 
                   <FormItem
                     {...formItemLayout}
                     label="挑战目标"
                   >
-                    <Input placeholder="请输入挑战目标" style={{ width: '200px', marginLeft: '34px' }} />
+                    {getFieldDecorator('challengetarget', {
+                      rules: [
+                        // {
+                        //   type: 'email', message: 'The input is not valid E-mail!',
+                        // },
+                        {
+                          required: true, message: 'Please input your name!',
+                        }],
+                    })(
+                      <Input placeholder="请输入挑战目标" style={{ width: '200px', marginLeft: '34px' }} />
+                    )}
+
                   </FormItem>
 
                   <FormItem
@@ -156,7 +230,7 @@ const RequirementCreateForm = Form.create()(
                     labelCol={{ span: 6 }}
                     wrapperCol={{ span: 18 }}
                   >
-                    {getFieldDecorator('kelunmianshi', {
+                    {getFieldDecorator('turn', {
                       rules: [{ required: true, message: 'Please select one!' }],
                     })(
                       <Select
@@ -173,7 +247,18 @@ const RequirementCreateForm = Form.create()(
                     {...formItemLayout}
                     label="面试联系人"
                   >
-                    <Input placeholder="请输入面试联系人" style={{ width: '200px', marginLeft: '34px' }} />
+                    {getFieldDecorator('candidate', {
+                      rules: [
+                        // {
+                        //   type: 'email', message: 'The input is not valid E-mail!',
+                        // },
+                        {
+                          required: true, message: 'Please input your name!',
+                        }],
+                    })(
+                      <Input placeholder="请输入面试联系人" style={{ width: '200px', marginLeft: '34px' }} />
+                    )}
+
                   </FormItem>
 
                 </Col>
@@ -184,7 +269,7 @@ const RequirementCreateForm = Form.create()(
                     wrapperCol={{ span: 18 }}
                   >
                     {getFieldDecorator('bumen', {
-                      rules: [{ required: true, message: 'Please select one!' }],
+                      rules: [{ required: false, message: 'Please select one!' }],
                     })(
                       <Select
                         placeholder="Select a option"
@@ -201,7 +286,7 @@ const RequirementCreateForm = Form.create()(
                     labelCol={{ span: 6 }}
                     wrapperCol={{ span: 18 }}
                   >
-                    {getFieldDecorator('jiaofu', {
+                    {getFieldDecorator('dm', {
                       rules: [{ required: true, message: 'Please select one!' }],
                     })(
                       <Select
@@ -219,7 +304,7 @@ const RequirementCreateForm = Form.create()(
                     labelCol={{ span: 6 }}
                     wrapperCol={{ span: 18 }}
                   >
-                    {getFieldDecorator('yingyu', {
+                    {getFieldDecorator('english', {
                       rules: [{ required: true, message: 'Please select one!' }],
                     })(
                       <Select
@@ -237,7 +322,7 @@ const RequirementCreateForm = Form.create()(
                     labelCol={{ span: 6 }}
                     wrapperCol={{ span: 18 }}
                   >
-                    {getFieldDecorator('xuqiuzhuangtai', {
+                    {getFieldDecorator('rqstatus', {
                       rules: [{ required: true, message: 'Please select one!' }],
                     })(
                       <Select
@@ -254,31 +339,65 @@ const RequirementCreateForm = Form.create()(
                     {...formItemLayout}
                     label="薪资"
                   >
-                    <Input placeholder="请输入薪资范围" style={{ width: '200px', marginLeft: '34px' }} />
+                    {getFieldDecorator('salaryscope', {
+                      rules: [
+                        {
+                          required: true, message: 'Please input your name!',
+                        }],
+                    })(
+                      <Input placeholder="请输入薪资范围" style={{ width: '200px', marginLeft: '34px' }} />
+                    )}
+
                   </FormItem>
                   <FormItem
                     {...formItemLayout}
                     label="周简历目标"
                   >
-                    <Input placeholder="请输入目标" style={{ width: '200px', marginLeft: '34px' }} />
+                    {getFieldDecorator('resumetarget', {
+                      rules: [
+                        {
+                          required: true, message: 'Please input your name!',
+                        }],
+                    })(
+                      <Input placeholder="请输入目标" style={{ width: '200px', marginLeft: '34px' }} />
+                    )}
+
                   </FormItem>
                   <FormItem
                     {...formItemLayout}
                     label="团队规模"
                   >
-                    <Input placeholder="请输入规模" style={{ width: '200px', marginLeft: '34px' }} />
+                    {getFieldDecorator('teamrange', {
+                      rules: [
+                        {
+                          required: true, message: 'Please input your name!',
+                        }],
+                    })(
+                      <Input placeholder="请输入规模" style={{ width: '200px', marginLeft: '34px' }} />
+                    )}
+
                   </FormItem>
                   <FormItem
                     {...formItemLayout}
                     label="联系人电话"
                   >
-                    <Input placeholder="请输入联系人电话" style={{ width: '200px', marginLeft: '34px' }} />
+                    {getFieldDecorator('contact', {
+                      rules: [
+                        {
+                          required: true, message: 'Please input your name!',
+                        }],
+                    })(
+                      <Input placeholder="请输入联系人电话" style={{ width: '200px', marginLeft: '34px' }} />
+                    )}
+
                   </FormItem>
                 </Col>
               </Col>
 
               <Col span={10} style={{ paddingTop: 8 }}>
+                <div style={{ paddingTop: 15, paddingLeft: 5, paddingRight: 5, paddingBottom: 8, backgroundColor: 'white', width: '90%' }}>
 
+                </div>
               </Col>
             </Row>
 
@@ -290,12 +409,20 @@ const RequirementCreateForm = Form.create()(
                     label="面试地址"
                     hasFeedback
                   >
-                    <Input placeholder="请输入面试地址" style={{ width: '540px', marginLeft: '44px' }} />
+                    {getFieldDecorator('interviewaddr', {
+                      rules: [
+                        {
+                          required: true, message: 'Please input your name!',
+                        }],
+                    })(
+                      <Input placeholder="请输入面试地址" style={{ width: '540px', marginLeft: '44px' }} />
+                    )}
+
                   </FormItem>
                 </Col>
               </Col>
             </Row>
-            <Row>
+            <Row style={{ borderBottom: "solid 1px white" }}>
               <Col className="gutter-row" span={14}>
                 <Col className="gutter-row" span={10}>
                   <FormItem
@@ -303,104 +430,19 @@ const RequirementCreateForm = Form.create()(
                     label="项目地址"
                     hasFeedback
                   >
-                    <Input placeholder="请输入项目地址" style={{ width: '540px', marginLeft: '44px' }} />
+                    {getFieldDecorator('projectaddr', {
+                      rules: [
+                        {
+                          required: true, message: 'Please input your name!',
+                        }],
+                    })(
+                      <Input placeholder="请输入项目地址" style={{ width: '540px', marginLeft: '44px' }} />
+                    )}
+
                   </FormItem>
                 </Col>
               </Col>
             </Row>
-
-            {/* <Row gutter={24} style={{ borderBottom: "solid 1px white" }}>
-              <Col span={8} style={{ paddingTop: 8 }}>
-                <FormItem
-                  label="当前状态"
-                  labelCol={{ span: 6 }}
-                  wrapperCol={{ span: 18 }}
-                >
-                  {getFieldDecorator('status', {
-                    rules: [{ required: true, message: 'Please select one!' }],
-                  })(
-                    <Select
-                      placeholder="Select a option"
-                      onChange={this.handleSelectChange}
-                    >
-                      <Option value="1">前状态1</Option>
-                      <Option value="2">dang前状态2</Option>
-                    </Select>
-                  )}
-                </FormItem>
-              </Col>
-              <Col span={8} style={{ paddingTop: 8 }}>
-                <FormItem
-                  label="风险等级"
-                  labelCol={{ span: 6 }}
-                  wrapperCol={{ span: 18 }}
-                >
-                  {getFieldDecorator('risk', {
-                    rules: [{ required: true, message: 'Please select one!' }],
-                  })(
-                    <Select
-                      placeholder="Select a option"
-                      onChange={this.handleSelectChange}
-                    >
-                      <Option value="1">asdfasdf</Option>
-                      <Option value="2">fddddd</Option>
-                    </Select>
-                  )}
-                </FormItem>
-              </Col>
-            </Row>
-
-            <Row gutter={24} style={{ borderBottom: "solid 1px white" }}>
-              <Col span={24} style={{ paddingTop: 8 }}>
-                <FormItem
-                  label="描述"
-                  labelCol={{ span: 2 }}
-                  wrapperCol={{ span: 20 }}
-                >
-                  {getFieldDecorator('describe', {
-                    rules: [{ required: true, message: 'Please input one!' }],
-                  })(
-                    <TextArea rows={4} />
-                  )}
-                </FormItem>
-              </Col>
-            </Row>
-            <Row gutter={24} style={{ borderBottom: "solid 1px white" }}>
-              <Col span={24} style={{ paddingTop: 8 }}>
-                <FormItem
-                  labelCol={{ span: 2 }}
-                  wrapperCol={{ span: 20 }}
-                  label="Upload"
-                >
-                  {getFieldDecorator('upload', {
-                    valuePropName: 'fileList',
-                    getValueFromEvent: this.normFile,
-                  })(
-                    <Upload name="logo" listType="picture">
-                      <Button>
-                        <Icon type="upload" /> Click to upload
-              </Button>
-                    </Upload>
-                  )}
-                </FormItem>
-              </Col>
-            </Row>
-            <Row gutter={24} style={{ borderBottom: "solid 1px white" }}>
-              <Col span={24} style={{ paddingTop: 8 }}>
-                <FormItem
-                  label="留言"
-                  labelCol={{ span: 2 }}
-                  wrapperCol={{ span: 20 }}
-                >
-                  {getFieldDecorator('msg', {
-                    rules: [{ required: true, message: 'Please input one!' }],
-                  })(
-                    <TextArea rows={4} />
-                  )}
-                </FormItem>
-              </Col>
-            </Row> */}
-
           </Form>
 
 
