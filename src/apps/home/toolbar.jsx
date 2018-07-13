@@ -31,7 +31,7 @@ class ToolBar extends Component {
             }
             console.log('Received values of form: ', values);
             form.resetFields();
-            this.setState({ cdVisible: false });
+            this.setState({ rqVisible: false });
             CreateRequirement(this.convertFromRq(values))
         });
     }
@@ -108,7 +108,7 @@ class ToolBar extends Component {
             descrpition: [],
             matrix: ['', '', '', '', '', '', '', ''],
             clientrequirment: "123",
-            department: 1
+            department: Number(formData.department)//所属部门
         }
     }
 
