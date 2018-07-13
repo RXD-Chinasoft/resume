@@ -46,7 +46,7 @@ func newCandidateHandleFunc(w http.ResponseWriter, r *http.Request, bodyBytes []
 		}
 		err = db.NewCandidate(candidate)
 		if err != nil {
-			http.Error(w, http.StatusText(500), 500)
+			http.Error(w, err.Error(), 500)
 		}
 	}
 	
