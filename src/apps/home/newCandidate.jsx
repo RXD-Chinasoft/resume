@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Modal, Form, Input, Radio, Row, Col, Select, Upload, Icon } from 'antd';
 import DropDownButton from './dropdown'
+
 const FormItem = Form.Item;
 const Option = Select.Option;
 const { TextArea } = Input;
@@ -8,10 +9,6 @@ const Search = Input.Search;
 
 const CandidateCreateForm = Form.create()(
   class extends React.Component {
-
-    handleCreate = () => {
-
-    }
 
     handleSelectChange = (value) => {
       console.log(value);
@@ -43,7 +40,7 @@ const CandidateCreateForm = Form.create()(
         >
           <Form
             className="ant-advanced-search-form"
-            onSubmit={this.handleCreate}
+            // onSubmit={this.handleCreate}
             style={{ background: "#186dd6", paddingTop: 10, marginRight: 18, marginLeft: 18, color: "white" }}
           >
             <Row gutter={24} style={{ borderBottom: "solid 1px white" }}>
@@ -53,12 +50,14 @@ const CandidateCreateForm = Form.create()(
                   label="需求ID"
                   style={{ color: "white" }}
                 >
-                  {getFieldDecorator('email', {
-                    rules: [{
-                      type: 'email', message: 'The input is not valid E-mail!',
-                    }, {
-                      required: true, message: 'Please input your E-mail!',
-                    }],
+                  {getFieldDecorator('name', {
+                    rules: [
+                      // {
+                      //   type: 'email', message: 'The input is not valid E-mail!',
+                      // },
+                      {
+                        required: true, message: 'Please input your name!',
+                      }],
                   })(
                     <Input />
                     )}

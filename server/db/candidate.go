@@ -29,7 +29,7 @@ func GetCandidates() ([]Candidate, error) {
 
 func NewCandidate(candidate Candidate) error {
 	log.Printf("require %v", candidate)
-	_, err := db.Exec("INSERT INTO candidate (requirement, candidate, hiringmanager, saler, dm, status, risk, descrpition, filepath, createtime, message VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)",
+	_, err := db.Exec("INSERT INTO candidate (requirement, candidate, hiringmanager, saler, dm, status, risk, descrpition, filepath, createtime, message) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)",
 		candidate.Requirement, candidate.Candidate, candidate.Hiringmanager, candidate.Saler, candidate.Dm, candidate.Status, candidate.Risk, candidate.Descrpition, candidate.Filepath, candidate.Createtime, candidate.Message)
 	if err != nil {
 		log.Printf("insert error %s", err)

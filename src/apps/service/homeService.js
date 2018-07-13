@@ -1,20 +1,38 @@
-import POST from './base'
-import PUT from './base'
-import DELETE from './base'
-import { url } from 'inspector';
+import { POST } from './base'
 
-export const HomeService;
-
-getRequirementList = (apiString, body) => {
-    this.HomeService.POST(apiString, body);
+export const GetRequirements = () => {
+    POST('/requirements');
 }
 
-putRequirementListToServe = (apiString, body) => {
-    this.HomeService.PUT(apiString, body);
+export const CreateRequirement = (body) => {
+    POST('/requirement', body);
 }
 
-deleteRequirementList = (apiString, body) => {
-    this.HomeService.DELETE(apiString, body)
+export const UpdateRequirement = (body) => {
+    POST('/requirementrenewal', body);
 }
+
+export const DeleteRequirement = (id) => {
+    POST('/requirementoff', { id })
+}
+
+// candidate
+export const GetCandidates = () => {
+    POST('/candidates');
+}
+
+export const CreateCandidate = (body) => {
+    POST('/candidate', body);
+}
+
+export const UpdateCandidate = (body) => {
+    POST('/candidaterenewal', body);
+}
+
+export const DeleteCandidate = (id) => {
+    POST('/candidateoff', { id })
+}
+
+
 
 

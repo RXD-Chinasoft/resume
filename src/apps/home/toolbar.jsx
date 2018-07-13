@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import CandidateCreateForm from './newCandidate'
 import RequirementCreateForm from './newRequirement'
 import { Button } from 'antd';
+import { CreateCandidate } from './../service/homeService'
 
 class ToolBar extends Component {
 
@@ -18,7 +19,7 @@ class ToolBar extends Component {
         this.setState({ rqVisible: false });
     }
 
-    handleRqCreate = () => {
+    handleRqCreate = (e) => {
         const form = this.rqFormRef.props.form;
         form.validateFields((err, values) => {
             if (err) {
@@ -43,17 +44,34 @@ class ToolBar extends Component {
         this.setState({ cdVisible: false });
     }
 
-    handleCdCreate = () => {
+    handleCdCreate = (e) => {
+        e.preventDefault();
         const form = this.cdFormRef.props.form;
         form.validateFields((err, values) => {
             if (err) {
                 return;
             }
-
             console.log('Received values of form: ', values);
             form.resetFields();
             this.setState({ cdVisible: false });
+            CreateCandidate(this.convertFromCd(values))
         });
+    }
+
+    convertFromCd = (formData) => {
+        return {
+            requirement: 1,
+            candidate: formData.name,
+            hiringmanager: Number(formData.zhaopin),
+            saler: Number(formData.xiaoshou),
+            dm: Number(formData.jiaofu),
+            status: Number(formData.status),
+            risk: Number(formData.risk),
+            descrpition: formData.describe,
+            filepath: formData.jiaofu,
+            createtime: "20180608",
+            message: formData.msg,
+        };
     }
 
     saveCdFormRef = (formRef) => {
