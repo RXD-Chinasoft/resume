@@ -48,7 +48,10 @@ type Candidate struct {
     Status int64 `json:"status" db:"status"`
     Risk int64 `json:"risk" db:"risk"`
     Descrpition string `json:"descrpition" db:"descrpition"`
-    Filepath string `json:"filepath" db:"filepath"`
+    File string `json:"file" db:"file"`
+    Filename string `json:"filename" db:"filename"`
+    Filesize string `json:"filesize" db:"filesize"`
+    Filetype string `json:"filetype" db:"filetype"`
     Createtime string `json:"createtime" db:"createtime"`
     Message string `json:"message" db:"message"`
 }
