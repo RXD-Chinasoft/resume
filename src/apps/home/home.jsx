@@ -152,11 +152,11 @@ class Home extends Component {
         GetRequirements().then(response => {
             console.log('response ===>', response)
             this.setState({ requirements: [].concat(response.data) })
-            console.log('requirements', this.requirements)
+            console.log('requirements', response.data)
         })
     }
-    componentWillMount(){
-        console.log('will 111')
+    componentWillMount() {
+        console.log('will Mount')
     }
 
     // Normally you would want to split things out into separate components.
@@ -165,73 +165,79 @@ class Home extends Component {
         return (
             <div>
                 <ToolBar />
-                <div style={{ display: 'flex' }}>
+                {/* style={{ display: 'flex' }} */}
+                <div>
                     <Row gutter={16} style={{ marginTop: '10px', width: '100%', textAlign: 'center', }}>
                         <Col className="gutter-row" span={3}>
                             <div className="gutter-box">职位需求(7)</div>
                         </Col>
-                        <DragDropContext onDragEnd={this.onDragEnd}>
-                            <Col className="gutter-row" span={18}>
-                                <Col className="gutter-row" span={3}>
-                                    <div className="gutter-box">简历筛选(7)</div>
-                                    <div style={{ display: 'flex', marginLeft: '5px' }}>
-                                        <Droppable droppableId="droppable">
-                                            {(provided, snapshot) => (
-                                                <div
-                                                    ref={provided.innerRef}
-                                                    style={getListStyle(snapshot.isDraggingOver)}>
-                                                    {this.state.items.map((item, index) => (
-                                                        <Draggable
-                                                            key={item.id}
-                                                            draggableId={item.id}
-                                                            index={index}>
-                                                            {(provided, snapshot) => (
-                                                                <div
-                                                                    ref={provided.innerRef}
-                                                                    {...provided.draggableProps}
-                                                                    {...provided.dragHandleProps}
-                                                                    style={getItemStyle(
-                                                                        snapshot.isDragging,
-                                                                        provided.draggableProps.style
-                                                                    )}>
-                                                                    {item.content}
-                                                                </div>
-                                                            )}
-                                                        </Draggable>
-                                                    ))}
-                                                    {provided.placeholder}
-                                                </div>
-                                            )}
-                                        </Droppable>
-                                    </div>
-                                </Col>
-                                <Col className="gutter-row" span={3}>
-                                    <div className="gutter-box">内部面试(7)</div>
-                                </Col>
-                                <Col className="gutter-row" span={3}>
-                                    <div className="gutter-box">内部通过(7)</div>
-                                </Col>
-                                <Col className="gutter-row" span={3}>
-                                    <div className="gutter-box">推荐客户(7)</div>
-                                </Col>
-                                <Col className="gutter-row" span={3}>
-                                    <div className="gutter-box">安排客户(7)</div>
-                                </Col>
-                                <Col className="gutter-row" span={3}>
-                                    <div className="gutter-box">客户面试(7)</div>
-                                </Col>
-                                <Col className="gutter-row" span={3}>
-                                    <div className="gutter-box">客户通过(7)</div>
-                                </Col>
-                                <Col className="gutter-row" span={3}>
-                                    <div className="gutter-box">Offer(7)</div>
-                                </Col>
+                        <Col className="gutter-row" span={18}>
+                            <Col className="gutter-row" span={3}>
+                                <div className="gutter-box">简历筛选(7)</div>
                             </Col>
-                        </DragDropContext>
+                            <Col className="gutter-row" span={3}>
+                                <div className="gutter-box">内部面试(7)</div>
+                            </Col>
+                            <Col className="gutter-row" span={3}>
+                                <div className="gutter-box">内部通过(7)</div>
+                            </Col>
+                            <Col className="gutter-row" span={3}>
+                                <div className="gutter-box">推荐客户(7)</div>
+                            </Col>
+                            <Col className="gutter-row" span={3}>
+                                <div className="gutter-box">安排客户(7)</div>
+                            </Col>
+                            <Col className="gutter-row" span={3}>
+                                <div className="gutter-box">客户面试(7)</div>
+                            </Col>
+                            <Col className="gutter-row" span={3}>
+                                <div className="gutter-box">客户通过(7)</div>
+                            </Col>
+                            <Col className="gutter-row" span={3}>
+                                <div className="gutter-box">Offer(7)</div>
+                            </Col>
+                        </Col>
                         <Col className="gutter-row" span={3}>
                             <div className="gutter-box">入职(7)</div>
                         </Col>
                     </Row>
+                    {
+                        this.state.requirements.map((element, index) => {
+
+                            return
+                            <Row gutter={16} style={{ marginTop: '10px', width: '100%', textAlign: 'center' }}>
+                                <Col className="gutter-row" span={3}>
+                                    <div style={{ width: 200, height: 100, textAlign: 'center', backgroundColor: 'grey' }}>
+                                        <p>{element.area}</p>
+                                    </div>
+                                </Col>
+                                <DragDropContext onDragEnd={this.onDragEnd}>
+                                    <Col className="gutter-row" span={18}>
+                                        <Col className="gutter-row" span={3}>
+                                        </Col>
+                                        <Col className="gutter-row" span={3}>
+                                        </Col>
+                                        <Col className="gutter-row" span={3}>
+                                        </Col>
+                                        <Col className="gutter-row" span={3}>
+                                        </Col>
+                                        <Col className="gutter-row" span={3}>
+                                        </Col>
+                                        <Col className="gutter-row" span={3}>
+                                        </Col>
+                                        <Col className="gutter-row" span={3}>
+                                        </Col>
+                                        <Col className="gutter-row" span={3}>
+                                        </Col>
+                                    </Col>
+                                </DragDropContext>
+                                <Col className="gutter-row" span={3}>
+                                </Col>
+                            </Row>
+                            console.log('element', element)
+                        })
+                    }
+
                     {/* <Row gutter={16} style={{ marginTop: '10px', width: '100%', textAlign: 'center', }}>
                         <DragDropContext onDragEnd={this.onDragEnd}>
                             <Col className="gutter-row" span={3}>
