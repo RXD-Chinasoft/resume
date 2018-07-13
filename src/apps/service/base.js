@@ -9,9 +9,7 @@ export const POST = (url, body = '') => {
         url: BASE_URL + url,
     };
     console.log("post,", url, body)
-    axios(options).then(response => {
-        console.log(response)
-    });
+    return axios(options)
 }
 
 export const PUT = (url, body) => {
@@ -21,9 +19,7 @@ export const PUT = (url, body) => {
         data: JSON.stringify(body),
         url: BASE_URL + url,
     };
-    axios(options).then(response => {
-        console.log(response)
-    });
+    return axios(options)
 }
 
 export const DELETE = (url, body) => {
@@ -33,7 +29,5 @@ export const DELETE = (url, body) => {
         data: JSON.stringify(body),
         url: BASE_URL + url,
     };
-    axios(options).then(response => {
-        console.log(response)
-    });
+    return axios(options)
 }

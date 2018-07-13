@@ -1,36 +1,36 @@
 import { POST } from './base'
 
 export const GetRequirements = () => {
-    POST('/requirements');
+    return POST('/requirements');
 }
 
 export const CreateRequirement = (body) => {
-    POST('/requirement', body);
+    return POST('/requirement', body);
 }
 
 export const UpdateRequirement = (body) => {
-    POST('/requirementrenewal', body);
+    return POST('/requirementrenewal', body);
 }
 
 export const DeleteRequirement = (id) => {
-    POST('/requirementoff', { id })
+    return POST('/requirementoff', { id })
 }
 
 // candidate
 export const GetCandidates = () => {
-    POST('/candidates');
+    return POST('/candidates');
 }
 
 export const CreateCandidate = (body) => {
-    POST('/candidate', body);
+    return POST('/candidate', body);
 }
 
 export const UpdateCandidate = (body) => {
-    POST('/candidaterenewal', body);
+    return POST('/candidaterenewal', body);
 }
 
 export const DeleteCandidate = (id) => {
-    POST('/candidateoff', { id })
+    return POST('/candidateoff', { id })
 }
 
 
