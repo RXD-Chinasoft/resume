@@ -62,5 +62,8 @@ func RouteAndListen() {
 		http.StatusText(http.StatusBadRequest), http.StatusBadRequest), http.MethodPost))))
 	http.Handle("/apis/candidateoff", corsDecrator(http.HandlerFunc(methodFilter(parseBodyWithBytes(removeCandidateHandleFunc, 
 		http.StatusText(http.StatusBadRequest), http.StatusBadRequest), http.MethodPost))))
+	
+	//static file handler.
+    http.Handle("/staticfile/", http.StripPrefix("/staticfile/", http.FileServer(http.Dir("./staticfile"))))
 	http.ListenAndServe(":8000", nil)
 }

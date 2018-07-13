@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS candidate (
     file character varying(100),
     filename character varying(100),
     filesize integer,
-    filetype character varying(50),
+    filetype character varying(100),
     createtime character varying(50),
     message character varying(500)
 ) WITH(OIDS=FALSE);

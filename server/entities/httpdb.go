@@ -50,7 +50,7 @@ type Candidate struct {
     Descrpition string `json:"descrpition" db:"descrpition"`
     File string `json:"file" db:"file"`
     Filename string `json:"filename" db:"filename"`
-    Filesize string `json:"filesize" db:"filesize"`
+    Filesize int64 `json:"filesize" db:"filesize"`
     Filetype string `json:"filetype" db:"filetype"`
     Createtime string `json:"createtime" db:"createtime"`
     Message string `json:"message" db:"message"`
