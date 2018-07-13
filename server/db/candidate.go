@@ -15,8 +15,8 @@ func GetCandidates() ([]Candidate, error) {
 	list := []Candidate{}
 	for rows.Next() {
 		candidate := Candidate{}
-		err = rows.Scan(&candidate.Id, &candidate.Requirement, &candidate.Candidate, &candidate.Hiringmanager, 
-			&candidate.Saler, &candidate.Dm, &candidate.Status, &candidate.Risk, &candidate.Descrpition, &candidate.Filepath, &candidate.Createtime, &candidate.Message,
+		err = rows.Scan(&candidate.Id, &candidate.Requirement, &candidate.Candidate, &candidate.Hiringmanager, &candidate.Saler, &candidate.Dm, &candidate.Status, 
+			&candidate.Risk, &candidate.Descrpition, &candidate.File, &candidate.Filename, &candidate.Filesize, &candidate.Filetype, &candidate.Createtime, &candidate.Message,
 		)
 		if err != nil {
 			log.Printf("scan candidate error %s :", err)
@@ -29,8 +29,8 @@ func GetCandidates() ([]Candidate, error) {
 
 func NewCandidate(candidate Candidate) error {
 	log.Printf("require %v", candidate)
-	_, err := db.Exec("INSERT INTO candidate (requirement, candidate, hiringmanager, saler, dm, status, risk, descrpition, filepath, createtime, message) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)",
-		candidate.Requirement, candidate.Candidate, candidate.Hiringmanager, candidate.Saler, candidate.Dm, candidate.Status, candidate.Risk, candidate.Descrpition, candidate.Filepath, candidate.Createtime, candidate.Message)
+	_, err := db.Exec("INSERT INTO candidate (requirement, candidate, hiringmanager, saler, dm, status, risk, descrpition, file, filename, filesize, filetype, createtime, message) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)",
+		candidate.Requirement, candidate.Candidate, candidate.Hiringmanager, candidate.Saler, candidate.Dm, candidate.Status, candidate.Risk, candidate.Descrpition, candidate.File, candidate.Filename, candidate.Filesize, candidate.Filetype, candidate.Createtime, candidate.Message)
 	if err != nil {
 		log.Printf("insert error %s", err)
 		return err
@@ -40,8 +40,8 @@ func NewCandidate(candidate Candidate) error {
 
 func UpdateCandidate(candidate Candidate) error {
 	log.Printf("update %v", candidate)
-	_, err := db.Exec("UPDATE candidate SET requirement=$1, candidate=$2, hiringmanager=$3, saler=$4, dm=$5, status=$6, risk=$7, descrpition=$8, filepath=$9, createtime=$10, message=$11 WHERE id=$12", 
-		candidate.Requirement, candidate.Candidate, candidate.Hiringmanager, candidate.Saler, candidate.Dm, candidate.Status, candidate.Risk, candidate.Descrpition, candidate.Filepath, candidate.Createtime, candidate.Message, candidate.Id)
+	_, err := db.Exec("UPDATE candidate SET requirement=$1, candidate=$2, hiringmanager=$3, saler=$4, dm=$5, status=$6, risk=$7, descrpition=$8, file=$9, filename=$10, filesize=$11, filetype=$12, createtime=$13, message=$14 WHERE id=$15", 
+		candidate.Requirement, candidate.Candidate, candidate.Hiringmanager, candidate.Saler, candidate.Dm, candidate.Status, candidate.Risk, candidate.Descrpition, candidate.File, candidate.Filename, candidate.Filesize, candidate.Filetype, candidate.Createtime, candidate.Message, candidate.Id)
 	if err != nil {
 		log.Printf("update error %s", err)
 		return err

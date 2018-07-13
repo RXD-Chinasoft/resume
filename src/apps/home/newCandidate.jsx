@@ -17,6 +17,15 @@ const CandidateCreateForm = Form.create()(
       });
     }
 
+    normFile = (e) => {
+      console.log('Upload event:', e);
+      if (Array.isArray(e)) {
+        return e;
+      }
+      return e && e.fileList;
+    }
+  
+
     render() {
       const { visible, onCancel, onCreate, form } = this.props;
       const { getFieldDecorator } = form;
@@ -194,6 +203,7 @@ const CandidateCreateForm = Form.create()(
                   {getFieldDecorator('upload', {
                     valuePropName: 'fileList',
                     getValueFromEvent: this.normFile,
+                    rules: [{ required: true, message: 'Please choose one!' }],
                   })(
                     <Upload name="logo" listType="picture">
                       <Button>

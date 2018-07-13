@@ -64,6 +64,8 @@ class ToolBar extends Component {
     }
 
     convertFromCd = (formData) => {
+        const { name, size, type, thumbUrl } = formData.upload[0]
+        console.log(name, size, type, thumbUrl)
         return {
             requirement: 1,
             candidate: formData.name,
@@ -73,7 +75,10 @@ class ToolBar extends Component {
             status: Number(formData.status),
             risk: Number(formData.risk),
             descrpition: formData.describe,
-            filepath: formData.jiaofu,
+            file: thumbUrl,
+            filename: name,
+            filesize: size,
+            filetype: type,
             createtime: "20180608",
             message: formData.msg,
         };
