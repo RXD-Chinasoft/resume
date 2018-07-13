@@ -105,7 +105,10 @@ class ToolBar extends Component {
             interviewaddr: formData.interviewaddr,//面试地址
             projectaddr: formData.projectaddr,//项目地址
             createtime: "20180713",
-            descrpition: []
+            descrpition: [],
+            matrix: [],
+            clientrequirment: "123",
+            department: 1
         }
     }
 

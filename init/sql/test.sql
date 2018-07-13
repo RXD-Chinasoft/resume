@@ -12,18 +12,21 @@ CREATE TABLE IF NOT EXISTS requirement (
     english integer,
     rqtype integer,
     rqstatus integer,
-    client character varying(50),
-    salaryscope character varying(50),
-    challengetarget character varying(50),
-    resumetarget character varying(50),
+    client character varying(100),
+    salaryscope character varying(100),
+    challengetarget character varying(100),
+    resumetarget character varying(100),
     turn integer,
-    teamrange character varying(50),
-    candidate character varying(50),
-    contact character varying(50),
+    teamrange character varying(100),
+    candidate character varying(100),
+    contact character varying(100),
     interviewaddr character varying(200),
     projectaddr character varying(200),
     createtime character varying(50),
-    descrpition text[]
+    descrpition text[],
+    matrix integer[][],
+    clientrequirment character varying(100),
+    department integer
 ) WITH(OIDS=FALSE);
 
 CREATE TABLE IF NOT EXISTS candidate (
@@ -51,12 +54,6 @@ CREATE TABLE IF NOT EXISTS dictionary (
     descrpition character varying(100),
     extendedfield character varying(100),
     pkey integer
-) WITH(OIDS=FALSE);
-
-CREATE TABLE IF NOT EXISTS kanban (
-    id serial NOT NULL, 
-    requirement integer,
-    matrix integer[][]
 ) WITH(OIDS=FALSE);
 
 CREATE TABLE IF NOT EXISTS history (

@@ -36,6 +36,9 @@ type Requirement struct {
     Projectaddr string `json:"projectaddr" db:"projectaddr"`
     Createtime string `json:"createtime" db:"createtime"`
     Descrpition []string `json:"descrpition" db:"descrpition"`
+    Matrix [][]string `json:"matrix" db:"matrix"`
+    Clientrequirment string `json:"clientrequirment" db:"clientrequirment"`
+    Department int64 `json:"department" db:"department"`
 }
 
 type Candidate struct {
