@@ -203,7 +203,7 @@ const CandidateCreateForm = Form.create()(
                   {getFieldDecorator('upload', {
                     valuePropName: 'fileList',
                     getValueFromEvent: this.normFile,
-                    rules: [{ required: true, message: 'Please choose one!' }],
+                    // rules: [{ required: true, message: 'Please choose one!' }],
                   })(
                     <Upload name="logo" listType="picture">
                       <Button>

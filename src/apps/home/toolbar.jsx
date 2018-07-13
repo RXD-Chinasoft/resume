@@ -64,10 +64,10 @@ class ToolBar extends Component {
     }
 
     convertFromCd = (formData) => {
-        const { name, size, type, thumbUrl } = formData.upload.length > 0 ? formData.upload[0] : { name: '', size: '', type: '', thumbUrl: '' }
+        const { name, size, type, thumbUrl } = formData.upload ? formData.upload[0] : { name: '', size: 0, type: '', thumbUrl: '' }
         console.log(name, size, type, thumbUrl)
         return {
-            requirement: 1,
+            requirement: 3,
             candidate: formData.name,
             hiringmanager: Number(formData.zhaopin),
             saler: Number(formData.xiaoshou),
