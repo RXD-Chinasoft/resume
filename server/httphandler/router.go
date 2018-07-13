@@ -64,6 +64,6 @@ func RouteAndListen() {
 		http.StatusText(http.StatusBadRequest), http.StatusBadRequest), http.MethodPost))))
 	
 	//static file handler.
-    http.Handle("/staticfile/", http.StripPrefix("/staticfile/", http.FileServer(http.Dir("./staticfile"))))
+    http.Handle("/staticfile/", http.StripPrefix("/staticfile/", http.FileServer(http.Dir(UPLOAD_PATH))))
 	http.ListenAndServe(":8000", nil)
 }

@@ -38,15 +38,19 @@ func NewCandidate(candidate Candidate) error {
 	return nil
 }
 
-func UpdateCandidate(candidate Candidate) error {
+func UpdateCandidate(candidate Candidate) (err error) {
 	log.Printf("update %v", candidate)
-	_, err := db.Exec("UPDATE candidate SET requirement=$1, candidate=$2, hiringmanager=$3, saler=$4, dm=$5, status=$6, risk=$7, descrpition=$8, file=$9, filename=$10, filesize=$11, filetype=$12, createtime=$13, message=$14 WHERE id=$15", 
-		candidate.Requirement, candidate.Candidate, candidate.Hiringmanager, candidate.Saler, candidate.Dm, candidate.Status, candidate.Risk, candidate.Descrpition, candidate.File, candidate.Filename, candidate.Filesize, candidate.Filetype, candidate.Createtime, candidate.Message, candidate.Id)
+	if candidate.File != "" {
+		_, err = db.Exec("UPDATE candidate SET requirement=$1, candidate=$2, hiringmanager=$3, saler=$4, dm=$5, status=$6, risk=$7, descrpition=$8, file=$9, filename=$10, filesize=$11, filetype=$12, createtime=$13, message=$14 WHERE id=$15", 
+			candidate.Requirement, candidate.Candidate, candidate.Hiringmanager, candidate.Saler, candidate.Dm, candidate.Status, candidate.Risk, candidate.Descrpition, candidate.File, candidate.Filename, candidate.Filesize, candidate.Filetype, candidate.Createtime, candidate.Message, candidate.Id)
+	} else {
+		_, err = db.Exec("UPDATE candidate SET requirement=$1, candidate=$2, hiringmanager=$3, saler=$4, dm=$5, status=$6, risk=$7, descrpition=$8, filename=$9, filesize=$10, filetype=$11, createtime=$12, message=$13 WHERE id=$14", 
+			candidate.Requirement, candidate.Candidate, candidate.Hiringmanager, candidate.Saler, candidate.Dm, candidate.Status, candidate.Risk, candidate.Descrpition, candidate.Filename, candidate.Filesize, candidate.Filetype, candidate.Createtime, candidate.Message, candidate.Id)
+	}
 	if err != nil {
 		log.Printf("update error %s", err)
-		return err
 	}
-	return nil
+	return
 }
 
 func DeleteCandidate(id int) error {

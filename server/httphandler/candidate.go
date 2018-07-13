@@ -60,6 +60,14 @@ func updateCandidateHandleFunc(w http.ResponseWriter, r *http.Request, bodyBytes
 		log.Printf("error ===> %s \n", err)
 		http.Error(w, http.StatusText(400), 400)
 	} else {
+		if candidate.File != "" {
+			filepath, err := uploadbase64(candidate.File, candidate.Filename)
+			if err != nil {
+				http.Error(w, err.Error(), 500)
+				return
+			}
+			candidate.File = filepath
+		}
 		err = db.UpdateCandidate(candidate)
 		if err != nil {
 			http.Error(w, http.StatusText(500), 500)
