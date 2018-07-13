@@ -82,10 +82,17 @@ func AppendRequirementMatrix(tx *sql.Tx, rqmt Requirement, newCandidate int64) (
 		return errors.New("wrong requirement data")
 	}
 	strs := rqmt.Matrix[0]
-	arr := strings.Split(strs, ",")
-	log.Printf("split arr %v", arr)
+	var arr []string
+	if (strs == "") {
+		arr = []string{}
+	} else {
+		arr = strings.Split(strs, ",")
+	}
+	log.Printf("split arr %v , %d , %d", arr, len(arr), len(strs))
 	arr = append(arr, strconv.FormatInt(newCandidate, 10))
+	log.Printf("append arr %v", arr)
 	rqmt.Matrix[0] = strings.Join(arr, ",")
+	log.Printf("result arr %v", rqmt.Matrix[0])
 	_, err = tx.Exec("UPDATE requirement SET matrix=$1 WHERE id=$2", pq.Array(rqmt.Matrix), rqmt.Id)
 	return
 }
