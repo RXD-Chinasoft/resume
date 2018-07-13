@@ -1,9 +1,14 @@
 package db
 
 import (
+	"strconv"
+	"strings"
+	"database/sql"
 	"log"
 	. "resume/server/entities"
 	"github.com/lib/pq"
+	"errors"
+	"fmt"
 )
 
 func GetRequirements() ([]Requirement, error) {
@@ -27,6 +32,23 @@ func GetRequirements() ([]Requirement, error) {
 		list = append(list, requirement)
 	}
 	return list, err
+}
+
+func GetRequirement(rqmId int64) (requirement Requirement, err error) {
+	row := db.QueryRow("SELECT * FROM requirement WHERE id=$1", rqmId)
+	requirement = Requirement{}
+	err = row.Scan(&requirement.Id, &requirement.Requirement, &requirement.Area, &requirement.Count, &requirement.Saler, &requirement.Dm,
+		&requirement.Priority, &requirement.English, &requirement.Rqtype, &requirement.Rqstatus, &requirement.Client, &requirement.Salaryscope,
+		&requirement.Challengetarget, &requirement.Resumetarget, &requirement.Turn, &requirement.Teamrange, &requirement.Candidate, &requirement.Contact,
+		&requirement.Interviewaddr, &requirement.Projectaddr, &requirement.Createtime, pq.Array(&requirement.Descrpition), pq.Array(&requirement.Matrix), &requirement.Clientrequirment, &requirement.Department,
+	)
+	switch {
+	case err == sql.ErrNoRows:
+		err = errors.New(fmt.Sprintf("not found %d", rqmId))
+	case err != nil:
+		err = errors.New(fmt.Sprintf("interval error %s", err))
+	}
+	return
 }
 
 func NewRequirement(rqmt Requirement) error {
@@ -53,6 +75,19 @@ func UpdateRequirement(rqmt Requirement) error {
 		return err
 	}
 	return nil
+}
+
+func AppendRequirementMatrix(tx *sql.Tx, rqmt Requirement, newCandidate int64) (err error) {
+	if len(rqmt.Matrix) == 0 {
+		return errors.New("wrong requirement data")
+	}
+	strs := rqmt.Matrix[0]
+	arr := strings.Split(strs, ",")
+	log.Printf("split arr %v", arr)
+	arr = append(arr, strconv.FormatInt(newCandidate, 10))
+	rqmt.Matrix[0] = strings.Join(arr, ",")
+	_, err = tx.Exec("UPDATE requirement SET matrix=$1 WHERE id=$2", pq.Array(rqmt.Matrix), rqmt.Id)
+	return
 }
 
 func DeleteRequirement(id int) error {

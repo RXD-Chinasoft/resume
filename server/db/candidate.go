@@ -3,7 +3,7 @@ package db
 import (
 	"log"
 	. "resume/server/entities"
-	// "github.com/lib/pq"
+	"errors"
 )
 
 func GetCandidates() ([]Candidate, error) {
@@ -29,11 +29,25 @@ func GetCandidates() ([]Candidate, error) {
 
 func NewCandidate(candidate Candidate) error {
 	log.Printf("require %v", candidate)
-	_, err := db.Exec("INSERT INTO candidate (requirement, candidate, hiringmanager, saler, dm, status, risk, descrpition, file, filename, filesize, filetype, createtime, message) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)",
-		candidate.Requirement, candidate.Candidate, candidate.Hiringmanager, candidate.Saler, candidate.Dm, candidate.Status, candidate.Risk, candidate.Descrpition, candidate.File, candidate.Filename, candidate.Filesize, candidate.Filetype, candidate.Createtime, candidate.Message)
+	requirement, err := GetRequirement(candidate.Requirement)
 	if err != nil {
-		log.Printf("insert error %s", err)
 		return err
+	}
+	tx, err := db.Begin()
+	if err != nil {
+		return err
+	}
+	var id int64
+	err0 := tx.QueryRow("INSERT INTO candidate (requirement, candidate, hiringmanager, saler, dm, status, risk, descrpition, file, filename, filesize, filetype, createtime, message) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) RETURNING id",
+		candidate.Requirement, candidate.Candidate, candidate.Hiringmanager, candidate.Saler, candidate.Dm, candidate.Status, candidate.Risk, candidate.Descrpition, candidate.File, candidate.Filename, candidate.Filesize, candidate.Filetype, candidate.Createtime, candidate.Message).Scan(&id)
+	log.Printf("LastInsertId %d", id)
+	err1 := AppendRequirementMatrix(tx, requirement, id)
+	err2 := tx.Commit()
+	hasErr := err0 != nil || err1 != nil || err2 != nil
+	if hasErr {
+		log.Println("insert error , roll back")
+		err = tx.Rollback()
+		return errors.New("transation error")
 	}
 	return nil
 }
