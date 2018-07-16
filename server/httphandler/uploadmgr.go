@@ -9,7 +9,7 @@ import (
 )
 
 const (
-	UPLOAD_PATH = "./upload/"
+	UPLOAD_PATH = "/tmp/go_file_uploads/"
 )
 
 func uploadbase64(content string, filename string) (filepath string, err error) {
@@ -18,7 +18,7 @@ func uploadbase64(content string, filename string) (filepath string, err error) 
 		err = errors.New(fmt.Sprintf("decode error ===> %s \n", err))
 		return
 	}
-	err = os.MkdirAll(UPLOAD_PATH, 0666)
+	err = os.MkdirAll(UPLOAD_PATH, 0777)
 	if err != nil {
 		err = errors.New(fmt.Sprintf("system path error ===> %s \n", err))
 		return
@@ -30,7 +30,7 @@ func uploadbase64(content string, filename string) (filepath string, err error) 
 		err = errors.New(fmt.Sprintf("create file error ===> %s \n", err))
 		return
 	}
-	err = ioutil.WriteFile(filepath, decodeBytes, 0666)
+	err = ioutil.WriteFile(filepath, decodeBytes, 0777)
 	if err != nil {
 		err = errors.New(fmt.Sprintf("append file content error ===> %s \n", err))
 		return
