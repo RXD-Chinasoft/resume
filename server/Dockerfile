@@ -1,11 +1,14 @@
-FROM golang
+FROM golang:latest
 
 WORKDIR $GOPATH/src/server
 
-COPY ..
+ADD .$GOPATH/src/server
 
 RUN go get github.com/lib/pq
 
-RUN go build
+ENV PORT 8000
 
-CMD["./server"]
+EXPOSE 8000
+RUN go build .
+
+ENTRYPOINT ["./server"]
