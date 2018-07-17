@@ -13,3 +13,6 @@
   ##check
   -docker-compose
   -docker-compose -v
+  ##problems
+  -ERROR: Couldn't connect to Docker daemon at http+docker://localhost - is it running?
+    -solve:sudo service docker start,sudo docker-compose up

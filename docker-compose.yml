@@ -4,25 +4,27 @@ services:
   App1:
     image: nginx
     ports:
-      - "10000:80"
-    networks:
-      - "netName1"
-    volumes:
-      - /opt/conf/:/mnt
-  App2:
-    image: nginx
-    ports:
       - "10001:80"
     networks:
       - "netName1"
     volumes:
-      - /opt/conf/:/mnt
-  App3:
+      - ./nginx/:/mnt
+  App2:
     image: nginx
     ports:
       - "10002:80"
     networks:
       - "netName2"
+    volumes:
+      - ./build:/usr/share/nginx/html
+  App3:
+    image: nginx
+    ports:
+      - "10003:80"
+    networks:
+      - "netName2"
+    volumes:
+      - ./build:/usr/share/nginx/html
 networks:
   netName1:
     driver: bridge
