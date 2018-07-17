@@ -25,6 +25,16 @@ services:
       - "netName2"
     volumes:
       - ./build:/usr/share/nginx/html
+  Db:
+    image: postgres
+    ports:
+      - "54321:5432"
+  Server1:
+    image: "models/kanban"
+    ports:
+      - "8000:8000"
+    environment:
+      - PORT=8000
 networks:
   netName1:
     driver: bridge
