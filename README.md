@@ -9,7 +9,7 @@
   -$ sudo pip install --upgrade pip 
   -$ sudo pip install --upgrade virtualenv 
 
-  -pip install docker-compose
+  -$ sudo pip install docker-compose
   ##check
   -docker-compose
   -docker-compose -v

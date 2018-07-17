@@ -1,0 +1,30 @@
+version: '2'
+
+services:
+  App1:
+    image: nginx
+    ports:
+      - "10000:80"
+    networks:
+      - "netName1"
+    volumes:
+      - /opt/conf/:/mnt
+  App2:
+    image: nginx
+    ports:
+      - "10001:80"
+    networks:
+      - "netName1"
+    volumes:
+      - /opt/conf/:/mnt
+  App3:
+    image: nginx
+    ports:
+      - "10002:80"
+    networks:
+      - "netName2"
+networks:
+  netName1:
+    driver: bridge
+  netName2:
+    driver: bridge
