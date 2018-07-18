@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const BASE_URL = "http://192.168.15.116:8000/apis"
+export const BASE_URL = "http://192.168.15.100/apis"
 export const POST = (url, body = '') => {
     const options = {
         method: 'POST',
