@@ -30,11 +30,17 @@ services:
     ports:
       - "54321:5432"
   Server1:
-    image: "models/kanban"
+    image: "kanban"
     ports:
       - "8000:8000"
     environment:
-      - PORT=8000
+      - ENV_PORT=8000
+  Server2:
+    image: "kanban"
+    ports:
+      - "8001:8001"
+    environment:
+      - ENV_PORT=8001
 networks:
   netName1:
     driver: bridge

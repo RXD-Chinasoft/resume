@@ -6,6 +6,8 @@ import (
 	"net/http"
 	"log"
 	"time"
+	"syscall"
+	"fmt"
 )
 
 func addCors(w *http.ResponseWriter) {
@@ -65,5 +67,12 @@ func RouteAndListen() {
 	
 	//static file handler.
     http.Handle("/staticfile/", http.StripPrefix("/staticfile/", http.FileServer(http.Dir(UPLOAD_PATH))))
-	http.ListenAndServe(":8000", nil)
+	port, found := syscall.Getenv("ENV_PORT")
+	if found != true {
+		log.Println("docker port not found")
+		port = "8000"
+	}
+	port = fmt.Sprintf(":%s", port)
+	log.Printf("docker port is %s", port)
+	http.ListenAndServe(port, nil)
 }
