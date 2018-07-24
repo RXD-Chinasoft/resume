@@ -1,7 +1,7 @@
 import { POST } from './base'
 
 export const GetRequirements = () => {
-    return POST('/requirements');
+    return POST('/requirementCandidates');
 }
 
 export const CreateRequirement = (body) => {
