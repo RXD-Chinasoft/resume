@@ -206,13 +206,15 @@ class Home extends Component {
                         this.state.requirements.map((element, index) => {
                             console.log('element...', element)
                             return (
-                                <Row key={element.id} gutter={16} style={{ marginTop: '10px', width: '100%' }}>
-                                    <Col className="gutter-row" span={3}>
-                                        <div style={{ width: 134, height: 80, backgroundColor: 'red' }}>
-                                            <p style={{ marginLeft: '10px' }}>{element.area}</p>
+                                <Row key={element.id} gutter={16} style={{ width: '100%' }}>
+                                    <Col span={3} style={{ backgroundColor: '#0B4696' }}>
+                                        <div className="itemBox">
+                                            <p style={{ color: 'black' }}>
+                                                {element.area}
+                                            </p>
                                         </div>
                                     </Col>
-                                    {/* <DragDropContext onDragEnd={this.onDragEnd}>
+                                    <DragDropContext onDragEnd={this.onDragEnd}>
                                         <Col className="gutter-row" span={18}>
                                             <Col className="gutter-row" span={3}>
                                             </Col>
@@ -233,7 +235,7 @@ class Home extends Component {
                                         </Col>
                                     </DragDropContext>
                                     <Col className="gutter-row" span={3}>
-                                    </Col> */}
+                                    </Col>
                                 </Row>
                             )
                         })
