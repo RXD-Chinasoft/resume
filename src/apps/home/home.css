@@ -17,3 +17,11 @@
 .main-title {
     background: #1965bd !important;
 }
+
+.border-tl-radius {
+    border-top-left-radius: 11px
+}
+
+.border-tr-radius {
+    border-top-right-radius: 11px
+}
