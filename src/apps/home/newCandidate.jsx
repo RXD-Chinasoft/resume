@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Modal, Form, Input, Radio, Row, Col, Select, Upload, Icon } from 'antd';
-import DropDownButton from './dropdown'
+import DropDownButton from './dropdown';
+import './newform.css'
 
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -48,16 +49,14 @@ const CandidateCreateForm = Form.create()(
           width={"90%"}
         >
           <Form
-            className="ant-advanced-search-form"
-            // onSubmit={this.handleCreate}
-            style={{ background: "#186dd6", paddingTop: 10, marginRight: 18, marginLeft: 18, color: "white" }}
+            className="ant-advanced-search-form root"
           >
             <Row gutter={24} style={{ borderBottom: "solid 1px white" }}>
               <Col span={8}>
                 <FormItem
                   {...formItemLayout}
                   label="需求ID"
-                  style={{ color: "white" }}
+                  style={{ color: "black" }}
                 >
                   {getFieldDecorator('name', {
                     rules: [
@@ -74,6 +73,9 @@ const CandidateCreateForm = Form.create()(
               </Col>
               <Col span={8} style={{ paddingTop: 8 }}>
                 <span>职位</span>
+              </Col>
+              <Col span={8} style={{ paddingTop: 8, textAlign:'right' }}>
+                <span>2018/02/08</span>
               </Col>
             </Row>
 
