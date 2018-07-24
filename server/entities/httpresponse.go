@@ -10,6 +10,6 @@ type HttpResult struct {
 
 type RequirementsCandidates struct {
 	Requirements	[]Requirement	`json:"requirements"`
-	RequirementCandidates	map[int64][]Candidate	`json:"relateCandidates"`
+	RequirementCandidates	map[int64][][]Candidate	`json:"relateCandidates"`
 }
 
