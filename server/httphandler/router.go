@@ -64,13 +64,15 @@ func RouteAndListen() {
 		http.StatusText(http.StatusBadRequest), http.StatusBadRequest), http.MethodPost))))
 	http.Handle("/apis/candidateoff", corsDecrator(http.HandlerFunc(methodFilter(parseBodyWithBytes(removeCandidateHandleFunc, 
 		http.StatusText(http.StatusBadRequest), http.StatusBadRequest), http.MethodPost))))
+
+	http.Handle("/apis/requirementCandidates", corsDecrator(http.HandlerFunc(methodFilter(requirementCandidatesHandleFunc, http.MethodPost))))
 	
 	//static file handler.
     http.Handle("/staticfile/", http.StripPrefix("/staticfile/", http.FileServer(http.Dir(UPLOAD_PATH))))
 	port, found := syscall.Getenv("ENV_PORT")
 	if found != true {
 		log.Println("docker port not found")
-		port = "8000"
+		port = "8999"
 	}
 	port = fmt.Sprintf(":%s", port)
 	log.Printf("docker port is %s", port)
