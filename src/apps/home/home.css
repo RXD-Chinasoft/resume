@@ -8,8 +8,12 @@
 }
 
 .done-gradient {
-    background: -webkit-gradient(linear, 0 0, 0 100%, from(#eee), to(#aaa)); /** Chrome Safari **/
-    background: -moz-linear-gradient(top, #eee, #aaa); /** FireFox **/
-    background: -o-linear-gradient(top, #eee, #aaa);  /** Opear **/
-    background: -ms-linear-gradient(#eeeeee 0%,#aaaaaa 100%);  /** IE9 IE10 **/
+    background: -webkit-linear-gradient(right, rgba(59,218,218,0.28),rgba(20,190,210,1)); /** Chrome Safari **/
+    background: -moz-linear-gradient(right, #1c909c, #4fd6d6); /** FireFox **/
+    background: -o-linear-gradient(right, #1c909c, #4fd6d6);  /** Opear **/
+    background: -ms-linear-gradient(#1c909c 0%,#4fd6d6 100%);  /** IE9 IE10 **/
+}
+
+.main-title {
+    background: #1965bd !important;
 }
