@@ -5,6 +5,7 @@ import { Button } from 'antd';
 import ToolBar from './toolbar'
 import { Row, Col } from 'antd';
 import { GetRequirements } from './../service/homeService';
+import './home.css'
 
 // fake data generator
 const getItems = (count, offset = 0) =>
@@ -168,36 +169,36 @@ class Home extends Component {
                 {/* style={{ display: 'flex' }} */}
                 <div>
                     <Row gutter={16} style={{ marginTop: '10px', width: '100%', textAlign: 'center', }}>
-                        <Col className="gutter-row" span={3}>
+                        <Col className="gutter-row gutter-row-padding-none" span={3}>
                             <div className="gutter-box">职位需求(7)</div>
                         </Col>
-                        <Col className="gutter-row" span={18}>
-                            <Col className="gutter-row" span={3}>
+                        <Col className="gutter-row gutter-row-padding-none" span={18}>
+                            <Col className="gutter-row gutter-row-padding-none" span={3}>
                                 <div className="gutter-box">简历筛选(7)</div>
                             </Col>
-                            <Col className="gutter-row" span={3}>
+                            <Col className="gutter-row gutter-row-padding-none" span={3}>
                                 <div className="gutter-box">内部面试(7)</div>
                             </Col>
-                            <Col className="gutter-row" span={3}>
+                            <Col className="gutter-row gutter-row-padding-none" span={3}>
                                 <div className="gutter-box">内部通过(7)</div>
                             </Col>
-                            <Col className="gutter-row" span={3}>
+                            <Col className="gutter-row gutter-row-padding-none" span={3}>
                                 <div className="gutter-box">推荐客户(7)</div>
                             </Col>
-                            <Col className="gutter-row" span={3}>
+                            <Col className="gutter-row gutter-row-padding-none" span={3}>
                                 <div className="gutter-box">安排客户(7)</div>
                             </Col>
-                            <Col className="gutter-row" span={3}>
+                            <Col className="gutter-row gutter-row-padding-none" span={3}>
                                 <div className="gutter-box">客户面试(7)</div>
                             </Col>
-                            <Col className="gutter-row" span={3}>
+                            <Col className="gutter-row gutter-row-padding-none" span={3}>
                                 <div className="gutter-box">客户通过(7)</div>
                             </Col>
-                            <Col className="gutter-row" span={3}>
+                            <Col className="gutter-row gutter-row-padding-none" span={3}>
                                 <div className="gutter-box">Offer(7)</div>
                             </Col>
                         </Col>
-                        <Col className="gutter-row" span={3}>
+                        <Col className="gutter-row gutter-row-padding-none" span={3}>
                             <div className="gutter-box">入职(7)</div>
                         </Col>
                     </Row>
