@@ -203,38 +203,38 @@ class Home extends Component {
                     </Row>
                     {
                         this.state.requirements.map((element, index) => {
-
-                            return
-                            <Row gutter={16} style={{ marginTop: '10px', width: '100%', textAlign: 'center' }}>
-                                <Col className="gutter-row" span={3}>
-                                    <div style={{ width: 200, height: 100, textAlign: 'center', backgroundColor: 'grey' }}>
-                                        <p>{element.area}</p>
-                                    </div>
-                                </Col>
-                                <DragDropContext onDragEnd={this.onDragEnd}>
-                                    <Col className="gutter-row" span={18}>
-                                        <Col className="gutter-row" span={3}>
-                                        </Col>
-                                        <Col className="gutter-row" span={3}>
-                                        </Col>
-                                        <Col className="gutter-row" span={3}>
-                                        </Col>
-                                        <Col className="gutter-row" span={3}>
-                                        </Col>
-                                        <Col className="gutter-row" span={3}>
-                                        </Col>
-                                        <Col className="gutter-row" span={3}>
-                                        </Col>
-                                        <Col className="gutter-row" span={3}>
-                                        </Col>
-                                        <Col className="gutter-row" span={3}>
-                                        </Col>
+                            console.log('element...', element)
+                            return (
+                                <Row key={element.id} gutter={16} style={{ marginTop: '10px', width: '100%' }}>
+                                    <Col className="gutter-row" span={3}>
+                                        <div style={{ width: 134, height: 80, backgroundColor: 'red' }}>
+                                            <p style={{ marginLeft: '10px' }}>{element.area}</p>
+                                        </div>
                                     </Col>
-                                </DragDropContext>
-                                <Col className="gutter-row" span={3}>
-                                </Col>
-                            </Row>
-                            console.log('element', element)
+                                    <DragDropContext onDragEnd={this.onDragEnd}>
+                                        <Col className="gutter-row" span={18}>
+                                            <Col className="gutter-row" span={3}>
+                                            </Col>
+                                            <Col className="gutter-row" span={3}>
+                                            </Col>
+                                            <Col className="gutter-row" span={3}>
+                                            </Col>
+                                            <Col className="gutter-row" span={3}>
+                                            </Col>
+                                            <Col className="gutter-row" span={3}>
+                                            </Col>
+                                            <Col className="gutter-row" span={3}>
+                                            </Col>
+                                            <Col className="gutter-row" span={3}>
+                                            </Col>
+                                            <Col className="gutter-row" span={3}>
+                                            </Col>
+                                        </Col>
+                                    </DragDropContext>
+                                    <Col className="gutter-row" span={3}>
+                                    </Col>
+                                </Row>
+                            )
                         })
                     }
 

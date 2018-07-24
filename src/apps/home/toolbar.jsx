@@ -67,7 +67,7 @@ class ToolBar extends Component {
         const { name, size, type, thumbUrl } = formData.upload ? formData.upload[0] : { name: '', size: 0, type: '', thumbUrl: '' }
         console.log(name, size, type, thumbUrl)
         return {
-            requirement: 3,
+            requirement: 1,
             candidate: formData.name,
             hiringmanager: Number(formData.zhaopin),
             saler: Number(formData.xiaoshou),
