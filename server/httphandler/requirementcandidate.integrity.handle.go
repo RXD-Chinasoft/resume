@@ -11,7 +11,7 @@ import (
 )
 
 func requirementCandidatesHandleFunc(w http.ResponseWriter, r *http.Request) {
-	requirementCandidate := RequirementCandidates{}
+	requirementCandidate := RequirementsCandidates{}
 	requirements, err := db.GetRequirements()
 	if err != nil {
 		http.Error(w, http.StatusText(500), 500)
@@ -23,27 +23,32 @@ func requirementCandidatesHandleFunc(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	requirementCandidate.Requirements = requirements
-	var filterCandidates []Candidate = []Candidate{}
-	for _, candidate := range candidates {
-		for _, requirement := range requirements {
-			for _, mx := range requirement.Matrix {
+	requirementCandidate.RequirementCandidates = make(map[int64][]Candidate)
+	
+	for _, requirement := range requirements {
+		relateCandidates := []Candidate{}
+		log.Println("append candidate begin")
+		for _, mx := range requirement.Matrix {
+			if strings.Index(mx, ",") != -1 {
 				ids := strings.Split(mx, ",")
-				if len(ids) > 0 {
-					log.Printf("ids %v \n", ids)
-					for _, id := range ids {
-						if i, err := strconv.Atoi(id);err == nil {
+				for _, id := range ids {
+					if i, err := strconv.Atoi(id);err == nil {
+						for _, candidate := range candidates {
 							if int64(i) == candidate.Id {
-								filterCandidates = append(filterCandidates, candidate)
+								relateCandidates = append(relateCandidates, candidate)
+								log.Printf("append candidate %v result %v \n", int64(i), relateCandidates)
 							}
-						} else {
-							continue
 						}
+					} else {
+						log.Printf("append candidate error")
+						continue
 					}
 				}
 			}
-		} 
-	}
-	requirementCandidate.Candidates = filterCandidates
+		}
+		requirementCandidate.RequirementCandidates[requirement.Id] = relateCandidates
+	} 
+	
 	if err := json.NewEncoder(w).Encode(&requirementCandidate); err != nil {
 		http.Error(w, http.StatusText(500), 500)
 	}
