@@ -2,3 +2,14 @@
     padding-right: 0px !important;
     padding-left: 0px !important
 }
+
+.flow-title {
+    background: #2e8baf !important;
+}
+
+.done-gradient {
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(#eee), to(#aaa)); /** Chrome Safari **/
+    background: -moz-linear-gradient(top, #eee, #aaa); /** FireFox **/
+    background: -o-linear-gradient(top, #eee, #aaa);  /** Opear **/
+    background: -ms-linear-gradient(#eeeeee 0%,#aaaaaa 100%);  /** IE9 IE10 **/
+}

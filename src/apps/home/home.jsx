@@ -174,28 +174,28 @@ class Home extends Component {
                         </Col>
                         <Col className="gutter-row gutter-row-padding-none" span={18}>
                             <Col className="gutter-row gutter-row-padding-none" span={3}>
-                                <div className="gutter-box">简历筛选(7)</div>
+                                <div className="gutter-box flow-title">简历筛选(7)</div>
                             </Col>
                             <Col className="gutter-row gutter-row-padding-none" span={3}>
-                                <div className="gutter-box">内部面试(7)</div>
+                                <div className="gutter-box flow-title">内部面试(7)</div>
                             </Col>
                             <Col className="gutter-row gutter-row-padding-none" span={3}>
-                                <div className="gutter-box">内部通过(7)</div>
+                                <div className="gutter-box flow-title">内部通过(7)</div>
                             </Col>
                             <Col className="gutter-row gutter-row-padding-none" span={3}>
-                                <div className="gutter-box">推荐客户(7)</div>
+                                <div className="gutter-box flow-title">推荐客户(7)</div>
                             </Col>
                             <Col className="gutter-row gutter-row-padding-none" span={3}>
-                                <div className="gutter-box">安排客户(7)</div>
+                                <div className="gutter-box flow-title">安排客户(7)</div>
                             </Col>
                             <Col className="gutter-row gutter-row-padding-none" span={3}>
-                                <div className="gutter-box">客户面试(7)</div>
+                                <div className="gutter-box flow-title">客户面试(7)</div>
                             </Col>
                             <Col className="gutter-row gutter-row-padding-none" span={3}>
-                                <div className="gutter-box">客户通过(7)</div>
+                                <div className="gutter-box flow-title">客户通过(7)</div>
                             </Col>
                             <Col className="gutter-row gutter-row-padding-none" span={3}>
-                                <div className="gutter-box">Offer(7)</div>
+                                <div className="gutter-box flow-title">Offer(7)</div>
                             </Col>
                         </Col>
                         <Col className="gutter-row gutter-row-padding-none" span={3}>
@@ -212,7 +212,7 @@ class Home extends Component {
                                             <p style={{ marginLeft: '10px' }}>{element.area}</p>
                                         </div>
                                     </Col>
-                                    <DragDropContext onDragEnd={this.onDragEnd}>
+                                    {/* <DragDropContext onDragEnd={this.onDragEnd}>
                                         <Col className="gutter-row" span={18}>
                                             <Col className="gutter-row" span={3}>
                                             </Col>
@@ -233,7 +233,7 @@ class Home extends Component {
                                         </Col>
                                     </DragDropContext>
                                     <Col className="gutter-row" span={3}>
-                                    </Col>
+                                    </Col> */}
                                 </Row>
                             )
                         })
