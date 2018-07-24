@@ -49,13 +49,13 @@
 .backgroundColor{
   background:rgb(20, 83, 157);
 }
-.itemBox{
+/* .itemBox{
   width: 134px;
   height: 80px; 
   background: white; 
   margin-top: 10px;
   margin-bottom: 10px;
-}
+} */
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
@@ -74,8 +74,12 @@
   background: #e8e1e1 !important;
 }
 
-.ant-menu-dark .ant-menu-item > a {
-  color: rgb(24, 144, 255);
+.ant-menu-dark .ant-menu-item, .ant-menu-dark .ant-menu-item-group-title, .ant-menu-dark .ant-menu-item > a {
+  color: #1890ff !important;
+}
+
+.ant-menu-dark .ant-menu-item-selected > a, .ant-menu-dark .ant-menu-item-selected > a:hover {
+  color: white !important;
 }
 
 .ant-menu-inline .ant-menu-submenu {
