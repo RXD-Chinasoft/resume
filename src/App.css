@@ -61,3 +61,43 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.ant-menu-dark, .ant-menu-dark .ant-menu-sub {
+  background: #e8e1e1 !important;
+}
+
+.ant-layout-sider{
+  background: #e8e1e1 !important;
+}
+
+.ant-layout-sider ant-layout-sider-dark ant-layout-sider-has-trigger {
+  background: #e8e1e1 !important;
+}
+
+.ant-menu-dark .ant-menu-item > a {
+  color: rgb(24, 144, 255);
+}
+
+.ant-menu-inline .ant-menu-submenu {
+  color: #1890ff;
+}
+
+.ant-menu-dark .ant-menu-inline.ant-menu-sub {
+  background: #e8e1e1 !important;
+}
+
+.ant-menu-dark .ant-menu-item:hover, .ant-menu-dark .ant-menu-item-active, .ant-menu-dark .ant-menu-submenu-active, .ant-menu-dark .ant-menu-submenu-open, .ant-menu-dark .ant-menu-submenu-selected, .ant-menu-dark .ant-menu-submenu-title:hover{
+  color: #1890ff !important;
+}
+
+.ant-layout-sider-trigger{
+  background: #e8e1e1 !important;
+  color: #653232;
+}
+
+.ant-menu-submenu-arrow:before {
+  background: #1890ff !important;
+}
+.ant-menu-submenu-arrow:after {
+  background: #1890ff !important;
+}
