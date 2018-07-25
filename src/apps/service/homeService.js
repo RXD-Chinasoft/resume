@@ -1,4 +1,4 @@
-import { POST } from './base'
+import { POST, POSTFORM } from './base'
 
 export const GetRequirements = () => {
     return POST('/requirementCandidates');
@@ -23,6 +23,10 @@ export const GetCandidates = () => {
 
 export const CreateCandidate = (body) => {
     return POST('/candidate', body);
+}
+
+export const CreateCandidateWithForm = (formData) => {
+    return POSTFORM('/candidateform', formData);
 }
 
 export const UpdateCandidate = (body) => {
