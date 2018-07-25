@@ -122,10 +122,10 @@ class ToolBar extends Component {
                 <Button type="primary" onClick={this.showRqModal}>创建职位</Button>
                 {/* <Button style={{ marginLeft: '10px' }} type="primary" onClick={this.showCdModal}>创建候选人</Button> */}
                 <RequirementCreateForm
-                    wrappedComponentRef={this.saveRqFormRef}
-                    visible={this.state.rqVisible}
-                    onCancel={this.handleRqCancel}
-                    onCreate={this.handleRqCreate}
+                    // wrappedComponentRef={this.saveRqFormRef}
+                    // visible={this.state.rqVisible}
+                    // onCancel={this.handleRqCancel}
+                    // onCreate={this.handleRqCreate}
                 />
                 <CandidateCreateForm
                     // wrappedComponentRef={this.saveCdFormRef}
