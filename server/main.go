@@ -8,8 +8,7 @@ import (
 
 func main() {
 	defer func() {
-		err := recover()
-		if err != nil {
+		if err := recover(); err != nil {
 			log.Printf("panic : %v", err)
 		}
 	}()
