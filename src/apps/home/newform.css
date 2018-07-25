@@ -26,3 +26,6 @@
 .ant-form label{
     font-size: 12px;
 }
+.ant-calendar-picker {
+    width: 100% !important;
+}
