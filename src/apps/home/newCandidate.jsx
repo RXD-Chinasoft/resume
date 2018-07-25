@@ -103,10 +103,12 @@ const CandidateCreateForm = Form.create()(
             // onOk={onCreate}
             width={"90%"}
             footer={[
-              <Button key="back" onClick={this.handleCancel}>Return</Button>,
-              <Button key="submit" type="primary" loading={loading} onClick={this.handleOk}>
-                Submit
-            </Button>,
+              <Button style={{ backgroundColor: '#d69250', color: 'white' }} key="save" icon="save" loading={loading} onClick={this.handleOk}>
+                保存
+              </Button>,
+              <Button style={{ backgroundColor: '#d69250', color: 'white' }} key="copy" icon="copy" onClick={this.handleCancel}>复制</Button>,
+              <Button style={{ backgroundColor: '#d69250', color: 'white' }} key="del" icon="delete" onClick={this.handleCancel}>删除</Button>,
+              <Button style={{ backgroundColor: '#d69250', color: 'white' }} key="trace" icon="rollback" onClick={this.handleCancel}>轨迹</Button>,
             ]}
           >
             <Form

@@ -1,6 +1,7 @@
 package httphandler
 
 import (
+	"strconv"
 	"strings"
 	"net/http"
 	"log"
@@ -52,6 +53,55 @@ func newCandidateHandleFunc(w http.ResponseWriter, r *http.Request, bodyBytes []
 	
 }
 
+func createCandidateWithFormHandleFunc(w http.ResponseWriter, r *http.Request) {
+	r.ParseMultipartForm(32 << 20) // 32M
+	mp := r.MultipartForm
+	paths := []string{}
+	names := []string{}
+	log.Printf("mp %v \n", mp)
+	fileHeaders := mp.File["files[]"]
+	log.Printf("fileHeaders %v %d \n", fileHeaders, len(fileHeaders))
+	if len(fileHeaders) != 0 {
+		for _, v := range fileHeaders {
+			fileName := v.Filename
+			names = append(names, fileName)
+			f, err := v.Open()
+			if err != nil {
+				continue
+			}
+			defer f.Close()
+			log.Printf("upload %v \n", fileName)
+			path, err := uploadfile(fileName, f)
+			if err != nil {
+				http.Error(w, err.Error(), 500)
+				return
+			}
+			paths = append(paths, path)
+
+		}
+	}
+	candidate := Candidate{}
+	candidate.Requirement = int64(parseFormInt(r.FormValue("requirement")))
+	candidate.Candidate = r.FormValue("candidate")
+	candidate.Hiringmanager = int64(parseFormInt(r.FormValue("hiringmanager")))
+	candidate.Saler = int64(parseFormInt(r.FormValue("saler")))
+	candidate.Dm = int64(parseFormInt(r.FormValue("dm")))
+	candidate.Status = int64(parseFormInt(r.FormValue("status")))
+	candidate.Risk = int64(parseFormInt(r.FormValue("risk")))
+	candidate.Descrpition = r.FormValue("describe")
+	candidate.File = strings.Join(paths, ";")
+	candidate.Filename = strings.Join(names, ";")
+	candidate.Filesize = 0
+	candidate.Filetype = ""
+	candidate.Createtime = ""
+	candidate.Message = r.FormValue("msg")
+	err := db.NewCandidate(candidate)
+	if err != nil {
+		http.Error(w, err.Error(), 500)
+	}
+	
+}
+
 func updateCandidateHandleFunc(w http.ResponseWriter, r *http.Request, bodyBytes []byte) {
 	log.Printf("update params %s \n", string(bodyBytes))
 	candidate := Candidate{}
@@ -90,4 +140,12 @@ func removeCandidateHandleFunc(w http.ResponseWriter, r *http.Request, bodyBytes
 		}
 	}
 	
+}
+
+func parseFormInt(str string) int {
+	result, err := strconv.Atoi(str)
+	if err != nil {
+		panic(err)
+	}
+	return result
 }
