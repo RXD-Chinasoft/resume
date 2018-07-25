@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Modal, Form, Input, Radio, Row, Col, Select, Upload, Icon } from 'antd';
+import { Button, Modal, Form, Input, Radio, Row, Col, Select, Upload, Icon, DatePicker } from 'antd';
 import DropDownButton from './dropdown';
 import './newform.css';
 import { CreateCandidateWithForm } from './../service/homeService'
@@ -142,6 +142,7 @@ const CandidateCreateForm = Form.create()(
                 </Col>
               </Row>
 
+              {/* line2 */}
               <Row gutter={24} style={{ borderBottom: "solid 1px white" }}>
                 <Col span={8} style={{ paddingTop: 8 }}>
                   <FormItem
@@ -202,6 +203,7 @@ const CandidateCreateForm = Form.create()(
                 </Col>
               </Row>
 
+              {/* line3 */}
               <Row gutter={24} style={{ borderBottom: "solid 1px white" }}>
                 <Col span={8} style={{ paddingTop: 8 }}>
                   <FormItem
@@ -238,6 +240,62 @@ const CandidateCreateForm = Form.create()(
                         <Option value="1">asdfasdf</Option>
                         <Option value="2">fddddd</Option>
                       </Select>
+                      )}
+                  </FormItem>
+                </Col>
+                <Col span={8} style={{ paddingTop: 8 }}>
+                  <FormItem
+                    label="面试时间"
+                    labelCol={{ span: 6 }}
+                    wrapperCol={{ span: 18 }}
+                  >
+                    {getFieldDecorator('interviewtime', {
+                      rules: [{ type: 'object', required: true, message: 'Please select time!' }],
+                    })(
+                      <DatePicker showTime format="YYYY-MM-DD HH:mm:ss" />
+                      )}
+                  </FormItem>
+                </Col>
+              </Row>
+
+              {/* line4 */}
+              <Row gutter={24} style={{ borderBottom: "solid 1px white" }}>
+                <Col span={8} style={{ paddingTop: 8 }}>
+                  <FormItem
+                    label="报价"
+                    labelCol={{ span: 6 }}
+                    wrapperCol={{ span: 18 }}
+                  >
+                    {getFieldDecorator('price', {
+                      rules: [{ required: true, message: 'Please select one!' }],
+                    })(
+                      <Input />
+                      )}
+                  </FormItem>
+                </Col>
+                <Col span={8} style={{ paddingTop: 8 }}>
+                  <FormItem
+                    label="GP"
+                    labelCol={{ span: 6 }}
+                    wrapperCol={{ span: 18 }}
+                  >
+                    {getFieldDecorator('gp', {
+                      rules: [{ required: true, message: 'Please select one!' }],
+                    })(
+                      <Input />
+                      )}
+                  </FormItem>
+                </Col>
+                <Col span={8} style={{ paddingTop: 8 }}>
+                  <FormItem
+                    label="入职时间"
+                    labelCol={{ span: 6 }}
+                    wrapperCol={{ span: 18 }}
+                  >
+                    {getFieldDecorator('takeintime', {
+                      rules: [{ type: 'object', required: true, message: 'Please select time!' }],
+                    })(
+                      <DatePicker showTime format="YYYY-MM-DD HH:mm:ss" />
                       )}
                   </FormItem>
                 </Col>
