@@ -1,6 +1,8 @@
 package db
 
 import (
+	"strings"
+	"strconv"
 	"log"
 	. "resume/server/entities"
 	"errors"
@@ -20,6 +22,29 @@ func GetCandidates() ([]Candidate, error) {
 		)
 		if err != nil {
 			log.Printf("scan candidate error %s :", err)
+			break
+		}
+		list = append(list, candidate)
+	}
+	return list, err
+}
+
+func GetCandidatesByRequirements(requirements []Requirement) ([]Candidate, error) {
+	where := []string{}
+	for _, r := range requirements {
+		where = append(where, "requirement=" + strconv.FormatInt(r.Id, 10))
+	}
+	log.Printf("where %v ", strings.Join(where, "||"))
+	rows, err := db.Query("SELECT * FROM candidate WHERE " + strings.Join(where, "||"))
+	defer rows.Close()
+	list := []Candidate{}
+	for rows.Next() {
+		candidate := Candidate{}
+		err = rows.Scan(&candidate.Id, &candidate.Requirement, &candidate.Candidate, &candidate.Hiringmanager, &candidate.Saler, &candidate.Dm, &candidate.Status, 
+			&candidate.Risk, &candidate.Descrpition, &candidate.File, &candidate.Filename, &candidate.Filesize, &candidate.Filetype, &candidate.Createtime, &candidate.Message,
+		)
+		if err != nil {
+			log.Printf("scan where candidate error %s :", err)
 			break
 		}
 		list = append(list, candidate)
