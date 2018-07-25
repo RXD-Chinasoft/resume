@@ -11,24 +11,20 @@ import './home.css'
 const getItems = (count, offset = 0) =>
     Array.from({ length: count }, (v, k) => k).map(k => ({
         id: `item-${k + offset}`,
-        content: `候选人 ${k + offset}`
+        candidate: `候选人 ${k + offset}`
     }));
 
 const getBlanks1 = (count, offset = 0) =>
     Array.from({ length: count }, (v, k) => k).map(k => ({
         id: `blanks1-${k + offset}`,
-        content: `item - ${k + offset}`
+        candidate: `item - ${k + offset}`
     }));
 const getBlanks2 = (count, offset = 0) =>
     Array.from({ length: count }, (v, k) => k).map(k => ({
         id: `blanks2-${k + offset}`,
-        content: `世界杯 ${k + offset}`
+        candidate: `世界杯 ${k + offset}`
     }));
-const getBlanks3 = (count, offset = 0) =>
-    Array.from({ length: count }, (v, k) => k).map(k => ({
-        id: `blanks3-${k + offset}`,
-        content: `世界杯 ${k + offset}`
-    }));
+
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
@@ -83,14 +79,11 @@ const getListStyle = isDraggingOver => ({
 class Home extends Component {
     state = {
         items: getItems(10),
-        // items: this.setState.candiate,
-        selected: getBlanks1(0),
-        blanks: getBlanks2(0),
-        blanks3: getBlanks3(0),
+        selected: [],
+        blanks: [],
+        blanks3: [],
         requirements: [],
-
-        candidate: [],
-        candidate2: [],
+        cadidate: [],
     };
 
     /**
@@ -102,14 +95,15 @@ class Home extends Component {
         droppable: 'items',
         droppable2: 'selected',
         droppable3: 'blanks',
-        droppable4: 'blanks3',
-
-        droppable5: 'candidate',
-        droppable6: 'candidate2'
 
     };
 
     getList = id => this.state[this.id2List[id]];
+
+    getCandidates = (requirement, coloum) => {
+        console.log(requirement, coloum, this.state.candidate)
+        return this.state.candidate[requirement.id][coloum]
+    }
 
     onDragEnd = result => {
         const { source, destination } = result;
@@ -120,7 +114,7 @@ class Home extends Component {
         }
 
         if (source.droppableId === destination.droppableId) {
-            console.log('gggggggggg')
+            console.log('gggggggggg',source.index,destination.index)
             const items = reorder(
                 this.getList(source.droppableId),
                 source.index,
@@ -134,16 +128,6 @@ class Home extends Component {
             }
             if (source.droppableId === 'droppable3') {
                 state = { blanks: items };
-            }
-            if (source.droppableId === 'droppable4') {
-                state = { blanks3: items };
-            }
-            if (source.droppableId === 'droppable5') {
-                console.log('bbbb')
-                state = { candidate: items };
-            }
-            if (source.droppableId === 'droppable6') {
-                state = { candidate2: items };
             }
 
             this.setState(state);
@@ -160,19 +144,57 @@ class Home extends Component {
                 items: result.droppable || this.state.items,
                 selected: result.droppable2 || this.state.selected,
                 blanks: result.droppable3 || this.state.blanks,
-                blanks3: result.droppable4 || this.state.blanks3,
-                candidate: result.droppable5 || this.state.candidate,
-                candidate2: result.droppable6 || this.state.candidate2
-
             });
         }
+    };
+
+    onDragEnd1 = (requirement, coloum, result) => {
+        const { source, destination } = result;
+        console.log('ffff', source, destination, result, requirement, coloum)
+        // dropped outside the list
+        if (!destination) {
+            return;
+        }
+
+        if (source.droppableId === destination.droppableId) {
+            console.log('gggggggggg',source.index,destination.index)
+            const items = reorder(
+                this.getCandidates(requirement, coloum),
+                source.index,
+                destination.index
+            );
+
+            let {candidate} = this.state;
+            console.log('gggggggggg',items,candidate)
+            // state = 
+            candidate[requirement.id][coloum] = items
+
+            this.setState({candidate});
+        } 
+        // else {
+        //     const result = move(
+        //         this.getList(source.droppableId),
+        //         this.getList(destination.droppableId),
+        //         source,
+        //         destination
+        //     );
+        //     console.log(result)
+
+        //     this.setState({
+        //         items: result.droppable || this.state.items,
+        //         selected: result.droppable2 || this.state.selected,
+        //         blanks: result.droppable3 || this.state.blanks,
+        //     });
+        // }
     };
 
     componentDidMount() {
         GetRequirements().then(response => {
             console.log('response ===>', response)
-            this.setState({ requirements: [].concat(response.data.requirements), candidate: response.data.relateCandidates })
-            // this.setState({ candidate: [].concat(response.data) })
+            this.setState({
+                requirements: [].concat(response.data.requirements),
+                candidate: response.data.relateCandidates,
+            })
         })
     }
     componentWillMount() {
@@ -235,40 +257,10 @@ class Home extends Component {
                                             </p>
                                         </div>
                                     </Col>
-                                    <DragDropContext onDragEnd={this.onDragEnd}>
+                                    <DragDropContext onDragEnd={this.onDragEnd1.bind(this, element, 0)}>
                                         <Col className="gutter-row" span={18} style={{ marginTop: '10px' }}>
                                             <Col className="gutter-row" span={3} style={{ borderRight: "solid 1px grey", marginBottom: '1px' }}>
-                                                {/* <div>
-                                                    <Droppable droppableId="droppable5">
-                                                        {(provided, snapshot) => (
-                                                            <div
-                                                                ref={provided.innerRef}
-                                                            >
-                                                                {this.state.candidate[element.id][0].map((item, index) => (
-                                                                    <Draggable
-                                                                        key={item.id}
-                                                                        draggableId={item.id}
-                                                                        index={index}>
-                                                                        {(provided, snapshot) => (
-                                                                            <div
-                                                                                ref={provided.innerRef}
-                                                                                {...provided.draggableProps}
-                                                                                {...provided.dragHandleProps}
-                                                                                className="candidateBox"
-                                                                            >
-                                                                                <p style={{ marginLeft: '10px' }}>
-                                                                                    {item.candidate}
-                                                                                </p>
-                                                                            </div>
-                                                                        )}
-                                                                    </Draggable>
-                                                                ))}
-                                                                {provided.placeholder}
-                                                            </div>
-                                                        )}
-                                                    </Droppable>
-                                                </div> */}
-                                                {
+                                                {/* {
 
                                                     this.state.candidate[element.id] ? this.state.candidate[element.id][0].map((candiate, index) => {
                                                         console.log('this.state.candidate', this.state.candidate)
@@ -287,10 +279,44 @@ class Home extends Component {
 
                                                             </div>
                                                         )
-                                                }
+                                                } */}
+
+                                                {this.state.candidate[element.id] ?
+                                                    <Droppable droppableId={"droppable" + element.id}>
+                                                        {(provided, snapshot) => (
+                                                            <div
+                                                                ref={provided.innerRef}
+                                                                style={getListStyle(snapshot.isDraggingOver)}>
+                                                                {this.state.candidate[element.id][0].map((item, index) => (
+                                                                    <Draggable
+                                                                        key={item.id}
+                                                                        draggableId={item.id}
+                                                                        index={index}>
+                                                                        {(provided, snapshot) => (
+                                                                            <div
+                                                                                ref={provided.innerRef}
+                                                                                {...provided.draggableProps}
+                                                                                {...provided.dragHandleProps}
+                                                                                style={getItemStyle(
+                                                                                    snapshot.isDragging,
+                                                                                    provided.draggableProps.style
+                                                                                )}>
+                                                                                {item.candidate}
+                                                                            </div>
+                                                                        )}
+                                                                    </Draggable>
+                                                                ))}
+                                                                {provided.placeholder}
+                                                            </div>
+                                                        )}
+                                                    </Droppable> : (
+                                                        <div>
+
+                                                        </div>
+                                                    )}
                                             </Col>
                                             <Col className="gutter-row" span={3} style={{ borderRight: "solid 1px grey" }}>
-                                                <Droppable droppableId="droppable">
+                                                {/* <Droppable droppableId="droppable">
                                                     {(provided, snapshot) => (
                                                         <div
                                                             ref={provided.innerRef}
@@ -309,7 +335,7 @@ class Home extends Component {
                                                                                 snapshot.isDragging,
                                                                                 provided.draggableProps.style
                                                                             )}>
-                                                                            {item.content}
+                                                                            {item.candidate}
                                                                         </div>
                                                                     )}
                                                                 </Draggable>
@@ -317,28 +343,10 @@ class Home extends Component {
                                                             {provided.placeholder}
                                                         </div>
                                                     )}
-                                                </Droppable>
-                                                {/* {
-                                                    this.state.candidate[element.id] ? this.state.candidate[element.id][1].map((candiate, index) => {
-                                                        console.log('candiate', candiate)
-                                                        return (
-                                                            <div key={candiate.id} className="candidateBox">
-                                                                <p>
-                                                                    {candiate.candidate}
-                                                                    --
-                                                                    {candiate.createtime}
-                                                                </p>
-                                                            </div>
-                                                        )
-                                                    }) : (
-                                                            <div>
-
-                                                            </div>
-                                                        )
-                                                } */}
+                                                </Droppable> */}
                                             </Col>
                                             <Col className="gutter-row" span={3} style={{ borderRight: "solid 1px grey" }}>
-                                                <Droppable droppableId="droppable2">
+                                                {/* <Droppable droppableId="droppable2">
                                                     {(provided, snapshot) => (
                                                         <div
                                                             ref={provided.innerRef}
@@ -357,7 +365,7 @@ class Home extends Component {
                                                                                 snapshot.isDragging,
                                                                                 provided.draggableProps.style
                                                                             )}>
-                                                                            {item.content}
+                                                                            {item.candidate}
                                                                         </div>
                                                                     )}
                                                                 </Draggable>
@@ -365,28 +373,10 @@ class Home extends Component {
                                                             {provided.placeholder}
                                                         </div>
                                                     )}
-                                                </Droppable>
-                                                {/* {
-                                                    this.state.candidate[element.id] ? this.state.candidate[element.id][2].map((candiate, index) => {
-                                                        console.log('candiate', candiate)
-                                                        return (
-                                                            <div key={candiate.id} className="candidateBox">
-                                                                <p>
-                                                                    {candiate.candidate}
-                                                                    --
-                                                                    {candiate.createtime}
-                                                                </p>
-                                                            </div>
-                                                        )
-                                                    }) : (
-                                                            <div>
-
-                                                            </div>
-                                                        )
-                                                } */}
+                                                </Droppable> */}
                                             </Col>
                                             <Col className="gutter-row" span={3}>
-                                                <Droppable droppableId="droppable3">
+                                                {/* <Droppable droppableId="droppable3">
                                                     {(provided, snapshot) => (
                                                         <div
                                                             ref={provided.innerRef}
@@ -405,7 +395,7 @@ class Home extends Component {
                                                                                 snapshot.isDragging,
                                                                                 provided.draggableProps.style
                                                                             )}>
-                                                                            {item.content}
+                                                                            {item.candidate}
                                                                         </div>
                                                                     )}
                                                                 </Draggable>
@@ -413,105 +403,19 @@ class Home extends Component {
                                                             {provided.placeholder}
                                                         </div>
                                                     )}
-                                                </Droppable>
-                                                {/* {
-                                                    this.state.candidate[element.id] ? this.state.candidate[element.id][3].map((candiate, index) => {
-                                                        console.log('candiate', candiate)
-                                                        return (
-                                                            <div key={candiate.id} className="candidateBox">
-                                                                <p>
-                                                                    {candiate.candidate}
-                                                                    --
-                                                                    {candiate.createtime}
-                                                                </p>
-                                                            </div>
-                                                        )
-                                                    }) : (
-                                                            <div>
-
-                                                            </div>
-                                                        )
-                                                } */}
+                                                </Droppable> */}
                                             </Col>
                                             <Col className="gutter-row" span={3}>
-                                                {/* {
-                                                    this.state.candidate[element.id] ? this.state.candidate[element.id][4].map((candiate, index) => {
-                                                        console.log('candiate', candiate)
-                                                        return (
-                                                            <div key={candiate.id} className="candidateBox">
-                                                                <p>
-                                                                    {candiate.candidate}
-                                                                    --
-                                                                    {candiate.createtime}
-                                                                </p>
-                                                            </div>
-                                                        )
-                                                    }) : (
-                                                            <div>
 
-                                                            </div>
-                                                        )
-                                                } */}
                                             </Col>
                                             <Col className="gutter-row" span={3}>
-                                                {/* {
-                                                    this.state.candidate[element.id] ? this.state.candidate[element.id][5].map((candiate, index) => {
-                                                        console.log('candiate', candiate)
-                                                        return (
-                                                            <div key={candiate.id} className="candidateBox">
-                                                                <p>
-                                                                    {candiate.candidate}
-                                                                    --
-                                                                    {candiate.createtime}
-                                                                </p>
-                                                            </div>
-                                                        )
-                                                    }) : (
-                                                            <div>
 
-                                                            </div>
-                                                        )
-                                                } */}
                                             </Col>
                                             <Col className="gutter-row" span={3}>
-                                                {/* {
-                                                    this.state.candidate[element.id] ? this.state.candidate[element.id][6].map((candiate, index) => {
-                                                        console.log('candiate', candiate)
-                                                        return (
-                                                            <div key={candiate.id} className="candidateBox">
-                                                                <p>
-                                                                    {candiate.candidate}
-                                                                    --
-                                                                    {candiate.createtime}
-                                                                </p>
-                                                            </div>
-                                                        )
-                                                    }) : (
-                                                            <div>
 
-                                                            </div>
-                                                        )
-                                                } */}
                                             </Col>
                                             <Col className="gutter-row" span={3}>
-                                                {/* {
-                                                    this.state.candidate[element.id] ? this.state.candidate[element.id][7].map((candiate, index) => {
-                                                        console.log('candiate', candiate)
-                                                        return (
-                                                            <div key={candiate.id} className="candidateBox">
-                                                                <p>
-                                                                    {candiate.candidate}
-                                                                    --
-                                                                    {candiate.createtime}
-                                                                </p>
-                                                            </div>
-                                                        )
-                                                    }) : (
-                                                            <div>
 
-                                                            </div>
-                                                        )
-                                                } */}
                                             </Col>
                                         </Col>
                                     </DragDropContext>
@@ -521,158 +425,6 @@ class Home extends Component {
                             )
                         })
                     }
-
-                    {/* <Row gutter={16} style={{ marginTop: '10px', width: '100%', textAlign: 'center', }}>
-                        <DragDropContext onDragEnd={this.onDragEnd}>
-                            <Col className="gutter-row" span={3}>
-                                <div className="gutter-box">职位需求(7)</div>
-                            </Col>
-                            <Col className="gutter-row" span={18}>
-                                <Col className="gutter-row" span={3}>
-                                    <div className="gutter-box">简历筛选(7)</div>
-                                    <div style={{ display: 'flex', marginLeft: '5px' }}>
-                                        <Droppable droppableId="droppable">
-                                            {(provided, snapshot) => (
-                                                <div
-                                                    ref={provided.innerRef}
-                                                    style={getListStyle(snapshot.isDraggingOver)}>
-                                                    {this.state.items.map((item, index) => (
-                                                        <Draggable
-                                                            key={item.id}
-                                                            draggableId={item.id}
-                                                            index={index}>
-                                                            {(provided, snapshot) => (
-                                                                <div
-                                                                    ref={provided.innerRef}
-                                                                    {...provided.draggableProps}
-                                                                    {...provided.dragHandleProps}
-                                                                    style={getItemStyle(
-                                                                        snapshot.isDragging,
-                                                                        provided.draggableProps.style
-                                                                    )}>
-                                                                    {item.content}
-                                                                </div>
-                                                            )}
-                                                        </Draggable>
-                                                    ))}
-                                                    {provided.placeholder}
-                                                </div>
-                                            )}
-                                        </Droppable>
-                                    </div>
-                                </Col>
-                                <Col className="gutter-row" span={3}>
-                                    <div className="gutter-box">内部面试(7)</div>
-                                    <Droppable droppableId="droppable2">
-                                        {(provided, snapshot) => (
-                                            <div
-                                                ref={provided.innerRef}
-                                                style={getListStyle(snapshot.isDraggingOver)}>
-                                                {this.state.selected.map((item, index) => (
-                                                    <Draggable
-                                                        key={item.id}
-                                                        draggableId={item.id}
-                                                        index={index}>
-                                                        {(provided, snapshot) => (
-                                                            <div
-                                                                ref={provided.innerRef}
-                                                                {...provided.draggableProps}
-                                                                {...provided.dragHandleProps}
-                                                                style={getItemStyle(
-                                                                    snapshot.isDragging,
-                                                                    provided.draggableProps.style
-                                                                )}>
-                                                                {item.content}
-                                                            </div>
-                                                        )}
-                                                    </Draggable>
-                                                ))}
-                                                {provided.placeholder}
-                                            </div>
-                                        )}
-                                    </Droppable>
-                                </Col>
-                                <Col className="gutter-row" span={3}>
-                                    <div className="gutter-box">内部通过(7)</div>
-                                    <Droppable droppableId="droppable3">
-                                        {(provided, snapshot) => (
-                                            <div
-                                                ref={provided.innerRef}
-                                                style={getListStyle(snapshot.isDraggingOver)}>
-                                                {this.state.blanks.map((item, index) => (
-                                                    <Draggable
-                                                        key={item.id}
-                                                        draggableId={item.id}
-                                                        index={index}>
-                                                        {(provided, snapshot) => (
-                                                            <div
-                                                                ref={provided.innerRef}
-                                                                {...provided.draggableProps}
-                                                                {...provided.dragHandleProps}
-                                                                style={getItemStyle(
-                                                                    snapshot.isDragging,
-                                                                    provided.draggableProps.style
-                                                                )}>
-                                                                {item.content}
-                                                            </div>
-                                                        )}
-                                                    </Draggable>
-                                                ))}
-                                                {provided.placeholder}
-                                            </div>
-                                        )}
-                                    </Droppable>
-
-                                </Col>
-                                <Col className="gutter-row" span={3}>
-                                    <div className="gutter-box">推荐客户(7)</div>
-                                    <Droppable droppableId="droppable4">
-                                        {(provided, snapshot) => (
-                                            <div
-                                                ref={provided.innerRef}
-                                                style={getListStyle(snapshot.isDraggingOver)}>
-                                                {this.state.blanks3.map((item, index) => (
-                                                    <Draggable
-                                                        key={item.id}
-                                                        draggableId={item.id}
-                                                        index={index}>
-                                                        {(provided, snapshot) => (
-                                                            <div
-                                                                ref={provided.innerRef}
-                                                                {...provided.draggableProps}
-                                                                {...provided.dragHandleProps}
-                                                                style={getItemStyle(
-                                                                    snapshot.isDragging,
-                                                                    provided.draggableProps.style
-                                                                )}>
-                                                                {item.content}
-                                                            </div>
-                                                        )}
-                                                    </Draggable>
-                                                ))}
-                                                {provided.placeholder}
-                                            </div>
-                                        )}
-                                    </Droppable>
-                                </Col>
-                                <Col className="gutter-row" span={3}>
-                                    <div className="gutter-box">安排客户(7)</div>
-                                </Col>
-                                <Col className="gutter-row" span={3}>
-                                    <div className="gutter-box">客户面试(7)</div>
-                                </Col>
-                                <Col className="gutter-row" span={3}>
-                                    <div className="gutter-box">客户通过(7)</div>
-                                </Col>
-                                <Col className="gutter-row" span={3}>
-                                    <div className="gutter-box">Offer(7)</div>
-                                </Col>
-                            </Col>
-                            <Col className="gutter-row" span={3}>
-                                <div className="gutter-box">入职(7)</div>
-                            </Col>
-                        </DragDropContext>
-                    </Row> */}
                 </div>
             </div >
         );
