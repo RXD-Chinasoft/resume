@@ -17,7 +17,8 @@ func requirementCandidatesHandleFunc(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, http.StatusText(500), 500)
 		return
 	}
-	candidates, err := db.GetCandidates()
+	// candidates, err := db.GetCandidates()
+	candidates, err := db.GetCandidatesByRequirements(requirements)
 	if err != nil {
 		http.Error(w, http.StatusText(500), 500)
 		return
@@ -37,7 +38,7 @@ func requirementCandidatesHandleFunc(w http.ResponseWriter, r *http.Request) {
 						for _, candidate := range candidates {
 							if int64(i) == candidate.Id {
 								arrC = append(arrC, candidate)
-								log.Printf("append candidate %v result %v \n", int64(i), relateCandidates)
+								log.Printf("append candidate %v result %v \n", int64(i), arrC)
 							}
 						}
 					} else {
