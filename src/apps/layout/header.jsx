@@ -24,9 +24,9 @@ class Header extends React.Component {
             <div style={{ background: '#14539d', padding: 0, minHeight: 50 }}>
 
                 <div style={{ float: 'left', color: 'white', paddingLeft: 10, fontSize: 27 }}>Spectacular</div>
-                <span style={{ float: 'right', marginRight: 15, paddingTop: 10 }}><Icon type="user" style={{ fontSize: 20, color: '#fff' }} /><span style={{ color: 'white' }}>user</span></span>
-                <Popover placement="bottomLeft" content={content} title="Title" trigger="click"><span style={{ float: 'right', marginRight: 15, paddingTop: 10 }}><Badge count={5}><Icon type="mail" style={{ fontSize: 20, color: '#fff' }} /></Badge></span></Popover>
-                <Popover placement="bottomLeft" content={content} title="Title" trigger="click"><span style={{ float: 'right', marginRight: 15, paddingTop: 10 }}><Badge count={5}><Icon type="notification" style={{ fontSize: 20, color: '#fff' }} /></Badge></span></Popover>
+                <Popover placement="bottomLeft" content={content} title="user"><span style={{ float: 'right', marginRight: 15, paddingTop: 10 }}><Icon type="user" style={{ fontSize: 20, color: '#fff' }} /><span style={{ color: 'white' }}>user</span></span></Popover>
+                <Popover placement="bottomLeft" content={content} title="消息" trigger="click"><span style={{ float: 'right', marginRight: 19, paddingTop: 10 }}><Badge count={5}><Icon type="mail" style={{ fontSize: 20, color: '#fff' }} /></Badge></span></Popover>
+                <Popover placement="bottomLeft" content={content} title="通知" trigger="click"><span style={{ float: 'right', marginRight: 19, paddingTop: 10 }}><Badge count={5}><Icon type="notification" style={{ fontSize: 20, color: '#fff' }} /></Badge></span></Popover>
             </div>
         );
     }
