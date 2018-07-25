@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button, Modal, Form, Input, Radio, Row, Col, Select, Cascader, InputNumber } from 'antd';
 import DropDownButton from './dropdown'
 import moment from 'moment';
+import './newform.css'
 
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -41,9 +42,9 @@ const RequirementCreateForm = Form.create()(
           width={"90%"}
         >
           <Form
-            className="ant-advanced-search-form"
+            className="ant-advanced-search-form root"
             onSubmit={this.handleCreate}
-            style={{ background: "#186dd6", paddingTop: 10, marginRight: 18, marginLeft: 18, color: "white" }}
+            // style={{ background: "#186dd6", paddingTop: 10, marginRight: 18, marginLeft: 18, color: "white" }}
           >
             <Row gutter={24} style={{ borderBottom: "solid 1px white" }}>
               <Col className="gutter-row" span={18}>
@@ -108,7 +109,7 @@ const RequirementCreateForm = Form.create()(
                 </Col>
               </Col>
               <Col className="gutter-row" span={6}>
-                <h3 style={{ color: 'white', paddingTop: 12, marginLeft: '20px' }}>{moment(new Date()).format("YYYY-MM-DD")}</h3>
+                <h3 style={{ color: 'black', paddingTop: 12, marginLeft: '20px' }}>{moment(new Date()).format("YYYY-MM-DD")}</h3>
               </Col>
             </Row>
 

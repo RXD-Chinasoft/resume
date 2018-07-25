@@ -152,8 +152,8 @@ class Home extends Component {
     componentDidMount() {
         GetRequirements().then(response => {
             console.log('response ===>', response)
-            this.setState({ requirements: [].concat(response.data) })
-            console.log('requirements', response.data)
+            this.setState({ requirements: [].concat(response.data.requirements), candidate: response.data.relateCandidates })
+            // this.setState({ candidate: [].concat(response.data) })
         })
     }
     componentWillMount() {
@@ -170,7 +170,7 @@ class Home extends Component {
                 <div>
                     <Row gutter={16} style={{ marginTop: '10px', width: '100%', textAlign: 'center', }}>
                         <Col className="gutter-row gutter-row-padding-none" span={3}>
-                            <div className="gutter-box">职位需求(7)</div>
+                            <div className="gutter-box border-tl-radius">职位需求(7)</div>
                         </Col>
                         <Col className="gutter-row gutter-row-padding-none" span={18}>
                             <Col className="gutter-row gutter-row-padding-none" span={3}>
@@ -199,15 +199,15 @@ class Home extends Component {
                             </Col>
                         </Col>
                         <Col className="gutter-row gutter-row-padding-none" span={3}>
-                            <div className="gutter-box">入职(7)</div>
+                            <div className="gutter-box done-gradient border-tr-radius">入职(7)</div>
                         </Col>
                     </Row>
                     {
                         this.state.requirements.map((element, index) => {
-                            console.log('element...', element)
+                            console.log('element', this.state.requirements)
                             return (
                                 <Row key={element.id} gutter={16} style={{ width: '100%' }}>
-                                    <Col span={3} style={{ backgroundColor: '#0B4696' }}>
+                                    <Col span={3} className="backgroundColor">
                                         <div className="itemBox">
                                             <p style={{ color: 'black' }}>
                                                 {element.area}
@@ -215,22 +215,166 @@ class Home extends Component {
                                         </div>
                                     </Col>
                                     <DragDropContext onDragEnd={this.onDragEnd}>
-                                        <Col className="gutter-row" span={18}>
+                                        <Col className="gutter-row" span={18} style={{ marginTop: '10px' }}>
                                             <Col className="gutter-row" span={3}>
+                                                {
+                                                    this.state.candidate[element.id] ? this.state.candidate[element.id][0].map((candiate, index) => {
+                                                        console.log('candiate', candiate)
+                                                        return (
+                                                            <div key={candiate.id} className="candidateBox">
+                                                                <p>
+                                                                    {candiate.candidate}
+                                                                    --
+                                                                    {candiate.createtime}
+                                                                </p>
+                                                            </div>
+                                                        )
+                                                    }) : (
+                                                            <div>
+
+                                                            </div>
+                                                        )
+                                                }
                                             </Col>
                                             <Col className="gutter-row" span={3}>
+                                                {
+                                                    this.state.candidate[element.id] ? this.state.candidate[element.id][1].map((candiate, index) => {
+                                                        console.log('candiate', candiate)
+                                                        return (
+                                                            <div key={candiate.id} className="candidateBox">
+                                                                <p>
+                                                                    {candiate.candidate}
+                                                                    --
+                                                                    {candiate.createtime}
+                                                                </p>
+                                                            </div>
+                                                        )
+                                                    }) : (
+                                                            <div>
+
+                                                            </div>
+                                                        )
+                                                }
                                             </Col>
                                             <Col className="gutter-row" span={3}>
+                                                {
+                                                    this.state.candidate[element.id] ? this.state.candidate[element.id][2].map((candiate, index) => {
+                                                        console.log('candiate', candiate)
+                                                        return (
+                                                            <div key={candiate.id} className="candidateBox">
+                                                                <p>
+                                                                    {candiate.candidate}
+                                                                    --
+                                                                    {candiate.createtime}
+                                                                </p>
+                                                            </div>
+                                                        )
+                                                    }) : (
+                                                            <div>
+
+                                                            </div>
+                                                        )
+                                                }
                                             </Col>
                                             <Col className="gutter-row" span={3}>
+                                                {
+                                                    this.state.candidate[element.id] ? this.state.candidate[element.id][3].map((candiate, index) => {
+                                                        console.log('candiate', candiate)
+                                                        return (
+                                                            <div key={candiate.id} className="candidateBox">
+                                                                <p>
+                                                                    {candiate.candidate}
+                                                                    --
+                                                                    {candiate.createtime}
+                                                                </p>
+                                                            </div>
+                                                        )
+                                                    }) : (
+                                                            <div>
+
+                                                            </div>
+                                                        )
+                                                }
                                             </Col>
                                             <Col className="gutter-row" span={3}>
+                                                {
+                                                    this.state.candidate[element.id] ? this.state.candidate[element.id][4].map((candiate, index) => {
+                                                        console.log('candiate', candiate)
+                                                        return (
+                                                            <div key={candiate.id} className="candidateBox">
+                                                                <p>
+                                                                    {candiate.candidate}
+                                                                    --
+                                                                    {candiate.createtime}
+                                                                </p>
+                                                            </div>
+                                                        )
+                                                    }) : (
+                                                            <div>
+
+                                                            </div>
+                                                        )
+                                                }
                                             </Col>
                                             <Col className="gutter-row" span={3}>
+                                                {
+                                                    this.state.candidate[element.id] ? this.state.candidate[element.id][5].map((candiate, index) => {
+                                                        console.log('candiate', candiate)
+                                                        return (
+                                                            <div key={candiate.id} className="candidateBox">
+                                                                <p>
+                                                                    {candiate.candidate}
+                                                                    --
+                                                                    {candiate.createtime}
+                                                                </p>
+                                                            </div>
+                                                        )
+                                                    }) : (
+                                                            <div>
+
+                                                            </div>
+                                                        )
+                                                }
                                             </Col>
                                             <Col className="gutter-row" span={3}>
+                                                {
+                                                    this.state.candidate[element.id] ? this.state.candidate[element.id][6].map((candiate, index) => {
+                                                        console.log('candiate', candiate)
+                                                        return (
+                                                            <div key={candiate.id} className="candidateBox">
+                                                                <p>
+                                                                    {candiate.candidate}
+                                                                    --
+                                                                    {candiate.createtime}
+                                                                </p>
+                                                            </div>
+                                                        )
+                                                    }) : (
+                                                            <div>
+
+                                                            </div>
+                                                        )
+                                                }
                                             </Col>
                                             <Col className="gutter-row" span={3}>
+                                                {
+                                                    this.state.candidate[element.id] ? this.state.candidate[element.id][7].map((candiate, index) => {
+                                                        console.log('candiate', candiate)
+                                                        return (
+                                                            <div key={candiate.id} className="candidateBox">
+                                                                <p>
+                                                                    {candiate.candidate}
+                                                                    --
+                                                                    {candiate.createtime}
+                                                                </p>
+                                                            </div>
+                                                        )
+                                                    }) : (
+                                                            <div>
+
+                                                            </div>
+                                                        )
+                                                }
                                             </Col>
                                         </Col>
                                     </DragDropContext>

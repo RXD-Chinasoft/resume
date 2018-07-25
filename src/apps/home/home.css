@@ -25,3 +25,19 @@
 .border-tr-radius {
     border-top-right-radius: 11px
 }
+
+.itemBox{
+    width: 134px;
+    height: 80px; 
+    background: white; 
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .candidateBox{
+    width: 134px;
+    height: 80px; 
+    background:rgb(20, 83, 157);
+    /* margin-top: 10px; */
+    margin-bottom: 10px;
+    color: white
+  }
