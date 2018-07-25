@@ -23,3 +23,6 @@
     line-height: 30px;
     font-size: 8px;
 }
+.ant-form label{
+    font-size: 12px;
+}

@@ -75,6 +75,7 @@ const getListStyle = isDraggingOver => ({
     background: isDraggingOver ? 'lightblue' : 'lightgrey',
     padding: grid,
     width: 110,
+    height: 80,
 });
 
 
@@ -82,10 +83,14 @@ const getListStyle = isDraggingOver => ({
 class Home extends Component {
     state = {
         items: getItems(10),
+        // items: this.setState.candiate,
         selected: getBlanks1(0),
         blanks: getBlanks2(0),
         blanks3: getBlanks3(0),
-        requirements: []
+        requirements: [],
+
+        candidate: this.setState.candiate,
+        candidate2: this.setState.candiate,
     };
 
     /**
@@ -98,6 +103,9 @@ class Home extends Component {
         droppable2: 'selected',
         droppable3: 'blanks',
         droppable4: 'blanks3',
+
+        droppable5: 'candidate',
+        droppable6: 'candidate2'
 
     };
 
@@ -112,6 +120,7 @@ class Home extends Component {
         }
 
         if (source.droppableId === destination.droppableId) {
+            console.log('gggggggggg')
             const items = reorder(
                 this.getList(source.droppableId),
                 source.index,
@@ -129,6 +138,13 @@ class Home extends Component {
             if (source.droppableId === 'droppable4') {
                 state = { blanks3: items };
             }
+            if (source.droppableId === 'droppable5') {
+                console.log('bbbb')
+                state = { candidate: items };
+            }
+            if (source.droppableId === 'droppable6') {
+                state = { candidate2: items };
+            }
 
             this.setState(state);
         } else {
@@ -144,7 +160,10 @@ class Home extends Component {
                 items: result.droppable || this.state.items,
                 selected: result.droppable2 || this.state.selected,
                 blanks: result.droppable3 || this.state.blanks,
-                blanks3: result.droppable4 || this.state.blanks3
+                blanks3: result.droppable4 || this.state.blanks3,
+                candidate: result.droppable5 || this.state.candidate,
+                candidate2: result.droppable6 || this.state.candidate2
+
             });
         }
     };
@@ -205,8 +224,9 @@ class Home extends Component {
                     {
                         this.state.requirements.map((element, index) => {
                             console.log('element', this.state.requirements)
+                            console.log('candidate', this.state.candidate)
                             return (
-                                <Row key={element.id} gutter={16} style={{ width: '100%' }}>
+                                <Row key={element.id} gutter={16} style={{ width: '100%', borderBottom: "solid 1px grey" }}>
                                     <Col span={3} className="backgroundColor">
                                         <div className="itemBox">
                                             <p style={{ color: 'black' }}>
@@ -216,9 +236,41 @@ class Home extends Component {
                                     </Col>
                                     <DragDropContext onDragEnd={this.onDragEnd}>
                                         <Col className="gutter-row" span={18} style={{ marginTop: '10px' }}>
-                                            <Col className="gutter-row" span={3}>
+                                            <Col className="gutter-row" span={3} style={{ borderRight: "solid 1px grey", marginBottom: '1px' }}>
+                                                {/* <div>
+                                                    <Droppable droppableId="droppable5">
+                                                        {(provided, snapshot) => (
+                                                            <div
+                                                                ref={provided.innerRef}
+                                                            >
+                                                                {this.state.candidate[element.id][0].map((item, index) => (
+                                                                    <Draggable
+                                                                        key={item.id}
+                                                                        draggableId={item.id}
+                                                                        index={index}>
+                                                                        {(provided, snapshot) => (
+                                                                            <div
+                                                                                ref={provided.innerRef}
+                                                                                {...provided.draggableProps}
+                                                                                {...provided.dragHandleProps}
+                                                                                className="candidateBox"
+                                                                            >
+                                                                                <p style={{ marginLeft: '10px' }}>
+                                                                                    {item.candidate}
+                                                                                </p>
+                                                                            </div>
+                                                                        )}
+                                                                    </Draggable>
+                                                                ))}
+                                                                {provided.placeholder}
+                                                            </div>
+                                                        )}
+                                                    </Droppable>
+                                                </div> */}
                                                 {
+
                                                     this.state.candidate[element.id] ? this.state.candidate[element.id][0].map((candiate, index) => {
+                                                        console.log('this.state.candidate', this.state.candidate)
                                                         console.log('candiate', candiate)
                                                         return (
                                                             <div key={candiate.id} className="candidateBox">
@@ -236,8 +288,38 @@ class Home extends Component {
                                                         )
                                                 }
                                             </Col>
-                                            <Col className="gutter-row" span={3}>
-                                                {
+                                            <Col className="gutter-row" span={3} style={{ borderRight: "solid 1px grey" }}>
+                                                <div>
+                                                    {/* <Droppable droppableId="droppable6">
+                                                        {(provided, snapshot) => (
+                                                            <div
+                                                                ref={provided.innerRef}
+                                                                style={getListStyle(snapshot.isDraggingOver)}>
+                                                                {this.state.candidate2[element.id][1].map((item, index) => (
+                                                                    <Draggable
+                                                                        key={item.id}
+                                                                        draggableId={item.id}
+                                                                        index={index}>
+                                                                        {(provided, snapshot) => (
+                                                                            <div
+                                                                                ref={provided.innerRef}
+                                                                                {...provided.draggableProps}
+                                                                                {...provided.dragHandleProps}
+                                                                                style={getItemStyle(
+                                                                                    snapshot.isDragging,
+                                                                                    provided.draggableProps.style
+                                                                                )}>
+                                                                                {item.candidate}
+                                                                            </div>
+                                                                        )}
+                                                                    </Draggable>
+                                                                ))}
+                                                                {provided.placeholder}
+                                                            </div>
+                                                        )}
+                                                    </Droppable> */}
+                                                </div>
+                                                {/* {
                                                     this.state.candidate[element.id] ? this.state.candidate[element.id][1].map((candiate, index) => {
                                                         console.log('candiate', candiate)
                                                         return (
@@ -254,9 +336,9 @@ class Home extends Component {
 
                                                             </div>
                                                         )
-                                                }
+                                                } */}
                                             </Col>
-                                            <Col className="gutter-row" span={3}>
+                                            <Col className="gutter-row" span={3} style={{ borderRight: "solid 1px grey" }}>
                                                 {
                                                     this.state.candidate[element.id] ? this.state.candidate[element.id][2].map((candiate, index) => {
                                                         console.log('candiate', candiate)

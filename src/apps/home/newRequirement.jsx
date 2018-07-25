@@ -28,8 +28,39 @@ const RequirementCreateForm = Form.create()(
         note: `Hi, ${value === 'male' ? 'man' : 'lady'}!`,
       });
     }
+    state = {
+      value: 1,
+      value1: 1,
+      value2: 1
+    }
+
+    state1 = {
+      value1: 1,
+    }
+
+
+
+    onChange = (e) => {
+      console.log('radio checked', e.target.value);
+      this.setState({
+        value: e.target.value,
+      });
+    }
+
+    onChange1 = (e) => {
+      this.setState({
+        value1: e.target.value,
+      });
+    }
+    onChange2 = (e) => {
+      this.setState({
+        value2: e.target.value,
+      });
+    }
+
 
     render() {
+      const RadioGroup = Radio.Group;
       const { visible, onCancel, onCreate, form } = this.props;
       const { getFieldDecorator } = form;
       return (
@@ -44,7 +75,7 @@ const RequirementCreateForm = Form.create()(
           <Form
             className="ant-advanced-search-form root"
             onSubmit={this.handleCreate}
-            // style={{ background: "#186dd6", paddingTop: 10, marginRight: 18, marginLeft: 18, color: "white" }}
+          // style={{ background: "#186dd6", paddingTop: 10, marginRight: 18, marginLeft: 18, color: "white" }}
           >
             <Row gutter={24} style={{ borderBottom: "solid 1px white" }}>
               <Col className="gutter-row" span={18}>
@@ -352,6 +383,7 @@ const RequirementCreateForm = Form.create()(
                   </FormItem>
                   <FormItem
                     {...formItemLayout}
+                    style={{ width: '100%' }}
                     label="周简历目标"
                   >
                     {getFieldDecorator('resumetarget', {
@@ -396,8 +428,45 @@ const RequirementCreateForm = Form.create()(
               </Col>
 
               <Col span={10} style={{ paddingTop: 8 }}>
-                <div style={{ paddingTop: 15, paddingLeft: 5, paddingRight: 5, paddingBottom: 8, backgroundColor: 'white', width: '90%' }}>
+                <p style={{ float: 'left' }}>
+                  JD
+                 </p>
+                <div style={{ float: 'left', marginLeft: 10, paddingTop: 15, paddingLeft: 5, paddingRight: 5, paddingBottom: 8, backgroundColor: 'white', width: '90%', minHeight: '520px' }}>
+                  <Row gutter={24}>
+                    <Col span={12}>
+                      {'1.英语读写熟练'}
+                    </Col>
+                    <Col span={12}>
+                      <RadioGroup onChange={this.onChange} value={this.state.value}>
+                        <Radio value={1}>硬性指标</Radio>
+                        <Radio value={2}>岗位优势</Radio>
+                      </RadioGroup>
+                    </Col>
+                  </Row>
 
+                  <Row gutter={24} style={{ paddingTop: 10 }}>
+                    <Col span={12}>
+                      {'2.会吹牛逼'}
+                    </Col>
+                    <Col span={12}>
+                      <RadioGroup onChange={this.onChange1} value={this.state.value1}>
+                        <Radio value={1}>硬性指标</Radio>
+                        <Radio value={2}>岗位优势</Radio>
+                      </RadioGroup>
+                    </Col>
+                  </Row>
+
+                  <Row gutter={24} style={{ paddingTop: 10 }}>
+                    <Col span={12}>
+                      {'3.不焦虑'}
+                    </Col>
+                    <Col span={12}>
+                      <RadioGroup onChange={this.onChange2} value={this.state.value2}>
+                        <Radio value={1}>硬性指标</Radio>
+                        <Radio value={2}>岗位优势</Radio>
+                      </RadioGroup>
+                    </Col>
+                  </Row>
                 </div>
               </Col>
             </Row>
