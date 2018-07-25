@@ -34,8 +34,8 @@ func GetCandidatesByRequirements(requirements []Requirement) ([]Candidate, error
 	for _, r := range requirements {
 		where = append(where, "requirement=" + strconv.FormatInt(r.Id, 10))
 	}
-	log.Printf("where %v ", strings.Join(where, "OR"))
-	rows, err := db.Query("SELECT * FROM candidate WHERE " + strings.Join(where, "OR"))
+	log.Printf("where %v ", strings.Join(where, " OR "))
+	rows, err := db.Query("SELECT * FROM candidate WHERE " + strings.Join(where, " OR "))
 	defer rows.Close()
 	list := []Candidate{}
 	for rows.Next() {
