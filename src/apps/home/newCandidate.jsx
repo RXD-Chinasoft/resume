@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Button, Modal, Form, Input, Radio, Row, Col, Select, Upload, Icon, notification, DatePicker } from 'antd';
 import DropDownButton from './dropdown';
 import './newform.css';
@@ -72,7 +73,7 @@ const CandidateCreateForm = Form.create()(
     formDataFromForm = (values) => {
       console.log('Received values of form: ', values);
       let formData = new FormData()
-      formData.append('requirement', 1)
+      formData.append('requirement', this.props.requirement)
       for (const key in values) {
         if (values.hasOwnProperty(key)) {
           const value = values[key];
@@ -393,5 +394,9 @@ const CandidateCreateForm = Form.create()(
     }
   }
 );
+
+CandidateCreateForm.propTypes={
+  requirement: PropTypes.number.isRequired
+}
 
 export default CandidateCreateForm;
