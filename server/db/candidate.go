@@ -68,13 +68,16 @@ func NewCandidate(candidate Candidate) error {
 		return err
 	}
 	var id int64
-	err0 := tx.QueryRow("INSERT INTO candidate (requirement, candidate, hiringmanager, saler, dm, status, risk, descrpition, file, filename, filesize, filetype, createtime, message, interviewtime, price, gp, takeintime) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18) RETURNING id",
+	tx.QueryRow("INSERT INTO candidate (requirement, candidate, hiringmanager, saler, dm, status, risk, descrpition, file, filename, filesize, filetype, createtime, message, interviewtime, price, gp, takeintime) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18) RETURNING id",
 		candidate.Requirement, candidate.Candidate, candidate.Hiringmanager, candidate.Saler, candidate.Dm, candidate.Status, candidate.Risk, candidate.Descrpition, candidate.File, candidate.Filename, candidate.Filesize, candidate.Filetype, candidate.Createtime, 
 		candidate.Message, candidate.InterviewTime, candidate.Price, candidate.Gp, candidate.TakeinTime).Scan(&id)
 	log.Printf("LastInsertId %d", id)
+	if id <= 0 {
+		return errors.New("insert candidate failure")
+	}
 	err1 := AppendRequirementMatrix(tx, requirement, id)
 	err2 := tx.Commit()
-	hasErr := err0 != nil || err1 != nil || err2 != nil
+	hasErr := err1 != nil || err2 != nil
 	if hasErr {
 		log.Println("insert error , roll back")
 		err = tx.Rollback()
