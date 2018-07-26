@@ -119,7 +119,7 @@ class ToolBar extends Component {
     render() {
         return (
             <div style={{ padding: '10px' }}>
-                <Button type="primary" onClick={this.showRqModal}>创建职位</Button>
+                {/* <Button type="primary" onClick={this.showRqModal}>创建职位</Button> */}
                 {/* <Button style={{ marginLeft: '10px' }} type="primary" onClick={this.showCdModal}>创建候选人</Button> */}
                 <RequirementCreateForm
                     // wrappedComponentRef={this.saveRqFormRef}

@@ -6,7 +6,8 @@ import ToolBar from './toolbar'
 import { Row, Col } from 'antd';
 import { GetRequirements } from './../service/homeService';
 import './home.css';
-import CandidateCreateForm from './newCandidate'
+import CandidateCreateForm from './newCandidate';
+import RequirementCreateForm from './newRequirement';
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
@@ -60,13 +61,13 @@ const getCandidateStyle = (isDragging, draggableStyle) => ({
     paddingTop: 5,
     paddingLeft: 5,
     paddingRight: 5,
-    
+
     // styles we need to apply on draggables
     ...draggableStyle
 });
 
 const getListStyle = isDraggingOver => ({
-    background: isDraggingOver ? 'lightblue' : 'white',
+    background: isDraggingOver ? '#93dbe6' : 'white',
     padding: grid,
     width: '100%',
     minHeight: 110,
@@ -157,7 +158,12 @@ class Home extends Component {
                 <div>
                     <Row gutter={16} style={{ width: '100%', textAlign: 'center', }}>
                         <Col className="gutter-row gutter-row-padding-none" span={3}>
-                            <div className="gutter-box border-tl-radius main-title">职位需求(7)</div>
+                            <div className="gutter-box border-tl-radius main-title">职位需求(7)
+                            <span style={{ float: 'right', marginRight: 10 }}>
+                                    <RequirementCreateForm
+                                    />
+                                </span>
+                            </div>
                         </Col>
                         <Col className="gutter-row gutter-row-padding-none" span={18}>
                             <Col className="gutter-row gutter-row-padding-none" span={3}>
@@ -276,9 +282,9 @@ class Home extends Component {
                                                                                                     provided.draggableProps.style
                                                                                                 )}
                                                                                                 className="candidateBox">
-                                                                                                <Row style={{ borderBottom: '1px solid white', paddingBottom:10 }}>
+                                                                                                <Row style={{ borderBottom: '1px solid white', paddingBottom: 10 }}>
                                                                                                     <div>
-                                                                                                        <Badge status="success"  />
+                                                                                                        <Badge status="success" />
                                                                                                         <label style={{ textAlign: 'center', fontSize: 12 }}>候选人A</label>
                                                                                                         <label style={{ float: 'right', color: 'white', fontSize: 12 }}> 6/2</label>
                                                                                                     </div>
@@ -286,14 +292,14 @@ class Home extends Component {
                                                                                                 <Row style={{ marginTop: 11 }}>
                                                                                                     <div>
                                                                                                         <Icon type="search" style={{ color: 'white' }} />
-                                                                                                        <label style={{ textAlign: 'center', fontSize: 12, paddingLeft:5 }}>陈某</label>
+                                                                                                        <label style={{ textAlign: 'center', fontSize: 12, paddingLeft: 5 }}>陈某</label>
                                                                                                         <label style={{ float: 'right', color: 'white', fontSize: 12 }}> 6/2</label>
                                                                                                     </div>
                                                                                                 </Row>
                                                                                                 <Row>
                                                                                                     <div>
                                                                                                         <Icon type="man" style={{ color: 'white' }} />
-                                                                                                        <label style={{ textAlign: 'center', fontSize: 12, paddingLeft:5 }}>李某</label>
+                                                                                                        <label style={{ textAlign: 'center', fontSize: 12, paddingLeft: 5 }}>李某</label>
                                                                                                     </div>
                                                                                                 </Row>
                                                                                                 <Row>
