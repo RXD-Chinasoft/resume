@@ -36,7 +36,7 @@ const CandidateCreateForm = Form.create()(
             message.info('创建成功');
           }).catch(e => {
             this.setState({ loading: false, visible: false, });
-            message.info('创建失败，请联系管理员');
+            message.warning('创建失败，请联系管理员');
           });
         }
       });
