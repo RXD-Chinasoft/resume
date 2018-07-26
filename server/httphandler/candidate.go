@@ -95,6 +95,10 @@ func createCandidateWithFormHandleFunc(w http.ResponseWriter, r *http.Request) {
 	candidate.Filetype = ""
 	candidate.Createtime = ""
 	candidate.Message = r.FormValue("msg")
+	candidate.InterviewTime = r.FormValue("interviewtime")
+	candidate.Price = r.FormValue("price")
+	candidate.Gp = r.FormValue("gp")
+	candidate.TakeinTime = r.FormValue("takeintime")
 	err := db.NewCandidate(candidate)
 	if err != nil {
 		http.Error(w, err.Error(), 500)

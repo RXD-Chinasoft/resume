@@ -87,7 +87,7 @@ const RequirementCreateForm = Form.create()(
         interviewaddr: formData.interviewaddr,//面试地址
         projectaddr: formData.projectaddr,//项目地址
         createtime: "20180725",
-        descrpition: [],
+        descrpition: '',
         matrix: ['', '', '', '', '', '', '', ''],
         clientrequirment: "123",
         department: Number(formData.department)//所属部门

@@ -19,6 +19,7 @@ func GetCandidates() ([]Candidate, error) {
 		candidate := Candidate{}
 		err = rows.Scan(&candidate.Id, &candidate.Requirement, &candidate.Candidate, &candidate.Hiringmanager, &candidate.Saler, &candidate.Dm, &candidate.Status, 
 			&candidate.Risk, &candidate.Descrpition, &candidate.File, &candidate.Filename, &candidate.Filesize, &candidate.Filetype, &candidate.Createtime, &candidate.Message,
+			&candidate.InterviewTime, &candidate.Price, &candidate.Gp, &candidate.TakeinTime,
 		)
 		if err != nil {
 			log.Printf("scan candidate error %s :", err)
@@ -30,6 +31,9 @@ func GetCandidates() ([]Candidate, error) {
 }
 
 func GetCandidatesByRequirements(requirements []Requirement) ([]Candidate, error) {
+	if len(requirements) == 0 {
+		return []Candidate{}, nil
+	}
 	where := []string{}
 	for _, r := range requirements {
 		where = append(where, "requirement=" + strconv.FormatInt(r.Id, 10))
@@ -42,6 +46,7 @@ func GetCandidatesByRequirements(requirements []Requirement) ([]Candidate, error
 		candidate := Candidate{}
 		err = rows.Scan(&candidate.Id, &candidate.Requirement, &candidate.Candidate, &candidate.Hiringmanager, &candidate.Saler, &candidate.Dm, &candidate.Status, 
 			&candidate.Risk, &candidate.Descrpition, &candidate.File, &candidate.Filename, &candidate.Filesize, &candidate.Filetype, &candidate.Createtime, &candidate.Message,
+			&candidate.InterviewTime, &candidate.Price, &candidate.Gp, &candidate.TakeinTime,
 		)
 		if err != nil {
 			log.Printf("scan where candidate error %s :", err)
@@ -63,8 +68,9 @@ func NewCandidate(candidate Candidate) error {
 		return err
 	}
 	var id int64
-	err0 := tx.QueryRow("INSERT INTO candidate (requirement, candidate, hiringmanager, saler, dm, status, risk, descrpition, file, filename, filesize, filetype, createtime, message) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) RETURNING id",
-		candidate.Requirement, candidate.Candidate, candidate.Hiringmanager, candidate.Saler, candidate.Dm, candidate.Status, candidate.Risk, candidate.Descrpition, candidate.File, candidate.Filename, candidate.Filesize, candidate.Filetype, candidate.Createtime, candidate.Message).Scan(&id)
+	err0 := tx.QueryRow("INSERT INTO candidate (requirement, candidate, hiringmanager, saler, dm, status, risk, descrpition, file, filename, filesize, filetype, createtime, message, interviewtime, price, gp, takeintime) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18) RETURNING id",
+		candidate.Requirement, candidate.Candidate, candidate.Hiringmanager, candidate.Saler, candidate.Dm, candidate.Status, candidate.Risk, candidate.Descrpition, candidate.File, candidate.Filename, candidate.Filesize, candidate.Filetype, candidate.Createtime, 
+		candidate.Message, candidate.InterviewTime, candidate.Price, candidate.Gp, candidate.TakeinTime).Scan(&id)
 	log.Printf("LastInsertId %d", id)
 	err1 := AppendRequirementMatrix(tx, requirement, id)
 	err2 := tx.Commit()
@@ -80,11 +86,11 @@ func NewCandidate(candidate Candidate) error {
 func UpdateCandidate(candidate Candidate) (err error) {
 	log.Printf("update %v", candidate)
 	if candidate.File != "" {
-		_, err = db.Exec("UPDATE candidate SET requirement=$1, candidate=$2, hiringmanager=$3, saler=$4, dm=$5, status=$6, risk=$7, descrpition=$8, file=$9, filename=$10, filesize=$11, filetype=$12, createtime=$13, message=$14 WHERE id=$15", 
-			candidate.Requirement, candidate.Candidate, candidate.Hiringmanager, candidate.Saler, candidate.Dm, candidate.Status, candidate.Risk, candidate.Descrpition, candidate.File, candidate.Filename, candidate.Filesize, candidate.Filetype, candidate.Createtime, candidate.Message, candidate.Id)
+		_, err = db.Exec("UPDATE candidate SET requirement=$1, candidate=$2, hiringmanager=$3, saler=$4, dm=$5, status=$6, risk=$7, descrpition=$8, file=$9, filename=$10, filesize=$11, filetype=$12, createtime=$13, message=$14, interviewtime=$15, price=$16, gp=$17, takeintime=$18 WHERE id=$19", 
+			candidate.Requirement, candidate.Candidate, candidate.Hiringmanager, candidate.Saler, candidate.Dm, candidate.Status, candidate.Risk, candidate.Descrpition, candidate.File, candidate.Filename, candidate.Filesize, candidate.Filetype, candidate.Createtime, candidate.Message, candidate.InterviewTime, candidate.Price, candidate.Gp, candidate.TakeinTime, candidate.Id)
 	} else {
-		_, err = db.Exec("UPDATE candidate SET requirement=$1, candidate=$2, hiringmanager=$3, saler=$4, dm=$5, status=$6, risk=$7, descrpition=$8, filename=$9, filesize=$10, filetype=$11, createtime=$12, message=$13 WHERE id=$14", 
-			candidate.Requirement, candidate.Candidate, candidate.Hiringmanager, candidate.Saler, candidate.Dm, candidate.Status, candidate.Risk, candidate.Descrpition, candidate.Filename, candidate.Filesize, candidate.Filetype, candidate.Createtime, candidate.Message, candidate.Id)
+		_, err = db.Exec("UPDATE candidate SET requirement=$1, candidate=$2, hiringmanager=$3, saler=$4, dm=$5, status=$6, risk=$7, descrpition=$8, filename=$9, filesize=$10, filetype=$11, createtime=$12, message=$13, interviewtime=$14, price=$15, gp=$16, takeintime=$17 WHERE id=$18", 
+			candidate.Requirement, candidate.Candidate, candidate.Hiringmanager, candidate.Saler, candidate.Dm, candidate.Status, candidate.Risk, candidate.Descrpition, candidate.Filename, candidate.Filesize, candidate.Filetype, candidate.Createtime, candidate.Message, candidate.InterviewTime, candidate.Price, candidate.Gp, candidate.TakeinTime, candidate.Id)
 	}
 	if err != nil {
 		log.Printf("update error %s", err)

@@ -35,7 +35,7 @@ type Requirement struct {
     Interviewaddr string `json:"interviewaddr" db:"interviewaddr"`
     Projectaddr string `json:"projectaddr" db:"projectaddr"`
     Createtime string `json:"createtime" db:"createtime"`
-    Descrpition []string `json:"descrpition" db:"descrpition"`
+    Descrpition string `json:"descrpition" db:"descrpition"`
     Matrix []string `json:"matrix" db:"matrix"`
     Clientrequirment string `json:"clientrequirment" db:"clientrequirment"`
     Department int64 `json:"department" db:"department"`
@@ -57,4 +57,8 @@ type Candidate struct {
     Filetype string `json:"filetype" db:"filetype"`
     Createtime string `json:"createtime" db:"createtime"`
     Message string `json:"message" db:"message"`
+    InterviewTime string `json:"interviewtime" db:"interviewtime"`
+    Price string `json:"price" db:"price"`
+    Gp string `json:"gp" db:"gp"`
+    TakeinTime string `json:"takeintime" db:"takeintime"`
 }

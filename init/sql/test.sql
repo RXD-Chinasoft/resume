@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS requirement (
     interviewaddr character varying(200),
     projectaddr character varying(200),
     createtime character varying(50),
-    descrpition text[],
+    descrpition text,
     matrix text[],
     clientrequirment character varying(100),
     department integer
@@ -44,7 +44,11 @@ CREATE TABLE IF NOT EXISTS candidate (
     filesize integer,
     filetype character varying(100),
     createtime character varying(50),
-    message character varying(500)
+    message character varying(500),
+    interviewtime character varying(100),
+    price character varying(100),
+    gp character varying(100),
+    takeintime character varying(100)
 ) WITH(OIDS=FALSE);
 
 CREATE TABLE IF NOT EXISTS dictionary (
