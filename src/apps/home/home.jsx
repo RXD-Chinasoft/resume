@@ -204,7 +204,7 @@ class Home extends Component {
                                                 <div>
                                                     <Icon type="calendar" />
                                                     <label style={{ textAlign: 'center' }}> {element.createtime}</label>
-                                                    <Button type="primary" shape="circle" icon="edit" size={'small'} style={{ float: 'right' }} onClick={this.showDetail} />
+                                                    <Button type="primary" shape="circle" icon="form" size={'small'} style={{ float: 'right' }} onClick={this.showDetail} />
                                                 </div>
                                             </Row>
                                         </div>
