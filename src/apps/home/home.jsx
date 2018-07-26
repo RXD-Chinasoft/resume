@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { Button } from 'antd';
+import { Button, Badge, Icon } from 'antd';
 import ToolBar from './toolbar'
 import { Row, Col } from 'antd';
 import { GetRequirements } from './../service/homeService';
@@ -179,16 +179,38 @@ class Home extends Component {
                             console.log('candidate', this.state.candidate)
                             console.log('elementid', element.id)
                             return (
-                                <Row key={element.id} gutter={16} style={{ width: '100%', borderBottom: "solid 1px #e6e5e5", display:'flex' }}>
+                                <Row key={element.id} gutter={16} style={{ width: '100%', borderBottom: "solid 1px #e6e5e5", display: 'flex' }}>
                                     <Col span={3} className="backgroundColor">
                                         <div className="itemBox">
-                                            <p style={{ color: 'black' }}>
-                                                {element.area}
-                                            </p>
+                                            <Row>
+                                                <div style={{ float: 'right' }}>
+                                                    <Badge status="error" />
+                                                </div>
+                                            </Row>
+                                            <Row>
+                                                <div>
+                                                    <Icon type="environment" />
+                                                    <label style={{ textAlign: 'center' }}> {element.area}</label>
+                                                </div>
+                                            </Row>
+                                            <Row>
+                                                <div>
+                                                    <Icon type="user" />
+                                                    <label style={{ textAlign: 'center' }}> {element.client}</label>
+                                                    <label style={{ float: 'right', color: 'red', fontSize: '1rem' }}> {element.count}</label>
+                                                </div>
+                                            </Row>
+                                            <Row>
+                                                <div>
+                                                    <Icon type="calendar" />
+                                                    <label style={{ textAlign: 'center' }}> {element.createtime}</label>
+                                                    <Button type="primary" shape="circle" icon="edit" size={'small'} style={{ float: 'right' }} onClick={this.showDetail} />
+                                                </div>
+                                            </Row>
                                         </div>
                                     </Col>
                                     <DragDropContext onDragEnd={this.onDragEnd1.bind(this, element)}>
-                                        <Col className="gutter-row" span={18} style={{display:'flex'}}>
+                                        <Col className="gutter-row" span={18} style={{ display: 'flex' }}>
                                             {
                                                 this.state.candidate[element.id] ?
                                                     this.state.candidate[element.id].map((cand, i) => {
