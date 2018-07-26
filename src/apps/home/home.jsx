@@ -179,7 +179,7 @@ class Home extends Component {
                             console.log('candidate', this.state.candidate)
                             console.log('elementid', element.id)
                             return (
-                                <Row key={element.id} gutter={16} style={{ width: '100%', borderBottom: "solid 1px #e6e5e5", display:'-webkit-box' }}>
+                                <Row key={element.id} gutter={16} style={{ width: '100%', borderBottom: "solid 1px #e6e5e5", display:'flex' }}>
                                     <Col span={3} className="backgroundColor">
                                         <div className="itemBox">
                                             <p style={{ color: 'black' }}>
@@ -188,7 +188,7 @@ class Home extends Component {
                                         </div>
                                     </Col>
                                     <DragDropContext onDragEnd={this.onDragEnd1.bind(this, element)}>
-                                        <Col className="gutter-row" span={18} style={{display:'-webkit-box'}}>
+                                        <Col className="gutter-row" span={18} style={{display:'flex'}}>
                                             {
                                                 this.state.candidate[element.id] ?
                                                     this.state.candidate[element.id].map((cand, i) => {

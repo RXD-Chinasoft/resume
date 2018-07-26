@@ -28,7 +28,7 @@
 
 .itemBox{
     width: 100%;
-    height: 80px; 
+    min-height: 80px; 
     background: white; 
     margin-top: 10px;
   }
