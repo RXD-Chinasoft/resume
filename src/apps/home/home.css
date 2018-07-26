@@ -31,6 +31,9 @@
     min-height: 80px; 
     background: white; 
     margin-top: 10px;
+    padding-bottom: 10px;
+    padding-left:5px;
+    padding-right: 5px;
   }
   .candidateBox{
     width: 110px;

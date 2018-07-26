@@ -5,7 +5,8 @@ import { Button, Badge, Icon } from 'antd';
 import ToolBar from './toolbar'
 import { Row, Col } from 'antd';
 import { GetRequirements } from './../service/homeService';
-import './home.css'
+import './home.css';
+import CandidateCreateForm from './newCandidate'
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
@@ -180,31 +181,44 @@ class Home extends Component {
                             console.log('elementid', element.id)
                             return (
                                 <Row key={element.id} gutter={16} style={{ width: '100%', borderBottom: "solid 1px #e6e5e5", display: 'flex' }}>
+
                                     <Col span={3} className="backgroundColor">
                                         <div className="itemBox">
                                             <Row>
-                                                <div style={{ float: 'right' }}>
+                                                <div style={{ float: 'right', marginRight: -5 }}>
                                                     <Badge status="error" />
                                                 </div>
                                             </Row>
                                             <Row>
                                                 <div>
-                                                    <Icon type="environment" />
+                                                    <Icon type="environment" style={{ color: '#347cb7' }} />
                                                     <label style={{ textAlign: 'center' }}> {element.area}</label>
                                                 </div>
                                             </Row>
                                             <Row>
                                                 <div>
-                                                    <Icon type="user" />
+                                                    <Icon type="user" style={{ color: '#347cb7' }} />
                                                     <label style={{ textAlign: 'center' }}> {element.client}</label>
                                                     <label style={{ float: 'right', color: 'red', fontSize: '1rem' }}> {element.count}</label>
                                                 </div>
                                             </Row>
                                             <Row>
                                                 <div>
-                                                    <Icon type="calendar" />
+                                                    <Icon type="calendar" style={{ color: '#347cb7' }} />
                                                     <label style={{ textAlign: 'center' }}> {element.createtime}</label>
-                                                    <Button type="primary" shape="circle" icon="form" size={'small'} style={{ float: 'right' }} onClick={this.showDetail} />
+                                                </div>
+                                            </Row>
+                                            <Row>
+                                                <div>
+                                                    <span style={{ float: 'right' }}>
+                                                        <CandidateCreateForm
+                                                            requirement={element.id}
+                                                        />
+                                                    </span>
+                                                    <span style={{ float: 'right', marginRight: 10 }}>
+                                                        <Icon type="form" style={{ color: '#347cb7' }} onClick={this.showDetail} />
+                                                    </span>
+
                                                 </div>
                                             </Row>
                                         </div>
@@ -215,7 +229,7 @@ class Home extends Component {
                                                 this.state.candidate[element.id] ?
                                                     this.state.candidate[element.id].map((cand, i) => {
                                                         return (
-                                                            <Col className="gutter-row" span={3} style={{ borderRight: "solid 1px #e6e5e5", paddingTop: 10 }}>
+                                                            <Col key={i} className="gutter-row" span={3} style={{ borderRight: "solid 1px #e6e5e5", paddingTop: 10 }}>
 
                                                                 {this.state.candidate[element.id] ?
                                                                     <Droppable droppableId={DROPPABLE_KEY + element.id + DROPPABLE_SEPERATOR + i}>

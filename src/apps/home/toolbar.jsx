@@ -127,13 +127,13 @@ class ToolBar extends Component {
                     // onCancel={this.handleRqCancel}
                     // onCreate={this.handleRqCreate}
                 />
-                <CandidateCreateForm
-                    // wrappedComponentRef={this.saveCdFormRef}
-                    // visible={this.state.cdVisible}
-                    // onCancel={this.handleCdCancel}
-                    // onCreate={this.handleCdCreate}
+                {/* <CandidateCreateForm
+                    wrappedComponentRef={this.saveCdFormRef}
+                    visible={this.state.cdVisible}
+                    onCancel={this.handleCdCancel}
+                    onCreate={this.handleCdCreate}
                     requirement={1}
-                />
+                /> */}
             </div>
         )
     }

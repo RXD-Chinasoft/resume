@@ -109,7 +109,8 @@ const CandidateCreateForm = Form.create()(
           {/* <Button type="primary" onClick={this.showModal}>
             Open
           </Button> */}
-          <Button type="primary" shape="circle" icon="user-add" size={'small'} onClick={this.showModal} />
+          {/* <Button type="primary" shape="circle" icon="user-add" size={'small'} onClick={this.showModal} /> */}
+          <Icon type="user-add" style={{ color: '#347cb7' }} onClick={this.showModal} />
           <Modal
             visible={visible}
             // okText="Create"
