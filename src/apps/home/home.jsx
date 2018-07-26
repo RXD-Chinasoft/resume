@@ -141,7 +141,7 @@ class Home extends Component {
                 <div>
                     <Row gutter={16} style={{ width: '100%', textAlign: 'center', }}>
                         <Col className="gutter-row gutter-row-padding-none" span={3}>
-                            <div className="gutter-box border-tl-radius">职位需求(7)</div>
+                            <div className="gutter-box border-tl-radius main-title">职位需求(7)</div>
                         </Col>
                         <Col className="gutter-row gutter-row-padding-none" span={18}>
                             <Col className="gutter-row gutter-row-padding-none" span={3}>
@@ -179,7 +179,7 @@ class Home extends Component {
                             console.log('candidate', this.state.candidate)
                             console.log('elementid', element.id)
                             return (
-                                <Row key={element.id} gutter={16} style={{ width: '100%', borderBottom: "solid 1px grey" }}>
+                                <Row key={element.id} gutter={16} style={{ width: '100%', borderBottom: "solid 1px #e6e5e5", display:'-webkit-box' }}>
                                     <Col span={3} className="backgroundColor">
                                         <div className="itemBox">
                                             <p style={{ color: 'black' }}>
@@ -188,12 +188,12 @@ class Home extends Component {
                                         </div>
                                     </Col>
                                     <DragDropContext onDragEnd={this.onDragEnd1.bind(this, element)}>
-                                        <Col className="gutter-row" span={18}>
+                                        <Col className="gutter-row" span={18} style={{display:'-webkit-box'}}>
                                             {
                                                 this.state.candidate[element.id] ?
                                                     this.state.candidate[element.id].map((cand, i) => {
                                                         return (
-                                                            <Col className="gutter-row" span={3} style={{ borderRight: "solid 1px grey", paddingTop: 10 }}>
+                                                            <Col className="gutter-row" span={3} style={{ borderRight: "solid 1px #e6e5e5", paddingTop: 10 }}>
 
                                                                 {this.state.candidate[element.id] ?
                                                                     <Droppable droppableId={DROPPABLE_KEY + element.id + DROPPABLE_SEPERATOR + i}>
@@ -233,63 +233,9 @@ class Home extends Component {
                                                     })
                                                     : (<div></div>)
                                             }
-
-                                            {/* <Col className="gutter-row" span={3} style={{ borderRight: "solid 1px grey" }}>
-                                                {this.state.candidate[element.id] ?
-                                                    <Droppable droppableId={DROPPABLE_KEY + element.id + DROPPABLE_SEPERATOR + 1}>
-                                                        {(provided, snapshot) => (
-                                                            <div
-                                                                ref={provided.innerRef}
-                                                                style={getListStyle(snapshot.isDraggingOver)}>
-                                                                {this.state.candidate[element.id][1].map((item, index) => (
-                                                                    <Draggable
-                                                                        key={item.id}
-                                                                        draggableId={item.id}
-                                                                        index={index}>
-                                                                        {(provided, snapshot) => (
-                                                                            <div
-                                                                                ref={provided.innerRef}
-                                                                                {...provided.draggableProps}
-                                                                                {...provided.dragHandleProps}
-                                                                                style={getItemStyle(
-                                                                                    snapshot.isDragging,
-                                                                                    provided.draggableProps.style
-                                                                                )}>
-                                                                                {item.candidate}
-                                                                            </div>
-                                                                        )}
-                                                                    </Draggable>
-                                                                ))}
-                                                                {provided.placeholder}
-                                                            </div>
-                                                        )}
-                                                    </Droppable> : (
-                                                        <div>
-
-                                                        </div>
-                                                    )}
-                                            </Col>
-                                            <Col className="gutter-row" span={3} style={{ borderRight: "solid 1px grey" }}>
-
-                                            </Col>
-                                            <Col className="gutter-row" span={3}>
-
-                                            </Col>
-                                            <Col className="gutter-row" span={3}>
-
-                                            </Col>
-                                            <Col className="gutter-row" span={3}>
-
-                                            </Col>
-                                            <Col className="gutter-row" span={3}>
-
-                                            </Col>
-                                            <Col className="gutter-row" span={3}>
-
-                                            </Col> */}
                                         </Col>
                                     </DragDropContext>
-                                    <Col className="gutter-row" span={3}>
+                                    <Col className="gutter-row done-gradient" span={3}>
                                     </Col>
                                 </Row>
                             )

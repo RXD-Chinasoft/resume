@@ -4,18 +4,18 @@
 }
 
 .flow-title {
-    background: #2e8baf !important;
+    background: #46a4c6 !important;
 }
 
 .done-gradient {
-    background: -webkit-linear-gradient(right, rgba(59,218,218,0.28),rgba(20,190,210,1)); /** Chrome Safari **/
-    background: -moz-linear-gradient(right, #1c909c, #4fd6d6); /** FireFox **/
-    background: -o-linear-gradient(right, #1c909c, #4fd6d6);  /** Opear **/
-    background: -ms-linear-gradient(#1c909c 0%,#4fd6d6 100%);  /** IE9 IE10 **/
+    background: -webkit-linear-gradient(right, #6ce5f8,#4dc6d9); /** Chrome Safari **/
+    background: -moz-linear-gradient(right, #4dc6d9, #6ce5f8); /** FireFox **/
+    background: -o-linear-gradient(right, #4dc6d9, #6ce5f8);  /** Opear **/
+    background: -ms-linear-gradient(#4dc6d9 0%,#6ce5f8 100%);  /** IE9 IE10 **/
 }
 
 .main-title {
-    background: #1965bd !important;
+    background: #347cb7 !important;
 }
 
 .border-tl-radius {
@@ -27,12 +27,10 @@
 }
 
 .itemBox{
-    width: 110px;
+    width: 100%;
     height: 80px; 
     background: white; 
     margin-top: 10px;
-    margin-bottom: 10px;
-    margin-left: 10px;
   }
   .candidateBox{
     width: 110px;
