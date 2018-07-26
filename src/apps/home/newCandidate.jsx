@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Modal, Form, Input, Radio, Row, Col, Select, Upload, Icon, message, DatePicker } from 'antd';
+import { Button, Modal, Form, Input, Radio, Row, Col, Select, Upload, Icon, notification, DatePicker } from 'antd';
 import DropDownButton from './dropdown';
 import './newform.css';
 import { CreateCandidateWithForm } from './../service/homeService'
@@ -8,7 +8,12 @@ const FormItem = Form.Item;
 const Option = Select.Option;
 const { TextArea } = Input;
 const Search = Input.Search;
-
+const openNotificationWithIcon = (type, title, message) => {
+  notification[type]({
+    message: title,
+    description: message,
+  });
+};
 const CandidateCreateForm = Form.create()(
   class extends React.Component {
 
@@ -33,10 +38,12 @@ const CandidateCreateForm = Form.create()(
         if (!err) {
           CreateCandidateWithForm(this.formDataFromForm(values)).then(res => {
             this.setState({ loading: false, visible: false, });
-            message.info('创建成功');
+            openNotificationWithIcon('success', 'Notification', '创建成功')
+            this.props.form.resetFields();
           }).catch(e => {
             this.setState({ loading: false, visible: false, });
-            message.warning('创建失败，请联系管理员');
+            openNotificationWithIcon('warning', 'Notification', '创建失败，请联系管理员')
+            this.props.form.resetFields();
           });
         }
       });
