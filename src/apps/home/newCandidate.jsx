@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Modal, Form, Input, Radio, Row, Col, Select, Upload, Icon, DatePicker } from 'antd';
+import { Button, Modal, Form, Input, Radio, Row, Col, Select, Upload, Icon, message, DatePicker } from 'antd';
 import DropDownButton from './dropdown';
 import './newform.css';
 import { CreateCandidateWithForm } from './../service/homeService'
@@ -31,7 +31,13 @@ const CandidateCreateForm = Form.create()(
       e.preventDefault();
       this.props.form.validateFields((err, values) => {
         if (!err) {
-          CreateCandidateWithForm(this.formDataFromForm(values));
+          CreateCandidateWithForm(this.formDataFromForm(values)).then(res => {
+            this.setState({ loading: false, visible: false, });
+            message.info('创建成功');
+          }).catch(e => {
+            this.setState({ loading: false, visible: false, });
+            message.info('创建失败，请联系管理员');
+          });
         }
       });
     }
