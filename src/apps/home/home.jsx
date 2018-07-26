@@ -44,8 +44,23 @@ const getItemStyle = (isDragging, draggableStyle) => ({
 
     // change background colour if dragging
     background: isDragging ? 'lightgreen' : 'grey',
-    height: 80,
+    height: 115,
 
+    // styles we need to apply on draggables
+    ...draggableStyle
+});
+
+const getCandidateStyle = (isDragging, draggableStyle) => ({
+    // some basic styles to make the items look a bit nicer
+    userSelect: 'none',
+    width: 110,
+    height: 115,
+    marginBottom: 10,
+    color: 'white',
+    paddingTop: 5,
+    paddingLeft: 5,
+    paddingRight: 5,
+    
     // styles we need to apply on draggables
     ...draggableStyle
 });
@@ -183,7 +198,7 @@ class Home extends Component {
                                 <Row key={element.id} gutter={16} style={{ width: '100%', borderBottom: "solid 1px #e6e5e5", display: 'flex' }}>
 
                                     <Col span={3} className="backgroundColor">
-                                        <div className="itemBox">
+                                        <div className="requirementBox">
                                             <Row>
                                                 <div style={{ float: 'right', marginRight: -5 }}>
                                                     <Badge status="error" />
@@ -243,15 +258,52 @@ class Home extends Component {
                                                                                         draggableId={item.id}
                                                                                         index={j}>
                                                                                         {(provided, snapshot) => (
-                                                                                            <div
-                                                                                                ref={provided.innerRef}
+                                                                                            // <div
+                                                                                            //     ref={provided.innerRef}
+                                                                                            //     {...provided.draggableProps}
+                                                                                            //     {...provided.dragHandleProps}
+                                                                                            //     style={getItemStyle(
+                                                                                            //         snapshot.isDragging,
+                                                                                            //         provided.draggableProps.style
+                                                                                            //     )}>
+                                                                                            //     {item.candidate}
+                                                                                            // </div>
+                                                                                            <div ref={provided.innerRef}
                                                                                                 {...provided.draggableProps}
                                                                                                 {...provided.dragHandleProps}
-                                                                                                style={getItemStyle(
+                                                                                                style={getCandidateStyle(
                                                                                                     snapshot.isDragging,
                                                                                                     provided.draggableProps.style
-                                                                                                )}>
-                                                                                                {item.candidate}
+                                                                                                )}
+                                                                                                className="candidateBox">
+                                                                                                <Row style={{ borderBottom: '1px solid white', paddingBottom:10 }}>
+                                                                                                    <div>
+                                                                                                        <Badge status="success"  />
+                                                                                                        <label style={{ textAlign: 'center', fontSize: 12 }}>候选人A</label>
+                                                                                                        <label style={{ float: 'right', color: 'white', fontSize: 12 }}> 6/2</label>
+                                                                                                    </div>
+                                                                                                </Row>
+                                                                                                <Row style={{ marginTop: 11 }}>
+                                                                                                    <div>
+                                                                                                        <Icon type="search" style={{ color: 'white' }} />
+                                                                                                        <label style={{ textAlign: 'center', fontSize: 12, paddingLeft:5 }}>陈某</label>
+                                                                                                        <label style={{ float: 'right', color: 'white', fontSize: 12 }}> 6/2</label>
+                                                                                                    </div>
+                                                                                                </Row>
+                                                                                                <Row>
+                                                                                                    <div>
+                                                                                                        <Icon type="man" style={{ color: 'white' }} />
+                                                                                                        <label style={{ textAlign: 'center', fontSize: 12, paddingLeft:5 }}>李某</label>
+                                                                                                    </div>
+                                                                                                </Row>
+                                                                                                <Row>
+                                                                                                    <div>
+                                                                                                        <span style={{ float: 'right' }}>
+                                                                                                            <Icon type="caret-down" style={{ color: 'white' }} onClick={this.showDetail} />
+                                                                                                        </span>
+
+                                                                                                    </div>
+                                                                                                </Row>
                                                                                             </div>
                                                                                         )}
                                                                                     </Draggable>

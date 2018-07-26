@@ -8,10 +8,14 @@
 }
 
 .done-gradient {
-    background: -webkit-linear-gradient(right, #6ce5f8,#4dc6d9); /** Chrome Safari **/
-    background: -moz-linear-gradient(right, #4dc6d9, #6ce5f8); /** FireFox **/
-    background: -o-linear-gradient(right, #4dc6d9, #6ce5f8);  /** Opear **/
-    background: -ms-linear-gradient(#4dc6d9 0%,#6ce5f8 100%);  /** IE9 IE10 **/
+    background: -webkit-linear-gradient(right, #6ce5f8, #4dc6d9);
+    /** Chrome Safari **/
+    background: -moz-linear-gradient(right, #4dc6d9, #6ce5f8);
+    /** FireFox **/
+    background: -o-linear-gradient(right, #4dc6d9, #6ce5f8);
+    /** Opear **/
+    background: -ms-linear-gradient(#4dc6d9 0%, #6ce5f8 100%);
+    /** IE9 IE10 **/
 }
 
 .main-title {
@@ -26,24 +30,34 @@
     border-top-right-radius: 11px
 }
 
-.itemBox{
+.requirementBox {
     width: 100%;
-    min-height: 80px; 
-    background: white; 
+    min-height: 110px;
+    background: white;
     margin-top: 10px;
     padding-bottom: 10px;
-    padding-left:5px;
+    padding-left: 5px;
     padding-right: 5px;
-  }
-  .candidateBox{
-    width: 110px;
-    height: 80px; 
-    background:rgb(20, 83, 157);
-    /* margin-top: 10px; */
-    margin-bottom: 10px;
-    color: white
-  }
-   .ant-btn-circle.ant-btn-sm, .ant-btn-circle-outline.ant-btn-sm{
+}
+
+.candidateBox {
+    background: -webkit-linear-gradient(bottom, #539ede, #0558a6);
+    /** Chrome Safari **/
+    background: -moz-linear-gradient(bottom, #0558a6, #539ede);
+    /** FireFox **/
+    background: -o-linear-gradient(bottom, #0558a6, #539ede);
+    /** Opear **/
+    background: -ms-linear-gradient(#0558a6 0%, #539ede 100%);
+    /** IE9 IE10 **/
+}
+
+.candidateBox .ant-badge-status-dot {
+    height: 10px;
+    width: 10px;
+}
+
+.ant-btn-circle.ant-btn-sm,
+.ant-btn-circle-outline.ant-btn-sm {
     width: 20px;
     padding: 0;
     font-size: 3px;
