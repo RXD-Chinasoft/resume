@@ -37,6 +37,11 @@ export const DeleteCandidate = (id) => {
     return POST('/candidateoff', { id })
 }
 
+// dictionaries
+export const GetDictionaries = () => {
+    return POST('/dictionaries');
+}
+
 
 
 

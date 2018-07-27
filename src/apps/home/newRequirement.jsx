@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Button, Modal, Form, Input, Radio, Row, Col, Select, Cascader, InputNumber, Icon, notification } from 'antd';
-import DropDownButton from './dropdown'
 import moment from 'moment';
 import './newform.css';
 import { CreateRequirement } from './../service/homeService'
@@ -13,6 +12,8 @@ const openNotificationWithIcon = (type, title, message) => {
     description: message,
   });
 };
+
+
 
 const formItemLayout = {
   labelCol: {
@@ -56,6 +57,12 @@ const RequirementCreateForm = Form.create()(
       value1: 1,
       value2: 1
     }
+
+    jdObject = [
+      { id: 1, value: 1, name: '1.英语读写熟练' },
+      { id: 2, value: 1, name: '2.会吹牛逼' },
+      { id: 3, value: 1, name: '3.不焦虑' }
+    ]
 
     handleOk = (e) => {
       this.setState({ loading: true });
@@ -107,11 +114,11 @@ const RequirementCreateForm = Form.create()(
       }
     }
 
-    onChange = (e) => {
-      console.log('radio checked', e.target.value);
-      this.setState({
-        value: e.target.value,
-      });
+    onChange = (e, index) => {
+      console.log('radio checked', e, index);
+      // this.setState({
+      //   value: e.target.value,
+      // });
     }
 
     onChange1 = (e) => {
@@ -233,9 +240,6 @@ const RequirementCreateForm = Form.create()(
                   <h3 style={{ color: 'black', paddingTop: 12, marginLeft: '20px' }}>{moment(new Date()).format("YYYY-MM-DD")}</h3>
                 </Col>
               </Row>
-
-
-
               <Row gutter={24}>
                 <Col span={14} style={{ paddingTop: 8 }}>
                   <Col span={12} style={{ paddingTop: 8 }}>
@@ -550,19 +554,25 @@ const RequirementCreateForm = Form.create()(
                     JD
                  </p>
                   <div style={{ float: 'left', marginLeft: 10, paddingTop: 15, paddingLeft: 5, paddingRight: 5, paddingBottom: 8, backgroundColor: 'white', width: '90%', minHeight: '618px', color: 'black' }}>
-                    <Row gutter={24} style={{ borderBottom: "solid 1px grey", marginBottom: '1px' }}>
-                      <Col span={12}>
-                        {'1.英语读写熟练'}
-                      </Col>
-                      <Col span={12}>
-                        <RadioGroup onChange={this.onChange} value={this.state.value}>
-                          <Radio value={1}>硬性指标</Radio>
-                          <Radio value={2}>岗位优势</Radio>
-                        </RadioGroup>
-                      </Col>
-                    </Row>
 
-                    <Row gutter={24} style={{ paddingTop: 10, borderBottom: "solid 1px grey", marginBottom: '1px' }}>
+                    {
+                      this.jdObject.map((element, index) => {
+                        return (
+                          <Row gutter={24} style={{ borderBottom: "solid 1px grey", marginBottom: '1px' }}>
+                            <Col span={12}>
+                              {element.name}
+                            </Col>
+                            <Col span={12}>
+                              <RadioGroup onChange={this.onChange(index)} value={element.value}>
+                                <Radio value={1}>硬性指标</Radio>
+                                <Radio value={2}>岗位优势</Radio>
+                              </RadioGroup>
+                            </Col>
+                          </Row>
+                        )
+                      })
+                    }
+                    {/* <Row gutter={24} style={{ paddingTop: 10, borderBottom: "solid 1px grey", marginBottom: '1px' }}>
                       <Col span={12}>
                         {'2.会吹牛逼'}
                       </Col>
@@ -584,79 +594,11 @@ const RequirementCreateForm = Form.create()(
                           <Radio value={2}>岗位优势</Radio>
                         </RadioGroup>
                       </Col>
-                    </Row>
+                    </Row> */}
                   </div>
                 </Col>
               </Row>
-
-              {/* <Row>
-              <Col className="gutter-row" span={14}>
-                <Col className="gutter-row" span={10}>
-                  <FormItem
-                    {...formItemLayout}
-                    label="面试地址"
-                    hasFeedback
-                  >
-                    {getFieldDecorator('interviewaddr', {
-                      rules: [
-                        {
-                          required: true, message: 'Please input your name!',
-                        }],
-                    })(
-                      <Input placeholder="请输入面试地址" style={{ width: '540px', marginLeft: '44px' }} />
-                    )}
-
-                  </FormItem>
-                </Col>
-              </Col>
-            </Row>
-            <Row style={{ borderBottom: "solid 1px white" }}>
-              <Col className="gutter-row" span={14}>
-                <Col className="gutter-row" span={10}>
-                  <FormItem
-                    {...formItemLayout}
-                    label="项目地址"
-                    hasFeedback
-                  >
-                    {getFieldDecorator('projectaddr', {
-                      rules: [
-                        {
-                          required: true, message: 'Please input your name!',
-                        }],
-                    })(
-                      <Input placeholder="请输入项目地址" style={{ width: '540px', marginLeft: '44px' }} />
-                    )}
-
-                  </FormItem>
-                </Col>
-              </Col>
-            </Row> */}
             </Form>
-
-
-
-            {/* <Form layout="vertical">
-            <FormItem label="Title">
-              {getFieldDecorator('title', {
-                rules: [{ required: true, message: 'Please input the title of collection!' }],
-              })(
-                <Input />
-              )}
-            </FormItem>
-            <FormItem label="Description">
-              {getFieldDecorator('description')(<Input type="textarea" />)}
-            </FormItem>
-            <FormItem className="collection-create-form_last-form-item">
-              {getFieldDecorator('modifier', {
-                initialValue: 'public',
-              })(
-                <Radio.Group>
-                  <Radio value="public">Public</Radio>
-                  <Radio value="private">Private</Radio>
-                </Radio.Group>
-              )}
-            </FormItem>
-          </Form> */}
           </Modal >
         </div>
       );
