@@ -68,7 +68,7 @@ const getCandidateStyle = (isDragging, draggableStyle) => ({
 
 const getListStyle = isDraggingOver => ({
     background: isDraggingOver ? '#93dbe6' : 'white',
-    padding: grid,
+    padding: 3,
     width: '100%',
     minHeight: 110,
     paddingTop: 0,
@@ -165,7 +165,7 @@ class Home extends Component {
                                 </span>
                             </div>
                         </Col>
-                        <Col className="gutter-row gutter-row-padding-none" span={18}>
+                        <Col className="gutter-row gutter-row-padding-none" span={19}>
                             <Col className="gutter-row gutter-row-padding-none" span={3}>
                                 <div className="gutter-box flow-title">简历筛选(7)</div>
                             </Col>
@@ -191,7 +191,7 @@ class Home extends Component {
                                 <div className="gutter-box flow-title">Offer(7)</div>
                             </Col>
                         </Col>
-                        <Col className="gutter-row gutter-row-padding-none" span={3}>
+                        <Col className="gutter-row gutter-row-padding-none" span={2}>
                             <div className="gutter-box done-gradient border-tr-radius">入职(7)</div>
                         </Col>
                     </Row>
@@ -201,7 +201,7 @@ class Home extends Component {
                             console.log('candidate', this.state.candidate)
                             console.log('elementid', element.id)
                             return (
-                                <Row key={element.id} gutter={16} style={{ width: '100%', borderBottom: "solid 1px #e6e5e5", display: 'flex' }}>
+                                <Row key={element.id} gutter={16} style={{ width: '100%', display: 'flex' }}>
 
                                     <Col span={3} className="backgroundColor">
                                         <div className="requirementBox">
@@ -245,7 +245,7 @@ class Home extends Component {
                                         </div>
                                     </Col>
                                     <DragDropContext onDragEnd={this.onDragEnd1.bind(this, element)}>
-                                        <Col className="gutter-row" span={18} style={{ display: 'flex' }}>
+                                        <Col className="gutter-row" span={19} style={{ display: 'flex', borderBottom: "solid 1px #e6e5e5" }}>
                                             {
                                                 this.state.candidate[element.id] ?
                                                     this.state.candidate[element.id].map((cand, i) => {
@@ -329,7 +329,7 @@ class Home extends Component {
                                             }
                                         </Col>
                                     </DragDropContext>
-                                    <Col className="gutter-row done-gradient" span={3}>
+                                    <Col className="gutter-row done-gradient" span={2}>
                                     </Col>
                                 </Row>
                             )
