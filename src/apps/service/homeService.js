@@ -16,6 +16,11 @@ export const DeleteRequirement = (id) => {
     return POST('/requirementoff', { id })
 }
 
+export const NotifyMatrixChanged = (requirements) => {
+    
+    console.log(requirements)
+}
+
 // candidate
 export const GetCandidates = () => {
     return POST('/candidates');
