@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Modal, Form, Input, Radio, Row, Col, Select, Cascader, InputNumber, Icon } from 'antd';
+import { Button, Modal, Form, Input, Radio, Row, Col, Select, Cascader, InputNumber, Icon, notification } from 'antd';
 import DropDownButton from './dropdown'
 import moment from 'moment';
 import './newform.css';
@@ -7,6 +7,12 @@ import { CreateRequirement } from './../service/homeService'
 
 const FormItem = Form.Item;
 const Option = Select.Option;
+const openNotificationWithIcon = (type, title, message) => {
+  notification[type]({
+    message: title,
+    description: message,
+  });
+};
 
 const formItemLayout = {
   labelCol: {
@@ -55,12 +61,19 @@ const RequirementCreateForm = Form.create()(
       this.setState({ loading: true });
       e.preventDefault();
       this.props.form.validateFields((err, values) => {
-        if (err) {
+        console.log('Received values of form: ', values);
+        if (!err) {
+          CreateRequirement(this.convertFromRq(values)).then(res => {
+            this.setState({ loading: false, visible: false });
+            openNotificationWithIcon('success', 'Notification', '创建成功')
+            this.props.form.resetFields();
+          }).catch(e => {
+            this.setState({ loading: false, visible: false });
+            openNotificationWithIcon('warning', 'Notification', '创建失败，请联系管理员');
+            this.props.form.resetFields();
+          })
           return;
         }
-        console.log('Received values of form: ', values);
-        this.setState({ rqVisible: false });
-        CreateRequirement(this.convertFromRq(values))
       });
     }
 
@@ -239,7 +252,7 @@ const RequirementCreateForm = Form.create()(
                             required: false, message: 'Please input your name!',
                           }],
                       })(
-                        <Input placeholder="请输入客户需求ID" style={{ width: '200px', marginLeft: '34px' }} />
+                        <Input placeholder="请输入客户需求ID" style={{ width: '200px', marginLeft: '20px' }} />
                       )}
 
                     </FormItem>
@@ -311,7 +324,7 @@ const RequirementCreateForm = Form.create()(
                             required: true, message: 'Please input your name!',
                           }],
                       })(
-                        <Input placeholder="请输入客户姓名" style={{ width: '200px', marginLeft: '34px' }} />
+                        <Input placeholder="请输入客户姓名" style={{ width: '200px', marginLeft: '20px' }} />
                       )}
 
                     </FormItem>
@@ -329,7 +342,7 @@ const RequirementCreateForm = Form.create()(
                             required: true, message: 'Please input your name!',
                           }],
                       })(
-                        <Input placeholder="请输入挑战目标" style={{ width: '200px', marginLeft: '34px' }} />
+                        <Input placeholder="请输入挑战目标" style={{ width: '200px', marginLeft: '20px' }} />
                       )}
 
                     </FormItem>
@@ -365,7 +378,7 @@ const RequirementCreateForm = Form.create()(
                             required: true, message: 'Please input your name!',
                           }],
                       })(
-                        <Input placeholder="请输入面试联系人" style={{ width: '200px', marginLeft: '34px' }} />
+                        <Input placeholder="请输入面试联系人" style={{ width: '200px', marginLeft: '20px' }} />
                       )}
 
                     </FormItem>
@@ -380,7 +393,7 @@ const RequirementCreateForm = Form.create()(
                             required: true, message: 'Please input your name!',
                           }],
                       })(
-                        <Input placeholder="请输入面试地址" style={{ width: '546px', marginLeft: '34px' }} />
+                        <Input placeholder="请输入面试地址" style={{ width: '546px', marginLeft: '20px' }} />
                       )}
 
                     </FormItem>
@@ -395,7 +408,7 @@ const RequirementCreateForm = Form.create()(
                             required: true, message: 'Please input your name!',
                           }],
                       })(
-                        <Input placeholder="请输入项目地址" style={{ width: '546px', marginLeft: '34px' }} />
+                        <Input placeholder="请输入项目地址" style={{ width: '546px', marginLeft: '20px' }} />
                       )}
                     </FormItem>
                   </Col>
@@ -482,7 +495,7 @@ const RequirementCreateForm = Form.create()(
                             required: true, message: 'Please input your name!',
                           }],
                       })(
-                        <Input placeholder="请输入薪资范围" style={{ width: '200px', marginLeft: '34px' }} />
+                        <Input placeholder="请输入薪资范围" style={{ width: '200px', marginLeft: '20px' }} />
                       )}
 
                     </FormItem>
@@ -497,7 +510,7 @@ const RequirementCreateForm = Form.create()(
                             required: true, message: 'Please input your name!',
                           }],
                       })(
-                        <Input placeholder="请输入目标" style={{ width: '200px', marginLeft: '34px' }} />
+                        <Input placeholder="请输入目标" style={{ width: '200px', marginLeft: '20px' }} />
                       )}
 
                     </FormItem>
@@ -511,7 +524,7 @@ const RequirementCreateForm = Form.create()(
                             required: true, message: 'Please input your name!',
                           }],
                       })(
-                        <Input placeholder="请输入规模" style={{ width: '200px', marginLeft: '34px' }} />
+                        <Input placeholder="请输入规模" style={{ width: '200px', marginLeft: '20px' }} />
                       )}
 
                     </FormItem>
@@ -525,7 +538,7 @@ const RequirementCreateForm = Form.create()(
                             required: true, message: 'Please input your name!',
                           }],
                       })(
-                        <Input placeholder="请输入联系人电话" style={{ width: '200px', marginLeft: '34px' }} />
+                        <Input placeholder="请输入联系人电话" style={{ width: '200px', marginLeft: '20px' }} />
                       )}
 
                     </FormItem>
