@@ -4,7 +4,7 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { Button, Badge, Icon } from 'antd';
 import ToolBar from './toolbar'
 import { Row, Col } from 'antd';
-import { GetRequirements, NotifyMatrixChanged } from './../service/homeService';
+import { GetRequirements, NotifyMatrixChanged, GetDictionaries } from './../service/homeService';
 import './home.css';
 import CandidateCreateForm from './newCandidate';
 import RequirementCreateForm from './newRequirement';
@@ -157,11 +157,18 @@ class Home extends Component {
     };
 
     componentDidMount() {
+        console.log('3333333')
         GetRequirements().then(response => {
             console.log('response ===>', response)
             this.setState({
                 requirements: [].concat(response.data.requirements),
                 candidate: response.data.relateCandidates,
+            })
+        })
+        GetDictionaries().then(response => {
+            console.log('Dictionaries response ===>', response)
+            this.setState({
+                dictionaries: [].concat(response.data)
             })
         })
     }
@@ -306,21 +313,21 @@ class Home extends Component {
                                                                                                 <Row style={{ borderBottom: '1px solid white', paddingBottom: 3 }}>
                                                                                                     <div>
                                                                                                         <Badge status="success" />
-                                                                                                        <label style={{ textAlign: 'center', fontSize: 12 }}>候选人A</label>
-                                                                                                        <label style={{ float: 'right', color: 'white', fontSize: 12, marginTop:2 }}> 6/2</label>
+                                                                                                        <label style={{ textAlign: 'center', fontSize: 12 }}>{item.candidate}</label>
+                                                                                                        <label style={{ float: 'right', color: 'white', fontSize: 12, marginTop: 2 }}> 6/2</label>
                                                                                                     </div>
                                                                                                 </Row>
                                                                                                 <Row style={{ marginTop: 3 }}>
                                                                                                     <div>
                                                                                                         <Icon type="search" style={{ color: 'white' }} />
-                                                                                                        <label style={{ textAlign: 'center', fontSize: 12, paddingLeft: 5 }}>陈某</label>
-                                                                                                        <label style={{ float: 'right', color: 'white', fontSize: 12, marginTop:2 }}> 6/2</label>
+                                                                                                        <label style={{ textAlign: 'center', fontSize: 12, paddingLeft: 5 }}>{item.gp}</label>
+                                                                                                        <label style={{ float: 'right', color: 'white', fontSize: 12, marginTop: 2 }}> 6/2</label>
                                                                                                     </div>
                                                                                                 </Row>
                                                                                                 <Row>
                                                                                                     <div>
                                                                                                         <Icon type="man" style={{ color: 'white' }} />
-                                                                                                        <label style={{ textAlign: 'center', fontSize: 12, paddingLeft: 5 }}>李某</label>
+                                                                                                        <label style={{ textAlign: 'center', fontSize: 12, paddingLeft: 5 }}>{item.price}</label>
                                                                                                     </div>
                                                                                                 </Row>
                                                                                                 <Row>

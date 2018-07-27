@@ -114,8 +114,8 @@ const RequirementCreateForm = Form.create()(
       }
     }
 
-    onChange = (e, index) => {
-      console.log('radio checked', e, index);
+    onChange = (e) => {
+      console.log('radio checked', e);
       // this.setState({
       //   value: e.target.value,
       // });
@@ -397,7 +397,7 @@ const RequirementCreateForm = Form.create()(
                             required: true, message: 'Please input your name!',
                           }],
                       })(
-                        <Input placeholder="请输入面试地址" style={{ width: '546px', marginLeft: '20px' }} />
+                        <Input placeholder="请输入面试地址" style={{ width: '583px', marginLeft: '20px' }} />
                       )}
 
                     </FormItem>
@@ -412,7 +412,7 @@ const RequirementCreateForm = Form.create()(
                             required: true, message: 'Please input your name!',
                           }],
                       })(
-                        <Input placeholder="请输入项目地址" style={{ width: '546px', marginLeft: '20px' }} />
+                        <Input placeholder="请输入项目地址" style={{ width: '583px', marginLeft: '20px' }} />
                       )}
                     </FormItem>
                   </Col>
@@ -550,20 +550,20 @@ const RequirementCreateForm = Form.create()(
                 </Col>
 
                 <Col span={10} style={{ paddingTop: 8 }}>
-                  <p style={{ float: 'left' }}>
+                  {/* <p style={{ float: 'left' }}>
                     JD
-                 </p>
-                  <div style={{ float: 'left', marginLeft: 10, paddingTop: 15, paddingLeft: 5, paddingRight: 5, paddingBottom: 8, backgroundColor: 'white', width: '90%', minHeight: '618px', color: 'black' }}>
+                 </p> */}
+                  <div style={{ borderStyle: 'solid solid solid solid',borderColor:'grey grey grey grey', float: 'left', marginLeft: 10, paddingTop: 15, paddingLeft: 5, paddingRight: 5, paddingBottom: 8, backgroundColor: 'white', width: '90%', minHeight: '618px', color: 'black' }}>
 
                     {
                       this.jdObject.map((element, index) => {
                         return (
-                          <Row gutter={24} style={{ borderBottom: "solid 1px grey", marginBottom: '1px' }}>
+                          <Row gutter={24} key={element.id} style={{ borderBottom: "solid 1px grey", marginBottom: '1px', minHeight: 30 }}>
                             <Col span={12}>
                               {element.name}
                             </Col>
                             <Col span={12}>
-                              <RadioGroup onChange={this.onChange(index)} value={element.value}>
+                              <RadioGroup onChange={this.onChange} value={element.value}>
                                 <Radio value={1}>硬性指标</Radio>
                                 <Radio value={2}>岗位优势</Radio>
                               </RadioGroup>
