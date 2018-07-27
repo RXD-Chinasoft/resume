@@ -184,7 +184,7 @@ class Home extends Component {
             } catch (error) {
                 localStorage.setItem('dictionaries', JSON.stringify([]))
             }
-            
+
             // this.setState({
             //     dictionaries: [].concat(response.data)
             // })
@@ -198,12 +198,16 @@ class Home extends Component {
             <div>
                 <ToolBar onSave={this.handleSave} />
                 {/* style={{ display: 'flex' }} */}
-                <div className="panel border-tbl-radius border-tbr-radius">
+                <div className="panel border-tbl-radius border-tbr-radius" style={{ minHeight: this.state.requirements && this.state.requirements.length > 0 ? 0 : 500 }}>
                     <Row gutter={16} style={{ width: '100%', textAlign: 'center', }}>
                         <Col className="gutter-row gutter-row-padding-none" span={3}>
                             <div className="gutter-box border-tl-radius main-title">职位需求(7)
                             <span style={{ float: 'right', marginRight: 10 }}>
                                     <RequirementCreateForm
+                                        // requirement={element.id}
+                                        onSaveRqDone={() => {
+                                            this.getRqs()
+                                        }}
                                     />
                                 </span>
                             </div>
@@ -375,7 +379,7 @@ class Home extends Component {
                                             }
                                         </Col>
                                     </DragDropContext>
-                                    <Col className="gutter-row done-gradient border-tbr-radius" style={{ minHeight: 500 }} span={2}>
+                                    <Col className="gutter-row done-gradient border-tbr-radius" style={{ minHeight: this.state.requirements && this.state.requirements.length > 0 ? 0 : 500 }} span={2}>
                                     </Col>
                                 </Row>
                             )
