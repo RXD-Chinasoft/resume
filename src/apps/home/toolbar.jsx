@@ -121,7 +121,12 @@ class ToolBar extends Component {
 
     //
     handleOk = () => {
-        this.props.onSave();
+        this.setState({ loading: true })
+        this.props.onSave(this.done);
+    }
+
+    done = () => {
+        this.setState({ loading: false })
     }
 
     render() {
@@ -130,7 +135,7 @@ class ToolBar extends Component {
             <Row type={'flex'} align={'middle'}>
                 {/* <Col span={1}><Badge status="error" /></Col> */}
                 <Col span={10}>
-                    <span className="flex-center" style={{paddingBottom:4, paddingTop:4}}>
+                    <span className="flex-center" style={{ paddingBottom: 4, paddingTop: 4 }}>
                         <Badge status="default" />
                         <Carousel autoplay vertical dots={false}>
                             <div>牛逼</div>

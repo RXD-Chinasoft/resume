@@ -8,6 +8,7 @@ import { GetRequirements, NotifyMatrixChanged, GetDictionaries } from './../serv
 import './home.css';
 import CandidateCreateForm from './newCandidate';
 import RequirementCreateForm from './newRequirement';
+import { OpenNotificationWithIcon } from './../service/utils';
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
@@ -83,7 +84,7 @@ class Home extends Component {
         candidate: [],
     };
 
-    handleSave = () => {
+    handleSave = (doneCall) => {
         console.log("ok", this.state.candidate)
         let requirements = {}
         for (const rqmId in this.state.candidate) {
@@ -101,7 +102,15 @@ class Home extends Component {
                 }
             }
         }
-        NotifyMatrixChanged(requirements)
+        NotifyMatrixChanged(requirements).then(response => {
+            console.log('response ===>', response)
+            OpenNotificationWithIcon('success', 'Notification', '保存成功')
+            this.getRqs()
+            doneCall()
+        }).catch(e => {
+            OpenNotificationWithIcon('warning', 'Notification', '保存失败')
+            doneCall()
+        })
     }
 
     getCandidates = (requirement, coloum) => {
@@ -156,8 +165,7 @@ class Home extends Component {
         }
     };
 
-    componentDidMount() {
-        console.log('3333333')
+    getRqs = () => {
         GetRequirements().then(response => {
             console.log('response ===>', response)
             this.setState({
@@ -165,6 +173,10 @@ class Home extends Component {
                 candidate: response.data.relateCandidates,
             })
         })
+    }
+
+    componentDidMount() {
+        this.getRqs()
         GetDictionaries().then(response => {
             console.log('Dictionaries response ===>', response)
             try {
@@ -177,9 +189,6 @@ class Home extends Component {
             //     dictionaries: [].concat(response.data)
             // })
         })
-    }
-    componentWillMount() {
-        console.log('will Mount')
     }
 
     // Normally you would want to split things out into separate components.

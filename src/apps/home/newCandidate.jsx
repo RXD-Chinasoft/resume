@@ -3,18 +3,13 @@ import PropTypes from 'prop-types';
 import { Button, Modal, Form, Input, Radio, Row, Col, Select, Upload, Icon, notification, DatePicker } from 'antd';
 import DropDownButton from './dropdown';
 import './newform.css';
-import { CreateCandidateWithForm } from './../service/homeService'
+import { CreateCandidateWithForm } from './../service/homeService';
+import { OpenNotificationWithIcon } from './../service/utils';
 
 const FormItem = Form.Item;
 const Option = Select.Option;
 const { TextArea } = Input;
 const Search = Input.Search;
-const openNotificationWithIcon = (type, title, message) => {
-  notification[type]({
-    message: title,
-    description: message,
-  });
-};
 const CandidateCreateForm = Form.create()(
   class extends React.Component {
 
@@ -52,11 +47,11 @@ const CandidateCreateForm = Form.create()(
         if (!err) {
           CreateCandidateWithForm(this.formDataFromForm(values)).then(res => {
             this.setState({ loading: false, visible: false, });
-            openNotificationWithIcon('success', 'Notification', '创建成功')
+            OpenNotificationWithIcon('success', 'Notification', '创建成功')
             this.props.form.resetFields();
           }).catch(e => {
             this.setState({ loading: false, visible: false, });
-            openNotificationWithIcon('warning', 'Notification', '创建失败，请联系管理员')
+            OpenNotificationWithIcon('warning', 'Notification', '创建失败，请联系管理员')
             this.props.form.resetFields();
           });
         }
@@ -409,7 +404,7 @@ const CandidateCreateForm = Form.create()(
   }
 );
 
-CandidateCreateForm.propTypes={
+CandidateCreateForm.propTypes = {
   requirement: PropTypes.number.isRequired
 }
 
