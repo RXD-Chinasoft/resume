@@ -4,7 +4,7 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { Button, Badge, Icon } from 'antd';
 import ToolBar from './toolbar'
 import { Row, Col } from 'antd';
-import { GetRequirements } from './../service/homeService';
+import { GetRequirements, NotifyMatrixChanged } from './../service/homeService';
 import './home.css';
 import CandidateCreateForm from './newCandidate';
 import RequirementCreateForm from './newRequirement';
@@ -85,6 +85,23 @@ class Home extends Component {
 
     handleSave = () => {
         console.log("ok", this.state.candidate)
+        let requirements = {}
+        for (const rqmId in this.state.candidate) {
+            requirements[rqmId] = []
+            if (this.state.candidate.hasOwnProperty(rqmId)) {
+                const candidateColums = this.state.candidate[rqmId];
+                for (const candidates of candidateColums) {
+                    let matrix = []
+                    if (candidates.length > 0) {
+                        matrix = candidates.map((candidate, index) => {
+                            return candidate.id
+                        })
+                    }
+                    requirements[rqmId].push(matrix.join(','))
+                }
+            }
+        }
+        NotifyMatrixChanged(requirements)
     }
 
     getCandidates = (requirement, coloum) => {
