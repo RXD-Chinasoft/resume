@@ -77,6 +77,27 @@ func UpdateRequirement(rqmt Requirement) error {
 	return nil
 }
 
+func ResetMatrix(mapping map[int64][]string) error {
+	tx, err := db.Begin()
+	if err != nil {
+		return err
+	}
+	for rq, matrix := range mapping {
+		log.Printf("reset requirement %d matrix.. %v \n", rq, matrix)
+		_, err := tx.Exec("UPDATE requirement SET matrix=$1 WHERE id=$2", pq.Array(matrix), rq)
+		if err != nil {
+			log.Printf("reset requirement matrix error %v \n", matrix)
+		}
+	}
+	err = tx.Commit()
+	if err != nil {
+		log.Printf("ResetMatrix error %s", err)
+		tx.Rollback()
+		return err
+	}
+	return nil
+}
+
 func AppendRequirementMatrix(tx *sql.Tx, rqmt Requirement, newCandidate int64) (err error) {
 	if len(rqmt.Matrix) == 0 {
 		return errors.New("wrong requirement data")
