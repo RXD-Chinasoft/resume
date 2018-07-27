@@ -36,7 +36,7 @@ class MainPage extends React.Component {
                         <SiderBar />
                         <Layout>
 
-                            <Content style={{ margin: '0 16px' }}>
+                            <Content style={{ marginLeft: '16px' }}>
                                 {routes.map((route, index) => (
                                     <Route
                                         key={index}

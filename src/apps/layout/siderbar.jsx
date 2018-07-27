@@ -21,6 +21,7 @@ class SiderBar extends React.Component {
                 collapsible
                 collapsed={this.state.collapsed}
                 onCollapse={this.onCollapse}
+                width={150}
             >
                 <div className="logo" />
                 <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">

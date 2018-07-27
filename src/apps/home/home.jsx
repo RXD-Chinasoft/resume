@@ -54,7 +54,7 @@ const getItemStyle = (isDragging, draggableStyle) => ({
 const getCandidateStyle = (isDragging, draggableStyle) => ({
     // some basic styles to make the items look a bit nicer
     userSelect: 'none',
-    width: 110,
+    // width: 110,
     height: 115,
     marginBottom: 10,
     color: 'white',
