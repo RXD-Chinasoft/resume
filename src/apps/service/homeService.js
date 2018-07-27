@@ -17,8 +17,8 @@ export const DeleteRequirement = (id) => {
 }
 
 export const NotifyMatrixChanged = (requirements) => {
-    
     console.log(requirements)
+    return POST('/requirementmatrixrenewal', requirements)
 }
 
 // candidate

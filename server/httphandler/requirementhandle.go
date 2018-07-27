@@ -75,3 +75,17 @@ func removeRequirementHandleFunc(w http.ResponseWriter, r *http.Request, bodyByt
 	}
 	
 }
+
+func resetMatrixHandleFunc(w http.ResponseWriter, r *http.Request, bodyBytes []byte) {
+	log.Printf("resetMatrixHandleFunc %s \n", string(bodyBytes))
+	mapping := make(map[int64][]string)
+	err := json.Unmarshal(bodyBytes, &mapping)
+	if err != nil {
+		log.Printf("resetMatrixHandleFunc Unmarshal error %s \n", err)
+		return
+	}
+	log.Printf("resetMatrixHandleFunc Unmarshal %v \n", mapping)
+	if err := db.ResetMatrix(mapping);err != nil {
+		http.Error(w, err.Error(), 500)
+	}
+}

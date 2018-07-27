@@ -56,6 +56,8 @@ func RouteAndListen() {
 		http.StatusText(http.StatusBadRequest), http.StatusBadRequest), http.MethodPost))))
 	http.Handle("/apis/requirementoff", corsDecrator(http.HandlerFunc(methodFilter(parseBodyWithBytes(removeRequirementHandleFunc, 
 		http.StatusText(http.StatusBadRequest), http.StatusBadRequest), http.MethodPost))))
+	http.Handle("/apis/requirementmatrixrenewal", corsDecrator(http.HandlerFunc(methodFilter(parseBodyWithBytes(resetMatrixHandleFunc, 
+		http.StatusText(http.StatusBadRequest), http.StatusBadRequest), http.MethodPost))))
 
 	http.Handle("/apis/candidates", corsDecrator(http.HandlerFunc(methodFilter(candidatesHandleFunc, http.MethodPost))))
 	http.Handle("/apis/candidate", corsDecrator(http.HandlerFunc(methodFilter(parseBodyWithBytes(newCandidateHandleFunc, 
