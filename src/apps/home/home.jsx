@@ -107,9 +107,11 @@ class Home extends Component {
             OpenNotificationWithIcon('success', 'Notification', '保存成功')
             this.getRqs()
             doneCall()
+            // this.refs.toolbar.done()
         }).catch(e => {
             OpenNotificationWithIcon('warning', 'Notification', '保存失败')
             doneCall()
+            // this.refs.toolbar.done()
         })
     }
 
@@ -196,7 +198,7 @@ class Home extends Component {
     render() {
         return (
             <div>
-                <ToolBar onSave={this.handleSave} />
+                <ToolBar onSave={this.handleSave} ref="toolbar" />
                 {/* style={{ display: 'flex' }} */}
                 <div className="panel border-tbl-radius border-tbr-radius">
                     <Row gutter={16} style={{ width: '100%', textAlign: 'center', }}>
