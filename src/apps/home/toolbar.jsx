@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 import CandidateCreateForm from './newCandidate'
 import RequirementCreateForm from './newRequirement'
-import { Button } from 'antd';
+import { Button, Row, Col } from 'antd';
 import { CreateCandidate } from './../service/homeService'
 import { CreateRequirement } from './../service/homeService'
+import { Carousel, Badge } from 'antd';
 
 class ToolBar extends Component {
 
     state = {
         rqVisible: false,
         cdVisible: false,
+        loading: false
     };
 
     showRqModal = () => {
@@ -116,25 +118,34 @@ class ToolBar extends Component {
         this.cdFormRef = formRef;
     }
 
+    //
+    handleOk = () => {
+        console.log("ok")
+    }
+
     render() {
+        const { loading } = this.state;
         return (
-            <div style={{ padding: '10px' }}>
-                {/* <Button type="primary" onClick={this.showRqModal}>创建职位</Button> */}
-                {/* <Button style={{ marginLeft: '10px' }} type="primary" onClick={this.showCdModal}>创建候选人</Button> */}
-                <RequirementCreateForm
-                    // wrappedComponentRef={this.saveRqFormRef}
-                    // visible={this.state.rqVisible}
-                    // onCancel={this.handleRqCancel}
-                    // onCreate={this.handleRqCreate}
-                />
-                {/* <CandidateCreateForm
-                    wrappedComponentRef={this.saveCdFormRef}
-                    visible={this.state.cdVisible}
-                    onCancel={this.handleCdCancel}
-                    onCreate={this.handleCdCreate}
-                    requirement={1}
-                /> */}
-            </div>
+            <Row type={'flex'} align={'middle'}>
+                {/* <Col span={1}><Badge status="error" /></Col> */}
+                <Col span={10}>
+                    <span className="flex-center">
+                        <Badge status="default" />
+                        <Carousel autoplay vertical dots={false}>
+                            <div><h3>牛逼</h3></div>
+                            <div><h3>非常牛</h3></div>
+                            <div><h3>血牛逼</h3></div>
+                            <div><h3>兽啊</h3></div>
+                        </Carousel>
+                    </span>
+
+                </Col>
+                <Col span={5} offset={9} push={3}>
+                    <Button style={{ backgroundColor: '#d69250', color: 'white' }} key="saverequires" icon="save" loading={loading} onClick={this.handleOk}>
+                        保存
+                    </Button>
+                </Col>
+            </Row>
         )
     }
 }

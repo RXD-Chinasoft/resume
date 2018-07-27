@@ -64,3 +64,28 @@
     border-radius: 50%;
     height: 20px;
 }
+.ant-carousel {
+    width: 385px !important;
+    font-size: 17px;
+}
+
+.ant-carousel .slick-slide {
+    text-align: left;
+    height: 30px;
+    line-height: 30px;
+    background: white;
+    overflow: hidden;
+}
+
+.ant-carousel .slick-slide h3 {
+    color: rgb(128, 122, 125);
+}
+
+.flex-center {
+    -webkit-display:flex;
+    display:flex;
+    -webkit-align-items:center;
+    align-items:center;
+    -webkit-justify-content:left;
+    justify-content:left;
+}
