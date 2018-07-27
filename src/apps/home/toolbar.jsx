@@ -5,6 +5,7 @@ import { Button, Row, Col } from 'antd';
 import { CreateCandidate } from './../service/homeService'
 import { CreateRequirement } from './../service/homeService'
 import { Carousel, Badge } from 'antd';
+import propTypes from 'prop-types'
 
 class ToolBar extends Component {
 
@@ -120,7 +121,7 @@ class ToolBar extends Component {
 
     //
     handleOk = () => {
-        console.log("ok")
+        this.props.onSave();
     }
 
     render() {
@@ -148,6 +149,10 @@ class ToolBar extends Component {
             </Row>
         )
     }
+}
+
+ToolBar.propTypes = {
+    onSave: propTypes.func.isRequired
 }
 
 export default ToolBar

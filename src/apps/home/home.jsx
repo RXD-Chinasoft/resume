@@ -80,8 +80,12 @@ const DROPPABLE_SEPERATOR = "+";
 class Home extends Component {
     state = {
         requirements: [],
-        cadidate: [],
+        candidate: [],
     };
+
+    handleSave = () => {
+        console.log("ok", this.state.candidate)
+    }
 
     getCandidates = (requirement, coloum) => {
         console.log(requirement, coloum, this.state.candidate)
@@ -153,7 +157,7 @@ class Home extends Component {
     render() {
         return (
             <div>
-                <ToolBar />
+                <ToolBar onSave={this.handleSave} />
                 {/* style={{ display: 'flex' }} */}
                 <div className="panel border-tbl-radius border-tbr-radius">
                     <Row gutter={16} style={{ width: '100%', textAlign: 'center', }}>
