@@ -357,7 +357,7 @@ class Home extends Component {
                                             }
                                         </Col>
                                     </DragDropContext>
-                                    <Col className="gutter-row done-gradient border-tbr-radius" span={2}>
+                                    <Col className="gutter-row done-gradient border-tbr-radius" style={{ minHeight: 500 }} span={2}>
                                     </Col>
                                 </Row>
                             )

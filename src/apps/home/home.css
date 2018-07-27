@@ -23,7 +23,7 @@
     background: -o-linear-gradient(right, #0558a6, #3168ad);
     /** Opear **/
     background: -ms-linear-gradient(#0558a6 0%, #3168ad 100%);
-    min-height: 100px;
+    min-height: 500px;
 }
 
 .flow-title {
