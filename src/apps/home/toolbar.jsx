@@ -129,13 +129,13 @@ class ToolBar extends Component {
             <Row type={'flex'} align={'middle'}>
                 {/* <Col span={1}><Badge status="error" /></Col> */}
                 <Col span={10}>
-                    <span className="flex-center">
+                    <span className="flex-center" style={{paddingBottom:4, paddingTop:4}}>
                         <Badge status="default" />
                         <Carousel autoplay vertical dots={false}>
-                            <div><h3>牛逼</h3></div>
-                            <div><h3>非常牛</h3></div>
-                            <div><h3>血牛逼</h3></div>
-                            <div><h3>兽啊</h3></div>
+                            <div>牛逼</div>
+                            <div>非常牛</div>
+                            <div>血牛逼</div>
+                            <div>兽啊</div>
                         </Carousel>
                     </span>
 

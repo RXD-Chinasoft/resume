@@ -3,8 +3,34 @@
     padding-left: 0px !important
 }
 
+.gutter-row {
+    background: white
+}
+
+.ant-row {
+    margin-left: 0 !important
+}
+
+.panel {
+    /* background: #0558a6; */
+    padding-bottom: 20px;
+    margin-right: 10px;
+    margin-bottom: 20px;
+    background: -webkit-linear-gradient(right, #3168ad, #0558a6);
+    /** Chrome Safari **/
+    background: -moz-linear-gradient(right, #0558a6, #3168ad);
+    /** FireFox **/
+    background: -o-linear-gradient(right, #0558a6, #3168ad);
+    /** Opear **/
+    background: -ms-linear-gradient(#0558a6 0%, #3168ad 100%);
+}
+
 .flow-title {
     background: #46a4c6 !important;
+}
+
+.first-colum {
+    margin-bottom: -20px;
 }
 
 .done-gradient {
@@ -16,6 +42,7 @@
     /** Opear **/
     background: -ms-linear-gradient(#4dc6d9 0%, #6ce5f8 100%);
     /** IE9 IE10 **/
+    margin-bottom: -20px;
 }
 
 .main-title {
@@ -30,12 +57,20 @@
     border-top-right-radius: 11px
 }
 
+.border-tbl-radius {
+    border-bottom-left-radius: 11px
+}
+
+.border-tbr-radius {
+    border-bottom-right-radius: 11px
+}
+
 .requirementBox {
     width: 100%;
-    min-height: 110px;
+    min-height: 100px;
     background: white;
     margin-top: 10px;
-    padding-bottom: 10px;
+    /* padding-bottom: 10px; */
     padding-left: 5px;
     padding-right: 5px;
 }

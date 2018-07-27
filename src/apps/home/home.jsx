@@ -55,7 +55,7 @@ const getCandidateStyle = (isDragging, draggableStyle) => ({
     // some basic styles to make the items look a bit nicer
     userSelect: 'none',
     // width: 110,
-    height: 115,
+    height: 100,
     marginBottom: 10,
     color: 'white',
     paddingTop: 5,
@@ -155,7 +155,7 @@ class Home extends Component {
             <div>
                 <ToolBar />
                 {/* style={{ display: 'flex' }} */}
-                <div>
+                <div className="panel border-tbl-radius border-tbr-radius">
                     <Row gutter={16} style={{ width: '100%', textAlign: 'center', }}>
                         <Col className="gutter-row gutter-row-padding-none" span={3}>
                             <div className="gutter-box border-tl-radius main-title">职位需求(7)
@@ -203,10 +203,10 @@ class Home extends Component {
                             return (
                                 <Row key={element.id} gutter={16} style={{ width: '100%', display: 'flex' }}>
 
-                                    <Col span={3} className="backgroundColor">
+                                    <Col span={3} className="backgroundColor first-colum border-tbl-radius">
                                         <div className="requirementBox">
                                             <Row>
-                                                <div style={{ float: 'right', marginRight: -5 }}>
+                                                <div style={{ float: 'right', marginRight: -5, height: 9 }}>
                                                     <Badge status="error" />
                                                 </div>
                                             </Row>
@@ -282,18 +282,18 @@ class Home extends Component {
                                                                                                     provided.draggableProps.style
                                                                                                 )}
                                                                                                 className="candidateBox">
-                                                                                                <Row style={{ borderBottom: '1px solid white', paddingBottom: 10 }}>
+                                                                                                <Row style={{ borderBottom: '1px solid white', paddingBottom: 3 }}>
                                                                                                     <div>
                                                                                                         <Badge status="success" />
                                                                                                         <label style={{ textAlign: 'center', fontSize: 12 }}>候选人A</label>
-                                                                                                        <label style={{ float: 'right', color: 'white', fontSize: 12 }}> 6/2</label>
+                                                                                                        <label style={{ float: 'right', color: 'white', fontSize: 12, marginTop:2 }}> 6/2</label>
                                                                                                     </div>
                                                                                                 </Row>
-                                                                                                <Row style={{ marginTop: 11 }}>
+                                                                                                <Row style={{ marginTop: 3 }}>
                                                                                                     <div>
                                                                                                         <Icon type="search" style={{ color: 'white' }} />
                                                                                                         <label style={{ textAlign: 'center', fontSize: 12, paddingLeft: 5 }}>陈某</label>
-                                                                                                        <label style={{ float: 'right', color: 'white', fontSize: 12 }}> 6/2</label>
+                                                                                                        <label style={{ float: 'right', color: 'white', fontSize: 12, marginTop:2 }}> 6/2</label>
                                                                                                     </div>
                                                                                                 </Row>
                                                                                                 <Row>
@@ -305,7 +305,7 @@ class Home extends Component {
                                                                                                 <Row>
                                                                                                     <div>
                                                                                                         <span style={{ float: 'right' }}>
-                                                                                                            <Icon type="caret-down" style={{ color: 'white' }} onClick={this.showDetail} />
+                                                                                                            <Icon type="down" style={{ color: 'white' }} onClick={this.showDetail} />
                                                                                                         </span>
 
                                                                                                     </div>
@@ -329,7 +329,7 @@ class Home extends Component {
                                             }
                                         </Col>
                                     </DragDropContext>
-                                    <Col className="gutter-row done-gradient" span={2}>
+                                    <Col className="gutter-row done-gradient border-tbr-radius" span={2}>
                                     </Col>
                                 </Row>
                             )
