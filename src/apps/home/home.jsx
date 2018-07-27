@@ -167,9 +167,15 @@ class Home extends Component {
         })
         GetDictionaries().then(response => {
             console.log('Dictionaries response ===>', response)
-            this.setState({
-                dictionaries: [].concat(response.data)
-            })
+            try {
+                localStorage.setItem('dictionaries', JSON.stringify(response.data))
+            } catch (error) {
+                localStorage.setItem('dictionaries', JSON.stringify([]))
+            }
+            
+            // this.setState({
+            //     dictionaries: [].concat(response.data)
+            // })
         })
     }
     componentWillMount() {

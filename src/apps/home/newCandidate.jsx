@@ -25,10 +25,23 @@ const CandidateCreateForm = Form.create()(
     }
     // for model
     showModal = () => {
+      this.findDictionaries()
       this.setState({
         visible: true,
       });
     }
+
+    findDictionaries = () => {
+      if (!this.dictionaries || this.dictionaries.length === 0) {
+        try {
+          this.dictionaries = JSON.parse(localStorage.getItem('dictionaries'))
+        } catch (error) {
+          this.dictionaries = []
+        }
+      }
+      console.log("use dictionary = ", this.dictionaries)
+    }
+
     handleOk = (e) => {
       this.setState({ loading: true });
       // setTimeout(() => {
