@@ -12,7 +12,7 @@ import (
 )
 
 func GetRequirements() ([]Requirement, error) {
-	rows, err := db.Query("SELECT * FROM requirement")
+	rows, err := db.Query("SELECT * FROM requirement ORDER BY id ASC")
 	if err != nil {
 		log.Printf("get list error %s :", err)
 	}
