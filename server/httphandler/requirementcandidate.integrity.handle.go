@@ -28,17 +28,17 @@ func requirementCandidatesHandleFunc(w http.ResponseWriter, r *http.Request) {
 	
 	for _, requirement := range requirements {
 		relateCandidates := [][]Candidate{}
-		log.Println("append candidate begin")
+		log.Println("append candidate into requirement: ", requirement.Id, "Matrix :", requirement.Matrix)
 		for _, mx := range requirement.Matrix {
 			arrC := []Candidate{}
-			if strings.Index(mx, ",") != -1 {
+			if len(mx) > 0 { //strings.Index(mx, ",") != -1
 				ids := strings.Split(mx, ",")
 				for _, id := range ids {
 					if i, err := strconv.Atoi(id);err == nil {
 						for _, candidate := range candidates {
 							if int64(i) == candidate.Id {
 								arrC = append(arrC, candidate)
-								log.Printf("append candidate %v result %v \n", int64(i), arrC)
+								log.Printf("candidate %v \n", int64(i))
 							}
 						}
 					} else {

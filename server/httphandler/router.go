@@ -22,7 +22,7 @@ func corsDecrator(next http.Handler) http.Handler{
 		start := time.Now()
 		addCors(&w)
 		next.ServeHTTP(w, r)
-		log.Printf("Comleted %s %s in %v", r.Method, r.URL.Path, time.Since(start))
+		log.Printf("Comleted %s %s in %v \n", r.Method, r.URL.Path, time.Since(start))
 	})
 }
 

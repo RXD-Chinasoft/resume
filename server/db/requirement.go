@@ -88,11 +88,11 @@ func AppendRequirementMatrix(tx *sql.Tx, rqmt Requirement, newCandidate int64) (
 	} else {
 		arr = strings.Split(strs, ",")
 	}
-	log.Printf("split arr %v , %d , %d", arr, len(arr), len(strs))
+	log.Printf("split arr %v of requirement %d , %d \n", arr, rqmt.Id, len(strs))
 	arr = append(arr, strconv.FormatInt(newCandidate, 10))
-	log.Printf("append arr %v", arr)
+	log.Printf("append newCandidate %v \n", newCandidate)
 	rqmt.Matrix[0] = strings.Join(arr, ",")
-	log.Printf("result arr %v", rqmt.Matrix[0])
+	log.Printf("test Matrix[0] %v \n", rqmt.Matrix[0])
 	_, err = tx.Exec("UPDATE requirement SET matrix=$1 WHERE id=$2", pq.Array(rqmt.Matrix), rqmt.Id)
 	return
 }
