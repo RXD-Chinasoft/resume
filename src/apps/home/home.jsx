@@ -277,6 +277,9 @@ class Home extends Component {
                                                     <span style={{ float: 'right' }}>
                                                         <CandidateCreateForm
                                                             requirement={element.id}
+                                                            onSaveDone={() => {
+                                                                this.getRqs()
+                                                            }}
                                                         />
                                                     </span>
                                                     <span style={{ float: 'right', marginRight: 10 }}>

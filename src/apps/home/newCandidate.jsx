@@ -38,25 +38,28 @@ const CandidateCreateForm = Form.create()(
     }
 
     handleOk = (e) => {
-      this.setState({ loading: true });
-      // setTimeout(() => {
-      //   this.setState({ loading: false, visible: false });
-      // }, 3000);
       e.preventDefault();
       this.props.form.validateFields((err, values) => {
         if (!err) {
+          this.setState({ loading: true });
           CreateCandidateWithForm(this.formDataFromForm(values)).then(res => {
-            this.setState({ loading: false, visible: false, });
             OpenNotificationWithIcon('success', 'Notification', '创建成功')
-            this.props.form.resetFields();
+            this.onDone();
           }).catch(e => {
-            this.setState({ loading: false, visible: false, });
             OpenNotificationWithIcon('warning', 'Notification', '创建失败，请联系管理员')
-            this.props.form.resetFields();
+            this.onDone()
           });
         }
       });
     }
+    onDone = () => {
+      this.setState({ loading: false, visible: false, });
+      this.props.form.resetFields();
+      if (this.props.onSaveDone) {
+        this.props.onSaveDone()
+      }
+    }
+
     handleCancel = () => {
       this.setState({ visible: false });
     }
