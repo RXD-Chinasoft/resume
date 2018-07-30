@@ -3,6 +3,7 @@ import { Layout, Menu, Breadcrumb, Icon, Button } from 'antd';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Home from './../home/home';
 import Charts from './../charts/charts';
+import ChartProductAnlysis from './../charts/chartProductAnlysis'
 import WrappedAdvancedSearchForm from './../managements/requirement';
 import SiderBar from './siderbar';
 
@@ -16,7 +17,7 @@ const routes = [
     },
     {
         path: "/chartProductAnlysis",
-        sidebar: Charts
+        sidebar: ChartProductAnlysis
     },
     {
         path: "/chartResultConfig",
