@@ -4,7 +4,8 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Home from './../home/home';
 import Charts from './../charts/charts';
 import ChartProductAnlysis from './../charts/chartProductAnlysis';
-import ChartResultConfiguration from './../charts/chartResultConfig'
+import ChartResultConfiguration from './../charts/chartResultConfig';
+import ChartResumeInterviewTrace from './../charts/chartResumeInterviewTrace'
 import WrappedAdvancedSearchForm from './../managements/requirement';
 import SiderBar from './siderbar';
 
@@ -26,7 +27,7 @@ const routes = [
     },
     {
         path: "/chartResumeInterviewTrace",
-        sidebar: Charts
+        sidebar: ChartResumeInterviewTrace
     },
     {
         path: "/chartRequirement",
