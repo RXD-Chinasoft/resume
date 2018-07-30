@@ -5,7 +5,8 @@ import Home from './../home/home';
 import Charts from './../charts/charts';
 import ChartProductAnlysis from './../charts/chartProductAnlysis';
 import ChartResultConfiguration from './../charts/chartResultConfig';
-import ChartResumeInterviewTrace from './../charts/chartResumeInterviewTrace'
+import ChartResumeInterviewTrace from './../charts/chartResumeInterviewTrace';
+import ChartRequirement from './../charts/chartRequirement';
 import WrappedAdvancedSearchForm from './../managements/requirement';
 import SiderBar from './siderbar';
 
@@ -31,7 +32,7 @@ const routes = [
     },
     {
         path: "/chartRequirement",
-        sidebar: Charts
+        sidebar: ChartRequirement
     },
     {
         path: "/newRequirement",
