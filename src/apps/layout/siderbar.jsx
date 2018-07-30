@@ -29,10 +29,19 @@ class SiderBar extends React.Component {
                         <Link to="/"><Icon type="home" />
                             <span>首页</span></Link>
                     </Menu.Item>
-                    <Menu.Item key="2">
+                    {/* <Menu.Item key="2">
                         <Link to="/chart"><Icon type="pie-chart" />
                             <span>报表</span></Link>
-                    </Menu.Item>
+                    </Menu.Item> */}
+                    <SubMenu
+                        key="chart"
+                        title={<span><Icon type="pie-chart" /><span>报表</span></span>}
+                    >
+                        <Menu.Item key="chart1"><Link to="/chartProductAnlysis">产品分析</Link></Menu.Item>
+                        <Menu.Item key="chart2"><Link to="/chartResultConfig">结果配置</Link></Menu.Item>
+                        <Menu.Item key="chart3"><Link to="/chartResumeInterviewTrace">简历/面试 跟踪</Link></Menu.Item>
+                        <Menu.Item key="chart4"><Link to="/chartRequirement">缺口/需求 跟踪</Link></Menu.Item>
+                    </SubMenu>
                     <SubMenu
                         key="sub1"
                         title={<span><Icon type="setting" /><span>管理</span></span>}

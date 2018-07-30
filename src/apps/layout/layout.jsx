@@ -15,7 +15,19 @@ const routes = [
         sidebar: Home,
     },
     {
-        path: "/chart",
+        path: "/chartProductAnlysis",
+        sidebar: Charts
+    },
+    {
+        path: "/chartResultConfig",
+        sidebar: Charts
+    },
+    {
+        path: "/chartResumeInterviewTrace",
+        sidebar: Charts
+    },
+    {
+        path: "/chartRequirement",
         sidebar: Charts
     },
     {
