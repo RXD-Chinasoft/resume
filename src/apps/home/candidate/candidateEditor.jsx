@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Modal, Form, Input, Radio, Row, Col, Select, Upload, Icon, notification, DatePicker } from 'antd';
 import './../newform.css';
-import { CreateCandidateWithForm } from './../../service/homeService';
+import { UpdateCandidateWithForm } from './../../service/homeService';
 import { OpenNotificationWithIcon } from './../../service/utils';
 import moment from 'moment';
 
@@ -42,21 +42,26 @@ const CandidateEditForm = Form.create()(
       this.props.form.validateFields((err, values) => {
         if (!err) {
           this.setState({ loading: true });
-          CreateCandidateWithForm(this.formDataFromForm(values)).then(res => {
-            OpenNotificationWithIcon('success', 'Notification', '创建成功')
-            this.onDone();
+          UpdateCandidateWithForm(this.formDataFromForm(values)).then(res => {
+            OpenNotificationWithIcon('success', 'Notification', '更新成功')
+            console.log("UpdateCandidateWithForm", res)
+            this.onDone(res.data);
           }).catch(e => {
-            OpenNotificationWithIcon('warning', 'Notification', '创建失败，请联系管理员')
-            this.onDone()
+            console.log("UpdateCandidateWithForm error", e)
+            OpenNotificationWithIcon('warning', 'Notification', '更新失败，请联系管理员')
+            this.onDone(null)
           });
         }
       });
     }
-    onDone = () => {
+    onDone = (candidate) => {
       this.setState({ loading: false, visible: false, });
       this.props.form.resetFields();
-      if (this.props.onSaveDone) {
-        this.props.onSaveDone()
+      if (this.props.onUpdateDone) {
+        if (candidate) {
+          console.log("done======", candidate)
+          this.props.onUpdateDone(candidate)
+        }
       }
     }
 
@@ -82,9 +87,10 @@ const CandidateEditForm = Form.create()(
 
     // commit
     formDataFromForm = (values) => {
-      console.log('Received values of form: ', values);
+      console.log('Received values of form: ', values, this.props.candidate.id);
       let formData = new FormData()
-      formData.append('candidate', this.props.candidate)
+      formData.append('id', this.props.candidate.id)
+      formData.append('requirement', this.props.candidate.requirement)
       for (const key in values) {
         if (values.hasOwnProperty(key)) {
           const value = values[key];

@@ -188,6 +188,17 @@ class Home extends Component {
         this.candidateComponents[candidate.id].showModal()
     }
 
+    onEditDone = (requirement, coloum, index, obj) => {
+        // const { candidate } = this.state;
+        // console.log("change before ===>", candidate, obj)
+        // candidate[requirement][coloum][index] = obj
+        // // const data = Object.assign({}, candidate, {})
+        // console.log("change after ===>", candidate)
+        // this.setState({ candidate: candidate })
+
+        this.getRqs()
+    }
+
     componentDidMount() {
         this.getRqs()
         GetDictionaries().then(response => {
@@ -351,6 +362,7 @@ class Home extends Component {
                                                                                                     wrappedComponentRef={(reference) => {
                                                                                                         this.candidateComponents[item.id] = reference
                                                                                                     }}
+                                                                                                    onUpdateDone={this.onEditDone.bind(this, element.id, i, j)}
                                                                                                 />
                                                                                                 <Row style={{ borderBottom: '1px solid white', paddingBottom: 3 }}>
                                                                                                     <div>

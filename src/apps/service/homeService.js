@@ -34,6 +34,10 @@ export const CreateCandidateWithForm = (formData) => {
     return POSTFORM('/candidateform', formData);
 }
 
+export const UpdateCandidateWithForm = (formData) => {
+    return POSTFORM('/candidateformrenewal', formData);
+}
+
 export const UpdateCandidate = (body) => {
     return POST('/candidaterenewal', body);
 }
