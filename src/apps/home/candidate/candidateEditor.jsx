@@ -59,7 +59,6 @@ const CandidateEditForm = Form.create()(
       this.props.form.resetFields();
       if (this.props.onUpdateDone) {
         if (candidate) {
-          console.log("done======", candidate)
           this.props.onUpdateDone(candidate)
         }
       }

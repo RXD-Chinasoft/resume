@@ -189,14 +189,9 @@ class Home extends Component {
     }
 
     onEditDone = (requirement, coloum, index, obj) => {
-        // const { candidate } = this.state;
-        // console.log("change before ===>", candidate, obj)
-        // candidate[requirement][coloum][index] = obj
-        // // const data = Object.assign({}, candidate, {})
-        // console.log("change after ===>", candidate)
-        // this.setState({ candidate: candidate })
-
-        this.getRqs()
+        const { candidate } = this.state;
+        candidate[requirement][coloum][index] = obj
+        this.setState({ candidate: candidate })
     }
 
     componentDidMount() {

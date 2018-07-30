@@ -1,7 +1,6 @@
 package httphandler
 
 import (
-	"fmt"
 	"strconv"
 	"strings"
 	"net/http"
@@ -159,7 +158,9 @@ func updateCandidateWithFormHandleFunc(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		http.Error(w, err.Error(), 500)
 	} else {
-		fmt.Fprint(w, candidate)
+		if err := json.NewEncoder(w).Encode(&candidate); err != nil {
+			http.Error(w, http.StatusText(500), 500)
+		}
 	}
 	
 }
