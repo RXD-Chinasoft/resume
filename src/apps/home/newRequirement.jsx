@@ -3,6 +3,7 @@ import { Button, Modal, Form, Input, Radio, Row, Col, Select, Cascader, InputNum
 import moment from 'moment';
 import './newform.css';
 import { CreateRequirement } from './../service/homeService'
+import { OpenNotificationWithIcon } from './../service/utils';
 
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -77,23 +78,29 @@ const RequirementCreateForm = Form.create()(
     ]
 
     handleOk = (e) => {
-      this.setState({ loading: true });
       e.preventDefault();
       this.props.form.validateFields((err, values) => {
+        this.setState({ loading: true });
         console.log('Received values of form: ', values);
         if (!err) {
+          this.setState({ loading: true });
           CreateRequirement(this.convertFromRq(values)).then(res => {
-            this.setState({ loading: false, visible: false });
-            openNotificationWithIcon('success', 'Notification', '创建成功')
-            this.props.form.resetFields();
+            OpenNotificationWithIcon('success', 'Notification', '创建成功')
+            this.onDone();
           }).catch(e => {
-            this.setState({ loading: false, visible: false });
-            openNotificationWithIcon('warning', 'Notification', '创建失败，请联系管理员');
-            this.props.form.resetFields();
-          })
-          return;
+            OpenNotificationWithIcon('warning', 'Notification', '创建失败，请联系管理员')
+            this.onDone()
+          });
         }
       });
+    }
+
+    onDone = () => {
+      this.setState({ loading: false, visible: false, });
+      this.props.form.resetFields();
+      if (this.props.onSaveRqDone) {
+        this.props.onSaveRqDone()
+      }
     }
 
     convertFromRq = (formData) => {
@@ -565,7 +572,7 @@ const RequirementCreateForm = Form.create()(
                   {/* <p style={{ float: 'left' }}>
                     JD
                  </p> */}
-                  <div style={{ borderStyle: 'solid solid solid solid',borderColor:'grey grey grey grey', float: 'left', marginLeft: 10, paddingTop: 15, paddingLeft: 5, paddingRight: 5, paddingBottom: 8, backgroundColor: 'white', width: '90%', minHeight: '618px', color: 'black' }}>
+                  <div style={{ borderStyle: 'solid solid solid solid', borderColor: 'grey grey grey grey', float: 'left', marginLeft: 10, paddingTop: 15, paddingLeft: 5, paddingRight: 5, paddingBottom: 8, backgroundColor: 'white', width: '90%', minHeight: '618px', color: 'black' }}>
 
                     {
                       this.jdObject.map((element, index) => {
