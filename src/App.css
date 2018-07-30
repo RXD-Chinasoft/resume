@@ -109,3 +109,13 @@
 .ant-layout {
   background: white !important
 }
+
+.single-line-doc {
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap
+}
+
+.left-middle-right {
+  display: flex
+}
