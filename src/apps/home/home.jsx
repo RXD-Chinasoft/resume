@@ -6,8 +6,9 @@ import ToolBar from './toolbar'
 import { Row, Col } from 'antd';
 import { GetRequirements, NotifyMatrixChanged, GetDictionaries } from './../service/homeService';
 import './home.css';
-import CandidateCreateForm from './newCandidate';
-import RequirementCreateForm from './newRequirement';
+import CandidateCreateForm from './candidate/candidateCreator';
+import CandidateEditForm from './candidate/candidateEditor';
+import RequirementCreateForm from './requirement/requiremenCreator';
 import { OpenNotificationWithIcon } from './../service/utils';
 
 // a little function to help us with reordering the result
@@ -83,6 +84,11 @@ class Home extends Component {
         requirements: [],
         candidate: [],
     };
+
+    constructor(props) {
+        super(props)
+        this.candidateComponents = {}
+    }
 
     handleSave = (doneCall) => {
         console.log("ok", this.state.candidate)
@@ -175,6 +181,11 @@ class Home extends Component {
                 candidate: response.data.relateCandidates,
             })
         })
+    }
+
+    onCandidateClick = (candidate) => {
+        console.log(candidate, this.candidateComponents[candidate.id])
+        this.candidateComponents[candidate.id].showModal()
     }
 
     componentDidMount() {
@@ -329,7 +340,14 @@ class Home extends Component {
                                                                                                     snapshot.isDragging,
                                                                                                     provided.draggableProps.style
                                                                                                 )}
-                                                                                                className="candidateBox">
+                                                                                                className="candidateBox"
+                                                                                                onClick={this.onCandidateClick.bind(this, item)}>
+                                                                                                <CandidateEditForm
+                                                                                                    candidate={item}
+                                                                                                    wrappedComponentRef={(reference) => {
+                                                                                                        this.candidateComponents[item.id] = reference
+                                                                                                    }}
+                                                                                                />
                                                                                                 <Row style={{ borderBottom: '1px solid white', paddingBottom: 3 }}>
                                                                                                     <div>
                                                                                                         <Badge status="success" />
