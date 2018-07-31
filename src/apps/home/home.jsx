@@ -9,6 +9,7 @@ import './home.css';
 import CandidateCreateForm from './candidate/candidateCreator';
 import CandidateEditForm from './candidate/candidateEditor';
 import RequirementCreateForm from './requirement/requiremenCreator';
+import RequirementEditForm from './requirement/requiremenEditor';
 import { OpenNotificationWithIcon } from './../service/utils';
 
 // a little function to help us with reordering the result
@@ -88,6 +89,7 @@ class Home extends Component {
     constructor(props) {
         super(props)
         this.candidateComponents = {}
+        this.requirementComponents = {}
     }
 
     handleSave = (doneCall) => {
@@ -188,6 +190,11 @@ class Home extends Component {
         this.candidateComponents[candidate.id].showModal()
     }
 
+    onRequirementClick = (requirement) => {
+        console.log(requirement, this.requirementComponents[requirement.id])
+        this.requirementComponents[requirement.id].showModal()
+    }
+
     onEditDone = (requirement, coloum, index, obj) => {
         const { candidate } = this.state;
         candidate[requirement][coloum][index] = obj
@@ -208,6 +215,10 @@ class Home extends Component {
             //     dictionaries: [].concat(response.data)
             // })
         })
+    }
+
+    showDetail() {
+        console.log('show detail ....')
     }
 
     // Normally you would want to split things out into separate components.
@@ -296,6 +307,13 @@ class Home extends Component {
                                                 </div>
                                             </Row>
                                             <Row>
+                                                <RequirementEditForm
+                                                    requirement={element}
+                                                    wrappedComponentRef={(reference) => {
+                                                        this.requirementComponents[element.id] = reference
+                                                    }}
+                                                    onUpdateDone={this.onEditDone.bind(this, element.id)}
+                                                />
                                                 <div>
                                                     <span style={{ float: 'right' }}>
                                                         <CandidateCreateForm
@@ -306,7 +324,7 @@ class Home extends Component {
                                                         />
                                                     </span>
                                                     <span style={{ float: 'right', marginRight: 10 }}>
-                                                        <Icon type="form" style={{ color: '#347cb7' }} onClick={this.showDetail} />
+                                                        <Icon type="form" style={{ color: '#347cb7' }} onClick={this.onRequirementClick.bind(this, element)} />
                                                     </span>
 
                                                 </div>

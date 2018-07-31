@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Button, Modal, Form, Input, Radio, Row, Col, Select, Cascader, InputNumber, Icon, notification } from 'antd';
 import moment from 'moment';
 import './../newform.css';
-import { CreateRequirement } from './../../service/homeService'
+import { CreateRequirement } from './../../service/homeService';
+import PropTypes from 'prop-types';
 
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -160,6 +161,9 @@ const RequirementEditForm = Form.create()(
         },
       };
       const { visible, loading } = this.state;
+
+      const entity = this.props.requirement;
+      console.log('fasdasdsad', entity)
       return (
         <div>
           {/* <Button type="primary" shape="circle" icon="plus-circle-o" size={'small'} onClick={this.showModal} /> */}
@@ -201,6 +205,7 @@ const RequirementEditForm = Form.create()(
                           {
                             required: true, message: 'Please input your requirement!',
                           }],
+                        initialValue: entity.requirement,
                       })(
                         <Input placeholder="请输入需求ID" style={{ width: '200px', marginLeft: '34px' }} />
                       )}
@@ -221,6 +226,7 @@ const RequirementEditForm = Form.create()(
                           {
                             required: true, message: 'Please input your area!',
                           }],
+                        initialValue: entity.area,
                       })(
                         <Input placeholder="请输入地域" style={{ width: '200px', marginLeft: '34px' }} />
                       )}
@@ -241,6 +247,7 @@ const RequirementEditForm = Form.create()(
                           {
                             required: true, message: 'Please input number of people!',
                           }],
+                        initialValue: entity.count,
 
                       })(
                         <Input placeholder="请输入人数" style={{ width: '200px', marginLeft: '34px' }} />
@@ -267,6 +274,7 @@ const RequirementEditForm = Form.create()(
                           {
                             required: false, message: 'Please input your name!',
                           }],
+                        initialValue: entity.requirement,
                       })(
                         <Input placeholder="请输入客户需求ID" style={{ width: '200px', marginLeft: '20px' }} />
                       )}
@@ -280,6 +288,7 @@ const RequirementEditForm = Form.create()(
                     >
                       {getFieldDecorator('saler', {
                         rules: [{ required: true, message: 'Please select one!' }],
+                        initialValue: entity.saler,
                       })(
                         <Select
                           placeholder="Select a option"
@@ -298,6 +307,7 @@ const RequirementEditForm = Form.create()(
                     >
                       {getFieldDecorator('priority', {
                         rules: [{ required: false, message: 'Please select one!' }],
+                        initialValue: entity.priority,
                       })(
                         <Select
                           placeholder="Select a option"
@@ -316,6 +326,7 @@ const RequirementEditForm = Form.create()(
                     >
                       {getFieldDecorator('rqtype', {
                         rules: [{ required: true, message: 'Please select one!' }],
+                        initialValue: entity.rqtype,
                       })(
                         <Select
                           placeholder="Select a option"
@@ -339,6 +350,7 @@ const RequirementEditForm = Form.create()(
                           {
                             required: true, message: 'Please input your name!',
                           }],
+                        initialValue: entity.client,
                       })(
                         <Input placeholder="请输入客户姓名" style={{ width: '200px', marginLeft: '20px' }} />
                       )}
@@ -357,6 +369,7 @@ const RequirementEditForm = Form.create()(
                           {
                             required: true, message: 'Please input your name!',
                           }],
+                        initialValue: entity.challengetarget,
                       })(
                         <Input placeholder="请输入挑战目标" style={{ width: '200px', marginLeft: '20px' }} />
                       )}
@@ -370,6 +383,7 @@ const RequirementEditForm = Form.create()(
                     >
                       {getFieldDecorator('turn', {
                         rules: [{ required: true, message: 'Please select one!' }],
+                        initialValue: entity.turn,
                       })(
                         <Select
                           placeholder="Select a option"
@@ -393,6 +407,7 @@ const RequirementEditForm = Form.create()(
                           {
                             required: true, message: 'Please input your name!',
                           }],
+                        initialValue: entity.candidate,
                       })(
                         <Input placeholder="请输入面试联系人" style={{ width: '200px', marginLeft: '20px' }} />
                       )}
@@ -408,6 +423,7 @@ const RequirementEditForm = Form.create()(
                           {
                             required: true, message: 'Please input your name!',
                           }],
+                        initialValue: entity.interviewaddr,
                       })(
                         <Input placeholder="请输入面试地址" style={{ width: '583px', marginLeft: '20px' }} />
                       )}
@@ -423,6 +439,7 @@ const RequirementEditForm = Form.create()(
                           {
                             required: true, message: 'Please input your name!',
                           }],
+                        initialValue: entity.projectaddr,
                       })(
                         <Input placeholder="请输入项目地址" style={{ width: '583px', marginLeft: '20px' }} />
                       )}
@@ -436,6 +453,7 @@ const RequirementEditForm = Form.create()(
                     >
                       {getFieldDecorator('department', {
                         rules: [{ required: false, message: 'Please select one!' }],
+                        initialValue: entity.department,
                       })(
                         <Select
                           placeholder="Select a option"
@@ -454,6 +472,7 @@ const RequirementEditForm = Form.create()(
                     >
                       {getFieldDecorator('dm', {
                         rules: [{ required: true, message: 'Please select one!' }],
+                        initialValue: entity.dm,
                       })(
                         <Select
                           placeholder="Select a option"
@@ -472,6 +491,7 @@ const RequirementEditForm = Form.create()(
                     >
                       {getFieldDecorator('english', {
                         rules: [{ required: true, message: 'Please select one!' }],
+                        initialValue: entity.english,
                       })(
                         <Select
                           placeholder="Select a option"
@@ -490,6 +510,7 @@ const RequirementEditForm = Form.create()(
                     >
                       {getFieldDecorator('rqstatus', {
                         rules: [{ required: true, message: 'Please select one!' }],
+                        initialValue: entity.rqstatus,
                       })(
                         <Select
                           placeholder="Select a option"
@@ -510,6 +531,7 @@ const RequirementEditForm = Form.create()(
                           {
                             required: true, message: 'Please input your name!',
                           }],
+                        initialValue: entity.salaryscope,
                       })(
                         <Input placeholder="请输入薪资范围" style={{ width: '200px', marginLeft: '20px' }} />
                       )}
@@ -525,6 +547,7 @@ const RequirementEditForm = Form.create()(
                           {
                             required: true, message: 'Please input your name!',
                           }],
+                        initialValue: entity.resumetarget,
                       })(
                         <Input placeholder="请输入目标" style={{ width: '200px', marginLeft: '20px' }} />
                       )}
@@ -539,6 +562,7 @@ const RequirementEditForm = Form.create()(
                           {
                             required: true, message: 'Please input your name!',
                           }],
+                        initialValue: entity.teamrange,
                       })(
                         <Input placeholder="请输入规模" style={{ width: '200px', marginLeft: '20px' }} />
                       )}
@@ -553,6 +577,7 @@ const RequirementEditForm = Form.create()(
                           {
                             required: true, message: 'Please input your name!',
                           }],
+                        initialValue: entity.contact,
                       })(
                         <Input placeholder="请输入联系人电话" style={{ width: '200px', marginLeft: '20px' }} />
                       )}
@@ -565,7 +590,7 @@ const RequirementEditForm = Form.create()(
                   {/* <p style={{ float: 'left' }}>
                     JD
                  </p> */}
-                  <div style={{ borderStyle: 'solid solid solid solid',borderColor:'grey grey grey grey', float: 'left', marginLeft: 10, paddingTop: 15, paddingLeft: 5, paddingRight: 5, paddingBottom: 8, backgroundColor: 'white', width: '90%', minHeight: '618px', color: 'black' }}>
+                  <div style={{ borderStyle: 'solid solid solid solid', borderColor: 'grey grey grey grey', float: 'left', marginLeft: 10, paddingTop: 15, paddingLeft: 5, paddingRight: 5, paddingBottom: 8, backgroundColor: 'white', width: '90%', minHeight: '618px', color: 'black' }}>
 
                     {
                       this.jdObject.map((element, index) => {
@@ -618,7 +643,11 @@ const RequirementEditForm = Form.create()(
   }
 );
 
-export default RequirementCreateForm;
+RequirementEditForm.propTypes = {
+  requirement: PropTypes.object.isRequired
+}
+
+export default RequirementEditForm;
 
 // class CollectionsPage extends React.Component {
 //   state = {

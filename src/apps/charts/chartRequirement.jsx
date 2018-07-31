@@ -23,6 +23,7 @@ class ChartRequirement extends Component {
     jobOpt: this.getJobOption(),
     offerOpt: this.getOfferOption(),
     teamOpt: this.getTeamOption(),
+    requirementOpt: this.getRequirementOption()
   });
 
   getJobOption = () => ({
@@ -69,7 +70,7 @@ class ChartRequirement extends Component {
       {
         name: '六月',
         type: 'bar',
-        data: [10, 20, 30, 50, 70, 80, 90],
+        data: [10, 20, 30, 55, 70, 80, 90],
         barGap: 0,
         markLine: {
           data: [
@@ -218,6 +219,47 @@ class ChartRequirement extends Component {
     ]
   });
 
+  getRequirementOption = () => ({
+    dataset: {
+      source: [
+        ['score', 'amount', 'product'],
+        [89.3, 58212, 'Speech'],
+        [57.1, 78254, 'US'],
+        [74.4, 41032, 'AI'],
+        [50.1, 12755, 'C&E'],
+        [89.7, 20145, 'MCS'],
+        [68.1, 79146, 'MACH'],
+        [19.6, 91852, 'VSP'],
+      ]
+    },
+    grid: { containLabel: true },
+    xAxis: { name: ' ' },
+    yAxis: { type: 'category' },
+    visualMap: {
+      orient: 'horizontal',
+      left: 'center',
+      min: 10,
+      max: 100,
+      text: ['', ''],
+      // Map the score column to color
+      dimension: 0,
+      inRange: {
+        color: ['#D7DA8B', '#E15457']
+      }
+    },
+    series: [
+      {
+        type: 'bar',
+        encode: {
+          // Map the "amount" column to X axis.
+          x: 'amount',
+          // Map the "product" column to Y axis
+          y: 'product'
+        }
+      }
+    ]
+  });
+
   render() {
     return (
       <div className='examples'>
@@ -237,12 +279,30 @@ class ChartRequirement extends Component {
             </Row>
             <Row>
               <Col span={12}>
-                <ReactEcharts ref='area_three'
+                {/* <ReactEcharts ref='area_three'
                   option={this.state.teamOpt}
-                  style={{ height: 300 }} />
+                  style={{ height: 300 }} /> */}
+                <span style={{ fontSize: 20, paddingLeft: 20 }}>
+                  <Icon type="info-circle" />说明
+                </span>
+                <div style={{ fontSize: 20, paddingLeft: 30 }}>
+                  新增需求按每周累计，不包括新开又关闭的情况
+                </div>
+                <span style={{ fontSize: 25, paddingLeft: 20 }}>
+                  <Icon type="info-circle" />需求不稳定
+                </span>
+                <div style={{ fontSize: 20, paddingLeft: 30 }}>
+                  新增需求多的项目，如MCS，AI战略，开的多关的也多，均超过一半
+                </div>
               </Col>
               <Col span={12} style={{ paddingTop: 50, paddingLeft: 36 }}>
-                <List
+                <div style={{ fontSize: 20, paddingLeft: 150, color: 'black' }}>
+                  需求满足度（4月起）
+                </div>
+                <ReactEcharts ref='area_three'
+                  option={this.state.requirementOpt}
+                  style={{ height: 300 }} />
+                {/* <List
                   dataSource={summaries}
                   renderItem={item => (
                     <List.Item key={item.id}>
@@ -262,7 +322,7 @@ class ChartRequirement extends Component {
                       <Spin />
                     </div>
                   )}
-                </List>
+                </List> */}
               </Col>
             </Row>
           </div>
