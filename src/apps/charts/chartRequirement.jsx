@@ -81,7 +81,6 @@ class ChartRequirement extends Component {
   });
 
   getOfferOption = () => ({
-    color: ['#de8627a6', '#cc3322a6'],
     tooltip: {
       trigger: 'axis',
       axisPointer: {
@@ -95,18 +94,18 @@ class ChartRequirement extends Component {
       show: false
     },
     title: {
-      text: '招聘团队人均Offer',
+      text: '每周关闭需求数6月',
       left: 'center',
       padding: 15
     },
     legend: {
-      data: ['5月人均Offer', '6月人均Offer'],
+      data: ['MSIC', 'C&E', 'AI', 'WDG', 'US'],
       bottom: 0
     },
     xAxis: [
       {
         type: 'category',
-        data: ['AI战略', 'C&E', 'AI&R', 'MICS', 'US', 'C&E-XA', 'WDG'],
+        data: ['Week1', 'Week2', 'Week3', 'Week4', '总计'],
         axisPointer: {
           type: 'shadow'
         }
@@ -124,26 +123,29 @@ class ChartRequirement extends Component {
     calculable: true,
     series: [
       {
-        name: '五月',
+        name: 'MSIC',
         type: 'bar',
-        data: [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6],
-        barGap: 0,
-        markLine: {
-          data: [
-            { type: 'average', name: '平均值' }
-          ]
-        }
+        data: [23.2, 25.6, 76.7, 135.6, 88]
       },
       {
-        name: '六月',
+        name: 'C&E',
         type: 'bar',
-        data: [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6],
-        barGap: 0,
-        markLine: {
-          data: [
-            { type: 'average', name: '平均值' }
-          ]
-        }
+        data: [5.9, 9.0, 28.7, 175.6, 88]
+      },
+      {
+        name: 'AI',
+        type: 'bar',
+        data: [0, 9.0, 0, 50, 88]
+      },
+      {
+        name: 'WDG',
+        type: 'bar',
+        data: [10, 90.0, 10, 80, 88]
+      },
+      {
+        name: 'US',
+        type: 'bar',
+        data: [0, 9.0, 0, 50, 88]
       }
     ]
   });
