@@ -55,6 +55,10 @@ func updateRequirementHandleFunc(w http.ResponseWriter, r *http.Request, bodyByt
 		err = db.UpdateRequirement(requirement)
 		if err != nil {
 			http.Error(w, http.StatusText(500), 500)
+		} else {
+			if err := json.NewEncoder(w).Encode(&requirement);err != nil {
+				http.Error(w, err.Error(), 500)
+			}
 		}
 	}
 	
