@@ -229,6 +229,13 @@ class Home extends Component {
     // Normally you would want to split things out into separate components.
     // But in this example everything is just done in one place for simplicity
     render() {
+        const columes = [0, 0, 0, 0, 0, 0, 0, 0]
+        for (const key in this.state.candidate) {
+            this.state.candidate[key].forEach((element, index) => {
+                columes[index] = columes[index] + element.length
+            });
+        }
+        console.log("total ", columes)
         return (
             <div>
                 <ToolBar onSave={this.handleSave} ref="toolbar" />
@@ -250,28 +257,28 @@ class Home extends Component {
                         </Col>
                         <Col className="gutter-row gutter-row-padding-none" span={19}>
                             <Col className="gutter-row gutter-row-padding-none" span={3}>
-                                <div className="gutter-box flow-title">简历筛选</div>
+                                <div className="gutter-box flow-title">简历筛选({columes[0]})</div>
                             </Col>
                             <Col className="gutter-row gutter-row-padding-none" span={3}>
-                                <div className="gutter-box flow-title">内部面试(7)</div>
+                                <div className="gutter-box flow-title">内部面试({columes[1]})</div>
                             </Col>
                             <Col className="gutter-row gutter-row-padding-none" span={3}>
-                                <div className="gutter-box flow-title">内部通过(7)</div>
+                                <div className="gutter-box flow-title">内部通过({columes[2]})</div>
                             </Col>
                             <Col className="gutter-row gutter-row-padding-none" span={3}>
-                                <div className="gutter-box flow-title">推荐客户(7)</div>
+                                <div className="gutter-box flow-title">推荐客户({columes[3]})</div>
                             </Col>
                             <Col className="gutter-row gutter-row-padding-none" span={3}>
-                                <div className="gutter-box flow-title">安排客户(7)</div>
+                                <div className="gutter-box flow-title">安排客户({columes[4]})</div>
                             </Col>
                             <Col className="gutter-row gutter-row-padding-none" span={3}>
-                                <div className="gutter-box flow-title">客户面试(7)</div>
+                                <div className="gutter-box flow-title">客户面试({columes[5]})</div>
                             </Col>
                             <Col className="gutter-row gutter-row-padding-none" span={3}>
-                                <div className="gutter-box flow-title">客户通过(7)</div>
+                                <div className="gutter-box flow-title">客户通过({columes[6]})</div>
                             </Col>
                             <Col className="gutter-row gutter-row-padding-none" span={3}>
-                                <div className="gutter-box flow-title">Offer(7)</div>
+                                <div className="gutter-box flow-title">Offer({columes[7]})</div>
                             </Col>
                         </Col>
                         <Col className="gutter-row gutter-row-padding-none" span={2}>
@@ -279,10 +286,12 @@ class Home extends Component {
                         </Col>
                     </Row>
                     {
+
                         this.state.requirements.map((element, index) => {
                             console.log('element', this.state.requirements)
                             console.log('candidate', this.state.candidate)
                             console.log('elementid', element.id)
+                           
                             return (
                                 <Row key={element.id} gutter={16} style={{ width: '100%', display: 'flex' }}>
 
