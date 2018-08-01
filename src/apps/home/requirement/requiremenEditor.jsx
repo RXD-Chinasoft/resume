@@ -181,7 +181,7 @@ const RequirementEditForm = Form.create()(
       return (
         <div>
           {/* <Button type="primary" shape="circle" icon="plus-circle-o" size={'small'} onClick={this.showModal} /> */}
-          <Icon type="plus-circle-o" style={{ color: 'white', height: 10, width: 10 }} onClick={this.showModal} />
+          <Icon type="form" style={{ color: '#347cb7' }} onClick={this.showModal} />
           <Modal
             visible={visible}
             // title="Create a new collection"

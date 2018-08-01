@@ -291,7 +291,7 @@ class Home extends Component {
                             console.log('element', this.state.requirements)
                             console.log('candidate', this.state.candidate)
                             console.log('elementid', element.id)
-                           
+
                             return (
                                 <Row key={element.id} gutter={16} style={{ width: '100%', display: 'flex' }}>
 
@@ -322,13 +322,7 @@ class Home extends Component {
                                                 </div>
                                             </Row>
                                             <Row>
-                                                <RequirementEditForm
-                                                    requirement={element}
-                                                    wrappedComponentRef={(reference) => {
-                                                        this.requirementComponents[element.id] = reference
-                                                    }}
-                                                    onRQUpdateDone={this.onRQEditDone.bind(this, index)}
-                                                />
+
                                                 <div>
                                                     <span style={{ float: 'right' }}>
                                                         <CandidateCreateForm
@@ -339,7 +333,13 @@ class Home extends Component {
                                                         />
                                                     </span>
                                                     <span style={{ float: 'right', marginRight: 10 }}>
-                                                        <Icon type="form" style={{ color: '#347cb7' }} onClick={this.onRequirementClick.bind(this, element)} />
+                                                        <RequirementEditForm
+                                                            requirement={element}
+                                                            wrappedComponentRef={(reference) => {
+                                                                this.requirementComponents[element.id] = reference
+                                                            }}
+                                                            onRQUpdateDone={this.onRQEditDone.bind(this, index)}
+                                                        />
                                                     </span>
 
                                                 </div>
