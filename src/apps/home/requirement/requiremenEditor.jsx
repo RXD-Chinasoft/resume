@@ -270,7 +270,7 @@ const RequirementEditForm = Form.create()(
                   </Col>
                 </Col>
                 <Col className="gutter-row" span={6}>
-                  <h3 style={{ color: 'black', paddingTop: 12, marginLeft: '20px' }}>{moment(new Date()).format("YYYY-MM-DD")}</h3>
+                  <h3 style={{ color: 'grey', paddingTop: 12, float: 'right', marginRight: '20px' }}>{moment(new Date()).format("YYYY-MM-DD")}</h3>
                 </Col>
               </Row>
               <Row gutter={24}>
@@ -278,7 +278,7 @@ const RequirementEditForm = Form.create()(
                   <Col span={12} style={{ paddingTop: 8 }}>
                     <FormItem
                       {...formItemLayout}
-                      label="客户需求ID"
+                      label="客户需求名称"
                     >
                       {getFieldDecorator('requirementID', {
                         rules: [
@@ -290,7 +290,7 @@ const RequirementEditForm = Form.create()(
                           }],
                         initialValue: entity.requirement,
                       })(
-                        <Input placeholder="请输入客户需求ID" style={{ width: '200px', marginLeft: '20px' }} />
+                        <Input placeholder="请输入客户需求名称" style={{ width: '200px', marginLeft: '20px' }} />
                       )}
 
                     </FormItem>
@@ -439,7 +439,7 @@ const RequirementEditForm = Form.create()(
                           }],
                         initialValue: entity.interviewaddr,
                       })(
-                        <Input placeholder="请输入面试地址" style={{ width: 500, marginLeft: '20px' }} />
+                        <Input placeholder="请输入面试地址" style={{ width: 565, marginLeft: '20px' }} />
                       )}
 
                     </FormItem>
@@ -455,7 +455,7 @@ const RequirementEditForm = Form.create()(
                           }],
                         initialValue: entity.projectaddr,
                       })(
-                        <Input placeholder="请输入项目地址" style={{ width: 500, marginLeft: '20px' }} />
+                        <Input placeholder="请输入项目地址" style={{ width: 565, marginLeft: '20px' }} />
                       )}
                     </FormItem>
                   </Col>
@@ -601,15 +601,14 @@ const RequirementEditForm = Form.create()(
                 </Col>
 
                 <Col span={10} style={{ paddingTop: 8 }}>
-                  {/* <p style={{ float: 'left' }}>
-                    JD
-                 </p> */}
-                  <div style={{ borderStyle: 'solid solid solid solid', borderColor: 'grey grey grey grey', float: 'left', marginLeft: 10, paddingTop: 15, paddingLeft: 5, paddingRight: 5, paddingBottom: 8, backgroundColor: 'white', width: '90%', minHeight: '618px', color: 'black' }}>
-
+                  <div style={{
+                    borderRadius: 10,
+                    border: '1px solid grey', paddingLeft: 15, paddingRight: 15, paddingBottom: 8, backgroundColor: 'white', width: '100%', minHeight: '618px', color: 'grey'
+                  }}>
                     {
                       this.state.jdObject.map((element, index) => {
                         return (
-                          <Row gutter={24} key={element.id} style={{ borderBottom: "solid 1px grey", marginBottom: '1px', minHeight: 30 }}>
+                          <Row gutter={24} key={element.id} style={{ marginRight: 0, borderBottom: "solid 1px grey", paddingTop: 8, minHeight: 36 }}>
                             <Col span={12}>
                               {element.name}
                             </Col>

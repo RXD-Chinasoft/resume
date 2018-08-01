@@ -139,20 +139,6 @@ const RequirementCreateForm = Form.create()(
       }
     }
 
-
-
-    // onChange1 = (e) => {
-    //   this.setState({
-    //     value1: e.target.value,
-    //   });
-    // }
-    // onChange2 = (e) => {
-    //   this.setState({
-    //     value2: e.target.value,
-    //   });
-    // }
-
-
     render() {
       const RadioGroup = Radio.Group;
       const { onCancel, onCreate, form } = this.props;
@@ -183,9 +169,9 @@ const RequirementCreateForm = Form.create()(
               <Button style={{ backgroundColor: '#d69250', color: 'white' }} key="save" icon="save" loading={loading} onClick={this.handleOk}>
                 保存
             </Button>,
-              <Button style={{ backgroundColor: '#d69250', color: 'white' }} key="copy" icon="copy" onClick={this.handleCancel}>复制</Button>,
-              <Button style={{ backgroundColor: '#d69250', color: 'white' }} key="del" icon="delete" onClick={this.handleCancel}>删除</Button>,
-              <Button style={{ backgroundColor: '#d69250', color: 'white' }} key="trace" icon="rollback" onClick={this.handleCancel}>轨迹</Button>,
+              // <Button style={{ backgroundColor: '#d69250', color: 'white' }} key="copy" icon="copy" onClick={this.handleCancel}>复制</Button>,
+              // <Button style={{ backgroundColor: '#d69250', color: 'white' }} key="del" icon="delete" onClick={this.handleCancel}>删除</Button>,
+              // <Button style={{ backgroundColor: '#d69250', color: 'white' }} key="trace" icon="rollback" onClick={this.handleCancel}>轨迹</Button>,
             ]}
           >
             <Form
@@ -198,7 +184,7 @@ const RequirementCreateForm = Form.create()(
                   <Col span={8} style={{ paddingTop: 8 }}>
                     <FormItem
                       {...formItemLayout}
-                      label="需求ID"
+                      label="需求名称"
                       style={{ color: "white" }}
                     >
                       {getFieldDecorator('requirement', {
@@ -210,7 +196,7 @@ const RequirementCreateForm = Form.create()(
                             required: true, message: 'Please input your requirement!',
                           }],
                       })(
-                        <Input placeholder="请输入需求ID" style={{ width: 160, marginLeft: '34px' }} />
+                        <Input placeholder="请输入需求名称" style={{ width: 160, marginLeft: '34px' }} />
                       )}
 
                     </FormItem>
@@ -417,7 +403,7 @@ const RequirementCreateForm = Form.create()(
                             required: true, message: 'Please input your name!',
                           }],
                       })(
-                        <Input placeholder="请输入面试地址" style={{ width: 500, marginLeft: '20px' }} />
+                        <Input placeholder="请输入面试地址" style={{ width: 565, marginLeft: '20px' }} />
                       )}
 
                     </FormItem>
@@ -432,7 +418,7 @@ const RequirementCreateForm = Form.create()(
                             required: true, message: 'Please input your name!',
                           }],
                       })(
-                        <Input placeholder="请输入项目地址" style={{ width: 500, marginLeft: '20px' }} />
+                        <Input placeholder="请输入项目地址" style={{ width: 565, marginLeft: '20px' }} />
                       )}
                     </FormItem>
                   </Col>
@@ -570,9 +556,6 @@ const RequirementCreateForm = Form.create()(
                 </Col>
 
                 <Col span={10} style={{ paddingTop: 8 }}>
-                  {/* <p style={{ float: 'left' }}>
-                    JD
-                 </p> */}
                   <div style={{
                     borderRadius: 10,
                     border: '1px solid grey', paddingLeft: 15, paddingRight: 15, paddingBottom: 8, backgroundColor: 'white', width: '100%', minHeight: '618px', color: 'grey'
@@ -581,7 +564,7 @@ const RequirementCreateForm = Form.create()(
                     {
                       this.state.jdObject.map((element, index) => {
                         return (
-                          <Row gutter={24} key={element.id} style={{ marginRight:0 ,borderBottom: "solid 1px grey", paddingTop: 8 , minHeight: 36 }}>
+                          <Row gutter={24} key={element.id} style={{ marginRight: 0, borderBottom: "solid 1px grey", paddingTop: 8, minHeight: 36 }}>
                             <Col span={12}>
                               {element.name}
                             </Col>
