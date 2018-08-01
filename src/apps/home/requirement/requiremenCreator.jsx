@@ -34,6 +34,11 @@ const RequirementCreateForm = Form.create()(
       visible: false,
       loading: false,
       fileList: [],
+      jdObject: [
+        { id: 1, value: 1, name: '1.英语读写熟练' },
+        { id: 2, value: 1, name: '2.沟通能力强' },
+        { id: 3, value: 1, name: '3.不焦虑' }
+      ],
     }
     // for model
     showModal = () => {
@@ -64,36 +69,44 @@ const RequirementCreateForm = Form.create()(
         note: `Hi, ${value === 'male' ? 'man' : 'lady'}!`,
       });
     }
-    state = {
-      value: 1,
-      value1: 1,
-      value2: 1
+
+
+
+    onChange = (index, e) => {
+      console.log('radio checked', e, index);
+      // this.setState({
+      //   value: e.target.value,
+      // });
+      const { jdObject } = this.state
+      jdObject[index].value = e.target.value
+      this.setState({ jdObject })
     }
 
-    jdObject = [
-      { id: 1, value: 1, name: '1.英语读写熟练' },
-      { id: 2, value: 1, name: '2.沟通能力强' },
-      { id: 3, value: 1, name: '3.不焦虑' }
-    ]
-
     handleOk = (e) => {
-      this.setState({ loading: true });
       e.preventDefault();
       this.props.form.validateFields((err, values) => {
-        console.log('Received values of form: ', values);
+        console.log('Received values of form1111: ', values);
         if (!err) {
+          this.setState({ loading: true });
           CreateRequirement(this.convertFromRq(values)).then(res => {
             this.setState({ loading: false, visible: false });
             openNotificationWithIcon('success', 'Notification', '创建成功')
-            this.props.form.resetFields();
+            this.onDone();
           }).catch(e => {
             this.setState({ loading: false, visible: false });
             openNotificationWithIcon('warning', 'Notification', '创建失败，请联系管理员');
-            this.props.form.resetFields();
+            this.onDone();
           })
           return;
         }
       });
+    }
+    onDone() {
+      this.setState({ loading: false, visible: false, });
+      this.props.form.resetFields();
+      if (this.props.onSaveRqDone) {
+        this.props.onSaveRqDone()
+      }
     }
 
     convertFromRq = (formData) => {
@@ -119,30 +132,25 @@ const RequirementCreateForm = Form.create()(
         interviewaddr: formData.interviewaddr,//面试地址
         projectaddr: formData.projectaddr,//项目地址
         createtime: "20180725",
-        descrpition: '',
+        descrpition: JSON.stringify(this.state.jdObject),
         matrix: ['', '', '', '', '', '', '', ''],
         clientrequirment: "123",
         department: Number(formData.department)//所属部门
       }
     }
 
-    onChange = (e) => {
-      console.log('radio checked', e);
-      // this.setState({
-      //   value: e.target.value,
-      // });
-    }
 
-    onChange1 = (e) => {
-      this.setState({
-        value1: e.target.value,
-      });
-    }
-    onChange2 = (e) => {
-      this.setState({
-        value2: e.target.value,
-      });
-    }
+
+    // onChange1 = (e) => {
+    //   this.setState({
+    //     value1: e.target.value,
+    //   });
+    // }
+    // onChange2 = (e) => {
+    //   this.setState({
+    //     value2: e.target.value,
+    //   });
+    // }
 
 
     render() {
@@ -249,7 +257,7 @@ const RequirementCreateForm = Form.create()(
                   </Col>
                 </Col>
                 <Col className="gutter-row" span={6}>
-                  <h3 style={{ color: 'black', paddingTop: 12, marginLeft: '20px' }}>{moment(new Date()).format("YYYY-MM-DD")}</h3>
+                  <h3 style={{ color: 'grey', paddingTop: 12, float: 'right', marginRight: '20px' }}>{moment(new Date()).format("YYYY-MM-DD")}</h3>
                 </Col>
               </Row>
               <Row gutter={24}>
@@ -565,17 +573,20 @@ const RequirementCreateForm = Form.create()(
                   {/* <p style={{ float: 'left' }}>
                     JD
                  </p> */}
-                  <div style={{ borderStyle: 'solid solid solid solid', borderColor: 'grey grey grey grey', float: 'left', marginLeft: 10, paddingTop: 15, paddingLeft: 5, paddingRight: 5, paddingBottom: 8, backgroundColor: 'white', width: '90%', minHeight: '618px', color: 'black' }}>
+                  <div style={{
+                    borderRadius: 10,
+                    border: '1px solid grey', paddingLeft: 15, paddingRight: 15, paddingBottom: 8, backgroundColor: 'white', width: '100%', minHeight: '618px', color: 'grey'
+                  }}>
 
                     {
-                      this.jdObject.map((element, index) => {
+                      this.state.jdObject.map((element, index) => {
                         return (
-                          <Row gutter={24} key={element.id} style={{ borderBottom: "solid 1px grey", marginBottom: '1px', minHeight: 30 }}>
+                          <Row gutter={24} key={element.id} style={{ marginRight:0 ,borderBottom: "solid 1px grey", paddingTop: 8 , minHeight: 36 }}>
                             <Col span={12}>
                               {element.name}
                             </Col>
                             <Col span={12}>
-                              <RadioGroup onChange={this.onChange} value={element.value}>
+                              <RadioGroup onChange={this.onChange.bind(this, index)} value={element.value}>
                                 <Radio value={1}>硬性指标</Radio>
                                 <Radio value={2}>岗位优势</Radio>
                               </RadioGroup>

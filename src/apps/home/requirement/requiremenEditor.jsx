@@ -35,7 +35,23 @@ const RequirementEditForm = Form.create()(
       visible: false,
       loading: false,
       fileList: [],
+      jdObject: [
+        { id: 1, value: 1, name: '1.英语读写熟练' },
+        { id: 2, value: 1, name: '2.沟通能力强' },
+        { id: 3, value: 1, name: '3.不焦虑' }
+      ],
     }
+
+    componentDidMount() {
+      console.log("====================>", this.props.requirement, this.props.requirement.descrpition)
+      if (this.props.requirement.descrpition) {
+        let { jdObject } = this.state
+        jdObject = JSON.parse(this.props.requirement.descrpition)
+        this.setState({ jdObject })
+        console.log("====================>", jdObject)
+      }
+    }
+
     // for model
     showModal = () => {
       this.findDictionaries()
@@ -65,17 +81,6 @@ const RequirementEditForm = Form.create()(
         note: `Hi, ${value === 'male' ? 'man' : 'lady'}!`,
       });
     }
-    state = {
-      value: 1,
-      value1: 1,
-      value2: 1
-    }
-
-    jdObject = [
-      { id: 1, value: 1, name: '1.英语读写熟练' },
-      { id: 2, value: 1, name: '2.沟通能力强' },
-      { id: 3, value: 1, name: '3.不焦虑' }
-    ]
 
     handleOk = (e) => {
       e.preventDefault();
@@ -100,7 +105,7 @@ const RequirementEditForm = Form.create()(
       this.props.form.resetFields();
       if (this.props.onRQUpdateDone) {
         if (requirement) {
-          this.props.onRQUpdateDone(requirement)
+          this.props.onRQUpdateDone(requirement)//回调函数，参数requirement传至home页onRQUpdateDone方法里最后一个参数
         }
       }
     }
@@ -136,11 +141,11 @@ const RequirementEditForm = Form.create()(
       }
     }
 
-    onChange = (e) => {
-      console.log('radio checked', e);
-      // this.setState({
-      //   value: e.target.value,
-      // });
+    onChange = (index, e) => {
+      console.log('radio checked', e, index);
+      const { jdObject } = this.state
+      jdObject[index].value = e.target.value
+      this.setState({ jdObject })
     }
 
     onChange1 = (e) => {
@@ -602,14 +607,14 @@ const RequirementEditForm = Form.create()(
                   <div style={{ borderStyle: 'solid solid solid solid', borderColor: 'grey grey grey grey', float: 'left', marginLeft: 10, paddingTop: 15, paddingLeft: 5, paddingRight: 5, paddingBottom: 8, backgroundColor: 'white', width: '90%', minHeight: '618px', color: 'black' }}>
 
                     {
-                      this.jdObject.map((element, index) => {
+                      this.state.jdObject.map((element, index) => {
                         return (
                           <Row gutter={24} key={element.id} style={{ borderBottom: "solid 1px grey", marginBottom: '1px', minHeight: 30 }}>
                             <Col span={12}>
                               {element.name}
                             </Col>
                             <Col span={12}>
-                              <RadioGroup onChange={this.onChange} value={element.value}>
+                              <RadioGroup onChange={this.onChange.bind(this, index)} value={element.value}>
                                 <Radio value={1}>硬性指标</Radio>
                                 <Radio value={2}>岗位优势</Radio>
                               </RadioGroup>
