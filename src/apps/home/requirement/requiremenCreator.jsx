@@ -72,7 +72,7 @@ const RequirementCreateForm = Form.create()(
 
     jdObject = [
       { id: 1, value: 1, name: '1.英语读写熟练' },
-      { id: 2, value: 1, name: '2.会吹牛逼' },
+      { id: 2, value: 1, name: '2.沟通能力强' },
       { id: 3, value: 1, name: '3.不焦虑' }
     ]
 
@@ -202,7 +202,7 @@ const RequirementCreateForm = Form.create()(
                             required: true, message: 'Please input your requirement!',
                           }],
                       })(
-                        <Input placeholder="请输入需求ID" style={{ width: '200px', marginLeft: '34px' }} />
+                        <Input placeholder="请输入需求ID" style={{ width: 160, marginLeft: '34px' }} />
                       )}
 
                     </FormItem>
@@ -222,7 +222,7 @@ const RequirementCreateForm = Form.create()(
                             required: true, message: 'Please input your area!',
                           }],
                       })(
-                        <Input placeholder="请输入地域" style={{ width: '200px', marginLeft: '34px' }} />
+                        <Input placeholder="请输入地域" style={{ width: 160, marginLeft: '34px' }} />
                       )}
 
                     </FormItem>
@@ -243,7 +243,7 @@ const RequirementCreateForm = Form.create()(
                           }],
 
                       })(
-                        <Input placeholder="请输入人数" style={{ width: '200px', marginLeft: '34px' }} />
+                        <Input placeholder="请输入人数" style={{ width: 160, marginLeft: '34px' }} />
                       )}
                     </FormItem>
                   </Col>
@@ -409,7 +409,7 @@ const RequirementCreateForm = Form.create()(
                             required: true, message: 'Please input your name!',
                           }],
                       })(
-                        <Input placeholder="请输入面试地址" style={{ width: '583px', marginLeft: '20px' }} />
+                        <Input placeholder="请输入面试地址" style={{ width: 500, marginLeft: '20px' }} />
                       )}
 
                     </FormItem>
@@ -424,7 +424,7 @@ const RequirementCreateForm = Form.create()(
                             required: true, message: 'Please input your name!',
                           }],
                       })(
-                        <Input placeholder="请输入项目地址" style={{ width: '583px', marginLeft: '20px' }} />
+                        <Input placeholder="请输入项目地址" style={{ width: 500, marginLeft: '20px' }} />
                       )}
                     </FormItem>
                   </Col>
@@ -565,7 +565,7 @@ const RequirementCreateForm = Form.create()(
                   {/* <p style={{ float: 'left' }}>
                     JD
                  </p> */}
-                  <div style={{ borderStyle: 'solid solid solid solid',borderColor:'grey grey grey grey', float: 'left', marginLeft: 10, paddingTop: 15, paddingLeft: 5, paddingRight: 5, paddingBottom: 8, backgroundColor: 'white', width: '90%', minHeight: '618px', color: 'black' }}>
+                  <div style={{ borderStyle: 'solid solid solid solid', borderColor: 'grey grey grey grey', float: 'left', marginLeft: 10, paddingTop: 15, paddingLeft: 5, paddingRight: 5, paddingBottom: 8, backgroundColor: 'white', width: '90%', minHeight: '618px', color: 'black' }}>
 
                     {
                       this.jdObject.map((element, index) => {

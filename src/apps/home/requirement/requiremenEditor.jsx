@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button, Modal, Form, Input, Radio, Row, Col, Select, Cascader, InputNumber, Icon, notification } from 'antd';
 import moment from 'moment';
 import './../newform.css';
-import { CreateRequirement } from './../../service/homeService';
+import { UpdateRequirement } from './../../service/homeService';
 import PropTypes from 'prop-types';
 
 const FormItem = Form.Item;
@@ -73,33 +73,42 @@ const RequirementEditForm = Form.create()(
 
     jdObject = [
       { id: 1, value: 1, name: '1.英语读写熟练' },
-      { id: 2, value: 1, name: '2.会吹牛逼' },
+      { id: 2, value: 1, name: '2.沟通能力强' },
       { id: 3, value: 1, name: '3.不焦虑' }
     ]
 
     handleOk = (e) => {
-      this.setState({ loading: true });
       e.preventDefault();
       this.props.form.validateFields((err, values) => {
         console.log('Received values of form: ', values);
         if (!err) {
-          CreateRequirement(this.convertFromRq(values)).then(res => {
-            this.setState({ loading: false, visible: false });
-            openNotificationWithIcon('success', 'Notification', '创建成功')
-            this.props.form.resetFields();
+          this.setState({ loading: true });
+          UpdateRequirement(this.convertFromRq(values)).then(res => {
+            openNotificationWithIcon('success', 'Notification', '更新成功')
+            console.log("UpdateCandidateWithForm", res)
+            this.onDone(res.data);
           }).catch(e => {
-            this.setState({ loading: false, visible: false });
-            openNotificationWithIcon('warning', 'Notification', '创建失败，请联系管理员');
-            this.props.form.resetFields();
+            openNotificationWithIcon('warning', 'Notification', '更新失败，请联系管理员');
+            this.onDone(null);
           })
           return;
         }
       });
     }
+    onDone = (requirement) => {
+      this.setState({ loading: false, visible: false, });
+      this.props.form.resetFields();
+      if (this.props.onRQUpdateDone) {
+        if (requirement) {
+          this.props.onRQUpdateDone(requirement)
+        }
+      }
+    }
 
     convertFromRq = (formData) => {
-      console.log('formData', formData)
+      console.log('formData', formData, this.props.requirement.id)
       return {
+        id: this.props.requirement.id,
         requirement: formData.requirement,//需求ID
         area: formData.area,//地域
         count: Number(formData.count),//人数
@@ -207,7 +216,7 @@ const RequirementEditForm = Form.create()(
                           }],
                         initialValue: entity.requirement,
                       })(
-                        <Input placeholder="请输入需求ID" style={{ width: '200px', marginLeft: '34px' }} />
+                        <Input placeholder="请输入需求ID" style={{ width: 160, marginLeft: '34px' }} />
                       )}
 
                     </FormItem>
@@ -228,7 +237,7 @@ const RequirementEditForm = Form.create()(
                           }],
                         initialValue: entity.area,
                       })(
-                        <Input placeholder="请输入地域" style={{ width: '200px', marginLeft: '34px' }} />
+                        <Input placeholder="请输入地域" style={{ width: 160, marginLeft: '34px' }} />
                       )}
 
                     </FormItem>
@@ -250,7 +259,7 @@ const RequirementEditForm = Form.create()(
                         initialValue: entity.count,
 
                       })(
-                        <Input placeholder="请输入人数" style={{ width: '200px', marginLeft: '34px' }} />
+                        <Input placeholder="请输入人数" style={{ width: 160, marginLeft: '34px' }} />
                       )}
                     </FormItem>
                   </Col>
@@ -425,7 +434,7 @@ const RequirementEditForm = Form.create()(
                           }],
                         initialValue: entity.interviewaddr,
                       })(
-                        <Input placeholder="请输入面试地址" style={{ width: '583px', marginLeft: '20px' }} />
+                        <Input placeholder="请输入面试地址" style={{ width: 500, marginLeft: '20px' }} />
                       )}
 
                     </FormItem>
@@ -441,7 +450,7 @@ const RequirementEditForm = Form.create()(
                           }],
                         initialValue: entity.projectaddr,
                       })(
-                        <Input placeholder="请输入项目地址" style={{ width: '583px', marginLeft: '20px' }} />
+                        <Input placeholder="请输入项目地址" style={{ width: 500, marginLeft: '20px' }} />
                       )}
                     </FormItem>
                   </Col>

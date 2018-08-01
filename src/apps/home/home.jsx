@@ -200,6 +200,11 @@ class Home extends Component {
         candidate[requirement][coloum][index] = obj
         this.setState({ candidate: candidate })
     }
+    onRQEditDone = (index, obj) => {
+        const { requirements } = this.state;
+        requirements[index] = obj
+        this.setState({ requirements: requirements })
+    }
 
     componentDidMount() {
         this.getRqs()
@@ -312,7 +317,7 @@ class Home extends Component {
                                                     wrappedComponentRef={(reference) => {
                                                         this.requirementComponents[element.id] = reference
                                                     }}
-                                                    onUpdateDone={this.onEditDone.bind(this, element.id)}
+                                                    onRQUpdateDone={this.onRQEditDone.bind(this, index)}
                                                 />
                                                 <div>
                                                     <span style={{ float: 'right' }}>
