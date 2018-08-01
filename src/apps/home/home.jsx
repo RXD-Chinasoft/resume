@@ -233,11 +233,12 @@ class Home extends Component {
             <div>
                 <ToolBar onSave={this.handleSave} ref="toolbar" />
                 {/* style={{ display: 'flex' }} */}
+
                 <div className="panel border-tbl-radius border-tbr-radius" style={{ minHeight: this.state.requirements && this.state.requirements.length > 0 ? 0 : 500 }}>
                     <Row gutter={16} style={{ width: '100%', textAlign: 'center', }}>
                         <Col className="gutter-row gutter-row-padding-none" span={3}>
-                            <div className="gutter-box border-tl-radius main-title">职位需求(7)
-                            <span style={{ float: 'right', marginRight: 10 }}>
+                            <div className="gutter-box border-tl-radius main-title">职位需求({this.state.requirements.length})
+                                <span style={{ float: 'right', marginRight: 10 }}>
                                     <RequirementCreateForm
                                         // requirement={element.id}
                                         onSaveRqDone={() => {
@@ -249,7 +250,7 @@ class Home extends Component {
                         </Col>
                         <Col className="gutter-row gutter-row-padding-none" span={19}>
                             <Col className="gutter-row gutter-row-padding-none" span={3}>
-                                <div className="gutter-box flow-title">简历筛选(7)</div>
+                                <div className="gutter-box flow-title">简历筛选</div>
                             </Col>
                             <Col className="gutter-row gutter-row-padding-none" span={3}>
                                 <div className="gutter-box flow-title">内部面试(7)</div>
