@@ -70,9 +70,9 @@ const RequirementCreateForm = Form.create()(
 
     onChange(index, checkedValues) {
       console.log('checked = ', checkedValues, index);
-      const {jdObject} = this.state
+      const { jdObject } = this.state
       jdObject[index].value = checkedValues
-      this.setState({jdObject})
+      this.setState({ jdObject })
     }
 
     handleOk = (e) => {
@@ -126,7 +126,7 @@ const RequirementCreateForm = Form.create()(
         projectaddr: formData.projectaddr,//项目地址
         createtime: "20180725",
         descrpition: JSON.stringify(this.state.jdObject),
-        matrix: ['', '', '', '', '', '', '', ''],
+        matrix: ['', '', '', '', '', '', '', '', ''],
         clientrequirment: "123",
         department: Number(formData.department)//所属部门
       }

@@ -135,7 +135,7 @@ const RequirementEditForm = Form.create()(
         projectaddr: formData.projectaddr,//项目地址
         createtime: "20180725",
         descrpition: '',
-        matrix: ['', '', '', '', '', '', '', ''],
+        matrix: ['', '', '', '', '', '', '', '', ''],
         clientrequirment: "123",
         department: Number(formData.department)//所属部门
       }
@@ -165,7 +165,6 @@ const RequirementEditForm = Form.create()(
       const { visible, loading } = this.state;
 
       const entity = this.props.requirement;
-      console.log('fasdasdsad', entity)
       return (
         <div>
           {/* <Button type="primary" shape="circle" icon="plus-circle-o" size={'small'} onClick={this.showModal} /> */}
