@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Modal, Form, Input, Radio, Row, Col, Select, Cascader, InputNumber, Icon, notification } from 'antd';
+import { Button, Modal, Form, Input, Radio, Row, Col, Select, Cascader, InputNumber, Icon, notification, Checkbox } from 'antd';
 import moment from 'moment';
 import './../newform.css';
 import { UpdateRequirement } from './../../service/homeService';
@@ -13,8 +13,8 @@ const openNotificationWithIcon = (type, title, message) => {
     description: message,
   });
 };
-
-
+const CheckboxGroup = Checkbox.Group;
+const plainOptions = ['硬性指标', '岗位优势'];
 
 const formItemLayout = {
   labelCol: {
@@ -36,9 +36,9 @@ const RequirementEditForm = Form.create()(
       loading: false,
       fileList: [],
       jdObject: [
-        { id: 1, value: 1, name: '1.英语读写熟练' },
-        { id: 2, value: 1, name: '2.沟通能力强' },
-        { id: 3, value: 1, name: '3.不焦虑' }
+        { id: 1, value: ['硬性指标', '岗位优势'], name: '1.英语读写熟练' },
+        { id: 2, value: ['硬性指标', '岗位优势'], name: '2.沟通能力强' },
+        { id: 3, value: ['硬性指标', '岗位优势'], name: '3.不焦虑' }
       ],
     }
 
@@ -141,24 +141,12 @@ const RequirementEditForm = Form.create()(
       }
     }
 
-    onChange = (index, e) => {
-      console.log('radio checked', e, index);
+    onChange(index, checkedValues) {
+      console.log('checked = ', checkedValues, index);
       const { jdObject } = this.state
-      jdObject[index].value = e.target.value
+      jdObject[index].value = checkedValues
       this.setState({ jdObject })
     }
-
-    onChange1 = (e) => {
-      this.setState({
-        value1: e.target.value,
-      });
-    }
-    onChange2 = (e) => {
-      this.setState({
-        value2: e.target.value,
-      });
-    }
-
 
     render() {
       const RadioGroup = Radio.Group;
@@ -439,7 +427,7 @@ const RequirementEditForm = Form.create()(
                           }],
                         initialValue: entity.interviewaddr,
                       })(
-                        <Input placeholder="请输入面试地址" style={{ width: 565, marginLeft: '20px' }} />
+                        <Input placeholder="请输入面试地址" style={{ width: 500, marginLeft: '20px' }} />
                       )}
 
                     </FormItem>
@@ -455,7 +443,7 @@ const RequirementEditForm = Form.create()(
                           }],
                         initialValue: entity.projectaddr,
                       })(
-                        <Input placeholder="请输入项目地址" style={{ width: 565, marginLeft: '20px' }} />
+                        <Input placeholder="请输入项目地址" style={{ width: 500, marginLeft: '20px' }} />
                       )}
                     </FormItem>
                   </Col>
@@ -613,38 +601,12 @@ const RequirementEditForm = Form.create()(
                               {element.name}
                             </Col>
                             <Col span={12}>
-                              <RadioGroup onChange={this.onChange.bind(this, index)} value={element.value}>
-                                <Radio value={1}>硬性指标</Radio>
-                                <Radio value={2}>岗位优势</Radio>
-                              </RadioGroup>
+                              <CheckboxGroup options={plainOptions} defaultValue={element.value} onChange={this.onChange.bind(this, index)} />
                             </Col>
                           </Row>
                         )
                       })
                     }
-                    {/* <Row gutter={24} style={{ paddingTop: 10, borderBottom: "solid 1px grey", marginBottom: '1px' }}>
-                      <Col span={12}>
-                        {'2.会吹牛逼'}
-                      </Col>
-                      <Col span={12}>
-                        <RadioGroup onChange={this.onChange1} value={this.state.value1}>
-                          <Radio value={1}>硬性指标</Radio>
-                          <Radio value={2}>岗位优势</Radio>
-                        </RadioGroup>
-                      </Col>
-                    </Row>
-
-                    <Row gutter={24} style={{ paddingTop: 10, borderBottom: "solid 1px grey", marginBottom: '1px' }}>
-                      <Col span={12}>
-                        {'3.不焦虑'}
-                      </Col>
-                      <Col span={12}>
-                        <RadioGroup onChange={this.onChange2} value={this.state.value2}>
-                          <Radio value={1}>硬性指标</Radio>
-                          <Radio value={2}>岗位优势</Radio>
-                        </RadioGroup>
-                      </Col>
-                    </Row> */}
                   </div>
                 </Col>
               </Row>
@@ -661,48 +623,3 @@ RequirementEditForm.propTypes = {
 }
 
 export default RequirementEditForm;
-
-// class CollectionsPage extends React.Component {
-//   state = {
-//     visible: false,
-//   };
-
-//   showModal = () => {
-//     this.setState({ visible: true });
-//   }
-
-//   handleCancel = () => {
-//     this.setState({ visible: false });
-//   }
-
-//   handleCreate = () => {
-//     const form = this.formRef.props.form;
-//     form.validateFields((err, values) => {
-//       if (err) {
-//         return;
-//       }
-
-//       console.log('Received values of form: ', values);
-//       form.resetFields();
-//       this.setState({ visible: false });
-//     });
-//   }
-
-//   saveFormRef = (formRef) => {
-//     this.formRef = formRef;
-//   }
-
-//   render() {
-//     return (
-//       <div>
-//         <Button type="primary" onClick={this.showModal}>New Collection</Button>
-//         <RequirementCreateForm
-//           wrappedComponentRef={this.saveFormRef}
-//           visible={this.state.visible}
-//           onCancel={this.handleCancel}
-//           onCreate={this.handleCreate}
-//         />
-//       </div>
-//     );
-//   }
-// }
