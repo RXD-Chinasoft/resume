@@ -6,6 +6,9 @@
 .gutter-row {
     background: white
 }
+.gutter-final-row {
+    background: -webkit-linear-gradient(right, #6ce5f8, #4dc6d9);
+}
 
 .ant-row {
     margin-left: 0 !important
@@ -125,3 +128,21 @@
     -webkit-justify-content:left;
     justify-content:left;
 }
+.divWidth{
+    width: 110px;
+    text-align: center
+}
+/* .table tbody {
+                     display: block;
+                     height: 80px;
+                     overflow-x: scroll;
+                 } */
+/* .table thead,tbody tr {
+                display: table;
+                 width: 100%;
+                 table-layout: fixed;
+             } */
+/*关键设置：滚动条默认宽度是16px 将thead的宽度减16px*/
+/* .table thead {
+                width: calc( 100% - 1em)
+             } */
