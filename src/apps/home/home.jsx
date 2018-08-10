@@ -54,12 +54,12 @@ const getItemStyle = (isDragging, draggableStyle) => ({
     ...draggableStyle
 });
 
-const getCandidateStyle = (isDragging, draggableStyle) => ({
+const getCandidateStyle = (isDragging, draggableStyle, index) => ({
     // some basic styles to make the items look a bit nicer
     userSelect: 'none',
     // width: 110,
     height: 100,
-    marginBottom: 10,
+    marginBottom: 0,
     color: 'white',
     paddingTop: 5,
     paddingLeft: 5,
@@ -240,8 +240,8 @@ class Home extends Component {
         return (
             <div>
                 <ToolBar onSave={this.handleSave} ref="toolbar" />
-                <div className="panel border-tbl-radius border-tbr-radius border-tl-radius border-tr-radius" style={{ maxWidth: '100%', overflowX: 'auto', minHeight: this.state.requirements && this.state.requirements.length > 0 ? 0 : 500 }}>
-                    <table style={{ minWidth: '1235px', width: 'auto' }}>
+                <div className="panel border-tbl-radius border-tbr-radius border-tl-radius border-tr-radius" style={{ maxWidth: '100%', overflowX: 'auto', minHeight: this.state.requirements && this.state.requirements.length > 0 ? 0 : 500, background:'transparent' }}>
+                    <table style={{ minWidth: '1235px', width: 'auto', background: '-webkit-linear-gradient(right, #3168ad, #0558a6)' }}>
                         <thead>
                             <tr>
                                 <th className="divWidth gutter-box border-tl-radius main-title">职位需求({this.state.requirements.length})
@@ -325,7 +325,7 @@ class Home extends Component {
                                                     this.state.candidate[element.id] ?
                                                         this.state.candidate[element.id].map((cand, i) => {
                                                             return (
-                                                                <td key={i} style={{ borderRight: "solid 1px #e6e5e5", paddingTop: 10, minHeight: 500 }} className={i == 8 ? "gutter-final-row " : "gutter-row"}>
+                                                                <td key={i} style={{ borderRight: "solid 1px #e6e5e5", paddingTop: 10, minHeight: 500 }} className={i == 8 ? "gutter-final-row" : "gutter-row"}>
                                                                     {this.state.candidate[element.id] ?
                                                                         <Droppable droppableId={DROPPABLE_KEY + element.id + DROPPABLE_SEPERATOR + i}>
                                                                             {(provided, snapshot) => (
@@ -343,7 +343,8 @@ class Home extends Component {
                                                                                                     {...provided.dragHandleProps}
                                                                                                     style={getCandidateStyle(
                                                                                                         snapshot.isDragging,
-                                                                                                        provided.draggableProps.style
+                                                                                                        provided.draggableProps.style,
+                                                                                                        j
                                                                                                     )}
                                                                                                     className="candidateBox"
                                                                                                 >
@@ -398,7 +399,20 @@ class Home extends Component {
                                     )
                                 })
                             }
+
                         </tbody>
+                        <tr style={{ height: 20 }}>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td className="gutter-final-row"></td>
+                        </tr>
                     </table>
                 </div>
 

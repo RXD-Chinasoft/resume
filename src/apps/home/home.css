@@ -4,7 +4,8 @@
 }
 
 .gutter-row {
-    background: white
+    background: white;
+    margin-bottom: 20px;
 }
 .gutter-final-row {
     background: -webkit-linear-gradient(right, #6ce5f8, #4dc6d9);
@@ -16,7 +17,7 @@
 
 .panel {
     /* background: #0558a6; */
-    padding-bottom: 20px;
+    /* padding-bottom: 20px; */
     margin-right: 10px;
     margin-bottom: 20px;
     background: -webkit-linear-gradient(right, #3168ad, #0558a6);
