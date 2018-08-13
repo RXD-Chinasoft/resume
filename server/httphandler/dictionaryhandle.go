@@ -1,6 +1,7 @@
 package httphandler
 
 import (
+	"strconv"
 	"net/http"
 	"log"
 	"io/ioutil"
@@ -17,12 +18,13 @@ func dictionaryHandleFunc(w http.ResponseWriter, r *http.Request){
 	if err != nil {
 		http.Error(w, http.StatusText(500), 500)
 	} else {
-		m := make(map[int64][]Dictionary)
+		m := make(map[string][]Dictionary)
 		for _, v := range ds {
-			if m[v.Type] == nil {
-				m[v.Type] = []Dictionary{}
+			key := strconv.Itoa(v.Type)
+			if m[key] == nil {
+				m[key] = []Dictionary{}
 			} else {
-				m[v.Type] = append(m[v.Type], v)
+				m[key] = append(m[key], v)
 			}
 		}
 		log.Printf("dictionary %v \n", m)
