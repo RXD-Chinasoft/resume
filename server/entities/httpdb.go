@@ -10,7 +10,7 @@ type Dictionary struct {
 	Type int64 `json:"type" db:"type"`
 	Descrpition string `json:"descrpition" db:"descrpition"`
 	ExtendedField string `json:"extendedfield" db:"extendedfield"`
-	PrimaryKey string `json:"pKey" db:"pKey"`
+	PrimaryKey int `json:"pKey" db:"pKey"`
 }
 
 type Requirement struct {
