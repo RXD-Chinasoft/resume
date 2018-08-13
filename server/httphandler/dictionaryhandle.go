@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"encoding/json"
 	"resume/server/db"
+	. "resume/server/entities"
 )
 
 func dictionaryHandleFunc(w http.ResponseWriter, r *http.Request){
@@ -16,7 +17,16 @@ func dictionaryHandleFunc(w http.ResponseWriter, r *http.Request){
 	if err != nil {
 		http.Error(w, http.StatusText(500), 500)
 	} else {
-		if err := json.NewEncoder(w).Encode(&ds); err != nil {
+		m := make(map[int64][]Dictionary)
+		for _, v := range ds {
+			if m[v.Type] == nil {
+				m[v.Type] = []Dictionary{}
+			} else {
+				m[v.Type] = append(m[v.Type], v)
+			}
+		}
+		log.Printf("dictionary %v \n", m)
+		if err := json.NewEncoder(w).Encode(m); err != nil {
 			http.Error(w, http.StatusText(500), 500)
 		}
 	}
