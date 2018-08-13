@@ -240,7 +240,7 @@ class Home extends Component {
         return (
             <div>
                 <ToolBar onSave={this.handleSave} ref="toolbar" />
-                <div className="panel border-tbl-radius border-tbr-radius border-tl-radius border-tr-radius" style={{ maxWidth: '100%', overflowX: 'auto', minHeight: this.state.requirements && this.state.requirements.length > 0 ? 0 : 500, background:'transparent' }}>
+                <div className="panel border-tbl-radius border-tbr-radius border-tl-radius border-tr-radius" style={{ maxWidth: '100%', overflowX: 'auto', minHeight: this.state.requirements && this.state.requirements.length > 0 ? 0 : 500, background: 'transparent' }}>
                     <table style={{ minWidth: '1235px', width: 'auto', background: '-webkit-linear-gradient(right, #3168ad, #0558a6)' }}>
                         <thead>
                             <tr>
@@ -399,20 +399,20 @@ class Home extends Component {
                                     )
                                 })
                             }
-
+                            <tr style={{ height: 20 }} key={10000}>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td className="gutter-final-row"></td>
+                            </tr>
                         </tbody>
-                        <tr style={{ height: 20 }}>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td className="gutter-final-row"></td>
-                        </tr>
+
                     </table>
                 </div>
 

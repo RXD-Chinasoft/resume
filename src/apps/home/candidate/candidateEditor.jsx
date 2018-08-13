@@ -106,6 +106,19 @@ const CandidateEditForm = Form.create()(
       return formData
     }
 
+    getInitialValFromDics = (key, cur) => {
+      const result = this.dictionaries ? this.dictionaries[key].find(e => {
+        return e.id === cur
+      }) : null
+      return result ? result.name : ""
+    }
+
+    getOptionsFromDics = (key) => {
+      return (this.dictionaries ? this.dictionaries[key].map((e, i) => {
+        return <Option key={e.pKey} value={e.id}>{e.name}</Option>
+      }) : <Option value=""></Option>)
+    }
+
     render() {
       const { onCancel, onCreate, form } = this.props;
       const { getFieldDecorator } = form;
@@ -121,13 +134,10 @@ const CandidateEditForm = Form.create()(
       };
       const { visible, loading } = this.state;
       const entity = this.props.candidate;
+      console.log('candidateEntity', entity)
+
       return (
         <div>
-          {/* <Button type="primary" onClick={this.showModal}>
-            Open
-          </Button> */}
-          {/* <Button type="primary" shape="circle" icon="user-add" size={'small'} onClick={this.showModal} /> */}
-          {/* <Icon type="user-add" style={{ color: '#347cb7' }} onClick={this.showModal} /> */}
           <Modal
             visible={visible}
             // okText="Create"
@@ -164,7 +174,7 @@ const CandidateEditForm = Form.create()(
                       initialValue: entity.candidate,
                     })(
                       <Input />
-                      )}
+                    )}
                   </FormItem>
                 </Col>
                 <Col span={8} style={{ paddingTop: 8 }}>
@@ -185,16 +195,17 @@ const CandidateEditForm = Form.create()(
                   >
                     {getFieldDecorator('hiringmanager', {
                       rules: [{ required: true, message: 'Please select one!' }],
-                      initialValue: entity.hiringmanager,
+                      initialValue: this.getInitialValFromDics(103, entity.hiringmanager),
                     })(
                       <Select
                         placeholder="Select a option"
                         onChange={this.handleSelectChange}
                       >
-                        <Option value="1">招聘负责人1</Option>
-                        <Option value="2">招聘负责人2</Option>
+                        {
+                          this.getOptionsFromDics(103)
+                        }
                       </Select>
-                      )}
+                    )}
                   </FormItem>
                 </Col>
                 <Col span={8} style={{ paddingTop: 8 }}>
@@ -205,16 +216,17 @@ const CandidateEditForm = Form.create()(
                   >
                     {getFieldDecorator('saler', {
                       rules: [{ required: true, message: 'Please select one!' }],
-                      initialValue: entity.saler,
+                      initialValue: this.getInitialValFromDics(101, entity.saler),
                     })(
                       <Select
                         placeholder="Select a option"
                         onChange={this.handleSelectChange}
                       >
-                        <Option value="1">销售负责人1</Option>
-                        <Option value="2">销售负责人2</Option>
+                        {
+                          this.getOptionsFromDics(101)
+                        }
                       </Select>
-                      )}
+                    )}
                   </FormItem>
                 </Col>
                 <Col span={8} style={{ paddingTop: 8 }}>
@@ -225,16 +237,17 @@ const CandidateEditForm = Form.create()(
                   >
                     {getFieldDecorator('dm', {
                       rules: [{ required: true, message: 'Please select one!' }],
-                      initialValue: entity.dm,
+                      initialValue: this.getInitialValFromDics(102, entity.dm),
                     })(
                       <Select
                         placeholder="Select a option"
                         onChange={this.handleSelectChange}
                       >
-                        <Option value="1">交付负责人1</Option>
-                        <Option value="2">交付负责人2</Option>
+                        {
+                          this.getOptionsFromDics(102)
+                        }
                       </Select>
-                      )}
+                    )}
                   </FormItem>
                 </Col>
               </Row>
@@ -249,16 +262,17 @@ const CandidateEditForm = Form.create()(
                   >
                     {getFieldDecorator('status', {
                       rules: [{ required: true, message: 'Please select one!' }],
-                      initialValue: entity.status,
+                      initialValue: this.getInitialValFromDics(4, entity.status),
                     })(
                       <Select
                         placeholder="Select a option"
                         onChange={this.handleSelectChange}
                       >
-                        <Option value="1">前状态1</Option>
-                        <Option value="2">dang前状态2</Option>
+                        {
+                          this.getOptionsFromDics(4)
+                        }
                       </Select>
-                      )}
+                    )}
                   </FormItem>
                 </Col>
                 <Col span={8} style={{ paddingTop: 8 }}>
@@ -269,16 +283,17 @@ const CandidateEditForm = Form.create()(
                   >
                     {getFieldDecorator('risk', {
                       rules: [{ required: true, message: 'Please select one!' }],
-                      initialValue: entity.risk,
+                      initialValue: this.getInitialValFromDics(5, entity.risk),
                     })(
                       <Select
                         placeholder="Select a option"
                         onChange={this.handleSelectChange}
                       >
-                        <Option value="1">asdfasdf</Option>
-                        <Option value="2">fddddd</Option>
+                        {
+                          this.getOptionsFromDics(5)
+                        }
                       </Select>
-                      )}
+                    )}
                   </FormItem>
                 </Col>
                 <Col span={8} style={{ paddingTop: 8 }}>
@@ -292,7 +307,7 @@ const CandidateEditForm = Form.create()(
                       initialValue: moment(new Date(entity.interviewtime), 'YYYY-MM-DD HH:mm:ss'),
                     })(
                       <DatePicker showTime format="YYYY-MM-DD HH:mm:ss" />
-                      )}
+                    )}
                   </FormItem>
                 </Col>
               </Row>
@@ -310,7 +325,7 @@ const CandidateEditForm = Form.create()(
                       initialValue: entity.price,
                     })(
                       <Input />
-                      )}
+                    )}
                   </FormItem>
                 </Col>
                 <Col span={8} style={{ paddingTop: 8 }}>
@@ -324,7 +339,7 @@ const CandidateEditForm = Form.create()(
                       initialValue: entity.gp,
                     })(
                       <Input />
-                      )}
+                    )}
                   </FormItem>
                 </Col>
                 <Col span={8} style={{ paddingTop: 8 }}>
@@ -338,7 +353,7 @@ const CandidateEditForm = Form.create()(
                       initialValue: moment(new Date(entity.takeintime), 'YYYY-MM-DD HH:mm:ss'),
                     })(
                       <DatePicker showTime format="YYYY-MM-DD HH:mm:ss" />
-                      )}
+                    )}
                   </FormItem>
                 </Col>
               </Row>
@@ -355,7 +370,7 @@ const CandidateEditForm = Form.create()(
                       initialValue: entity.descrpition,
                     })(
                       <TextArea rows={4} />
-                      )}
+                    )}
                   </FormItem>
                 </Col>
               </Row>
@@ -395,7 +410,7 @@ const CandidateEditForm = Form.create()(
                           <Icon type="upload" /> Choose File
                         </Button>
                       </Upload>
-                      )}
+                    )}
                   </FormItem>
                 </Col>
               </Row>
@@ -411,7 +426,7 @@ const CandidateEditForm = Form.create()(
                       initialValue: entity.message,
                     })(
                       <TextArea rows={4} />
-                      )}
+                    )}
                   </FormItem>
                 </Col>
               </Row>
