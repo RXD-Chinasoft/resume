@@ -100,7 +100,21 @@ const CandidateCreateForm = Form.create()(
       return formData
     }
 
+    getInitialValFromDics = (key, cur) => {
+      const result = this.dictionaries ? this.dictionaries[key].find(e => {
+        return e.id === cur
+      }) : null
+      return result ? result.name : ""
+    }
+
+    getOptionsFromDics = (key) => {
+      return (this.dictionaries ? this.dictionaries[key].map((e, i) => {
+        return <Option key={e.pKey} value={e.id}>{e.name}</Option>
+      }) : <Option value=""></Option>)
+    }
+
     render() {
+
       const { onCancel, onCreate, form } = this.props;
       const { getFieldDecorator } = form;
       const formItemLayout = {
@@ -156,7 +170,7 @@ const CandidateCreateForm = Form.create()(
                         }],
                     })(
                       <Input />
-                      )}
+                    )}
                   </FormItem>
                 </Col>
                 <Col span={8} style={{ paddingTop: 8 }}>
@@ -182,10 +196,11 @@ const CandidateCreateForm = Form.create()(
                         placeholder="Select a option"
                         onChange={this.handleSelectChange}
                       >
-                        <Option value="1">招聘负责人1</Option>
-                        <Option value="2">招聘负责人2</Option>
+                        {
+                          this.getOptionsFromDics(103)
+                        }
                       </Select>
-                      )}
+                    )}
                   </FormItem>
                 </Col>
                 <Col span={8} style={{ paddingTop: 8 }}>
@@ -201,10 +216,11 @@ const CandidateCreateForm = Form.create()(
                         placeholder="Select a option"
                         onChange={this.handleSelectChange}
                       >
-                        <Option value="1">销售负责人1</Option>
-                        <Option value="2">销售负责人2</Option>
+                        {
+                          this.getOptionsFromDics(101)
+                        }
                       </Select>
-                      )}
+                    )}
                   </FormItem>
                 </Col>
                 <Col span={8} style={{ paddingTop: 8 }}>
@@ -220,10 +236,11 @@ const CandidateCreateForm = Form.create()(
                         placeholder="Select a option"
                         onChange={this.handleSelectChange}
                       >
-                        <Option value="1">交付负责人1</Option>
-                        <Option value="2">交付负责人2</Option>
+                        {
+                          this.getOptionsFromDics(102)
+                        }
                       </Select>
-                      )}
+                    )}
                   </FormItem>
                 </Col>
               </Row>
@@ -243,10 +260,11 @@ const CandidateCreateForm = Form.create()(
                         placeholder="Select a option"
                         onChange={this.handleSelectChange}
                       >
-                        <Option value="1">前状态1</Option>
-                        <Option value="2">dang前状态2</Option>
+                        {
+                          this.getOptionsFromDics(4)
+                        }
                       </Select>
-                      )}
+                    )}
                   </FormItem>
                 </Col>
                 <Col span={8} style={{ paddingTop: 8 }}>
@@ -262,10 +280,11 @@ const CandidateCreateForm = Form.create()(
                         placeholder="Select a option"
                         onChange={this.handleSelectChange}
                       >
-                        <Option value="1">asdfasdf</Option>
-                        <Option value="2">fddddd</Option>
+                        {
+                          this.getOptionsFromDics(5)
+                        }
                       </Select>
-                      )}
+                    )}
                   </FormItem>
                 </Col>
                 <Col span={8} style={{ paddingTop: 8 }}>
@@ -278,7 +297,7 @@ const CandidateCreateForm = Form.create()(
                       rules: [{ type: 'object', required: true, message: 'Please select time!' }],
                     })(
                       <DatePicker showTime format="YYYY-MM-DD HH:mm:ss" />
-                      )}
+                    )}
                   </FormItem>
                 </Col>
               </Row>
@@ -295,7 +314,7 @@ const CandidateCreateForm = Form.create()(
                       rules: [{ required: true, message: 'Please select one!' }],
                     })(
                       <Input />
-                      )}
+                    )}
                   </FormItem>
                 </Col>
                 <Col span={8} style={{ paddingTop: 8 }}>
@@ -308,7 +327,7 @@ const CandidateCreateForm = Form.create()(
                       rules: [{ required: true, message: 'Please select one!' }],
                     })(
                       <Input />
-                      )}
+                    )}
                   </FormItem>
                 </Col>
                 <Col span={8} style={{ paddingTop: 8 }}>
@@ -321,7 +340,7 @@ const CandidateCreateForm = Form.create()(
                       rules: [{ type: 'object', required: true, message: 'Please select time!' }],
                     })(
                       <DatePicker showTime format="YYYY-MM-DD HH:mm:ss" />
-                      )}
+                    )}
                   </FormItem>
                 </Col>
               </Row>
@@ -337,7 +356,7 @@ const CandidateCreateForm = Form.create()(
                       rules: [{ required: true, message: 'Please input one!' }],
                     })(
                       <TextArea rows={4} />
-                      )}
+                    )}
                   </FormItem>
                 </Col>
               </Row>
@@ -377,7 +396,7 @@ const CandidateCreateForm = Form.create()(
                           <Icon type="upload" /> Choose File
                         </Button>
                       </Upload>
-                      )}
+                    )}
                   </FormItem>
                 </Col>
               </Row>
@@ -392,7 +411,7 @@ const CandidateCreateForm = Form.create()(
                       rules: [{ required: true, message: 'Please input one!' }],
                     })(
                       <TextArea rows={4} />
-                      )}
+                    )}
                   </FormItem>
                 </Col>
               </Row>

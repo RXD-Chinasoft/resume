@@ -148,6 +148,19 @@ const RequirementEditForm = Form.create()(
       this.setState({ jdObject })
     }
 
+    getInitialValFromDics = (key, cur) => {
+      const result = this.dictionaries ? this.dictionaries[key].find(e => {
+        return e.id === cur
+      }) : null
+      return result ? result.name : ""
+    }
+
+    getOptionsFromDics = (key) => {
+      return (this.dictionaries ? this.dictionaries[key].map((e, i) => {
+        return <Option key={e.pKey} value={e.id}>{e.name}</Option>
+      }) : <Option value=""></Option>)
+    }
+
     render() {
       const RadioGroup = Radio.Group;
       const { onCancel, onCreate, form } = this.props;
@@ -296,8 +309,9 @@ const RequirementEditForm = Form.create()(
                           onChange={this.handleSelectChange}
                           style={{ width: '200px', marginLeft: '20px' }}
                         >
-                          <Option value="1">销售负责人1</Option>
-                          <Option value="2">销售负责人2</Option>
+                          {
+                            this.getOptionsFromDics(101)
+                          }
                         </Select>
                       )}
                     </FormItem>
@@ -334,8 +348,9 @@ const RequirementEditForm = Form.create()(
                           onChange={this.handleSelectChange}
                           style={{ width: '200px', marginLeft: '20px' }}
                         >
-                          <Option value="1">需求类型1</Option>
-                          <Option value="2">需求类型2</Option>
+                          {
+                            this.getOptionsFromDics(2)
+                          }
                         </Select>
                       )}
                     </FormItem>
@@ -480,8 +495,9 @@ const RequirementEditForm = Form.create()(
                           onChange={this.handleSelectChange}
                           style={{ width: '200px', marginLeft: '20px' }}
                         >
-                          <Option value="1">交付负责人1</Option>
-                          <Option value="2">交付负责人2</Option>
+                          {
+                            this.getOptionsFromDics(102)
+                          }
                         </Select>
                       )}
                     </FormItem>
@@ -499,8 +515,9 @@ const RequirementEditForm = Form.create()(
                           onChange={this.handleSelectChange}
                           style={{ width: '200px', marginLeft: '20px' }}
                         >
-                          <Option value="1">四级</Option>
-                          <Option value="2">六级</Option>
+                          {
+                            this.getOptionsFromDics(1)
+                          }
                         </Select>
                       )}
                     </FormItem>
@@ -518,8 +535,9 @@ const RequirementEditForm = Form.create()(
                           onChange={this.handleSelectChange}
                           style={{ width: '200px', marginLeft: '20px' }}
                         >
-                          <Option value="1">需求状态1</Option>
-                          <Option value="2">需求状态2</Option>
+                          {
+                            this.getOptionsFromDics(3)
+                          }
                         </Select>
                       )}
                     </FormItem>

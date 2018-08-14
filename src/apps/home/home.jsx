@@ -57,13 +57,15 @@ const getItemStyle = (isDragging, draggableStyle) => ({
 const getCandidateStyle = (isDragging, draggableStyle, index) => ({
     // some basic styles to make the items look a bit nicer
     userSelect: 'none',
-    // width: 110,
+    width: 108,
     height: 100,
-    marginBottom: 0,
+    marginBottom: 10,
     color: 'white',
     paddingTop: 5,
-    paddingLeft: 5,
+    paddingLeft: 10,
     paddingRight: 5,
+    // marginLeft: 3,
+    // marginRight: 3,
 
     // styles we need to apply on draggables
     ...draggableStyle
@@ -71,10 +73,14 @@ const getCandidateStyle = (isDragging, draggableStyle, index) => ({
 
 const getListStyle = (isDraggingOver, index) => ({
     background: isDraggingOver ? '#93dbe6' : index == 8 ? 'transparent' : 'white',
-    padding: 3,
+    // padding: 3,
     width: '100%',
     minHeight: 110,
-    paddingTop: 0,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    paddingTop: 5,
 });
 
 
@@ -240,8 +246,8 @@ class Home extends Component {
         return (
             <div>
                 <ToolBar onSave={this.handleSave} ref="toolbar" />
-                <div className="panel border-tbl-radius border-tbr-radius border-tl-radius border-tr-radius" style={{ maxWidth: '100%', overflowX: 'auto', minHeight: this.state.requirements && this.state.requirements.length > 0 ? 0 : 500, background: 'transparent' }}>
-                    <table style={{ minWidth: '1235px', width: 'auto', background: '-webkit-linear-gradient(right, #3168ad, #0558a6)' }}>
+                <div className="panel border-tbl-radius border-tbr-radius border-tl-radius border-tr-radius" style={{ maxWidth: '100%', overflowX: 'auto', background: 'transparent' }}>
+                    <table style={{ minWidth: '1235px', width: 'auto', background: '-webkit-linear-gradient(right, #3168ad, #0558a6)', minHeight: 500}}>
                         <thead>
                             <tr>
                                 <th className="divWidth gutter-box border-tl-radius main-title">职位需求({this.state.requirements.length})
@@ -270,7 +276,7 @@ class Home extends Component {
                                     console.log('elementasd', element)
                                     return (
                                         <tr key={index} style={{ verticalAlign: 'top' }}>
-                                            <td style={{ minHeight: 500 }}>
+                                            <td>
                                                 <div className="requirementBox">
                                                     <Row>
                                                         <div style={{ float: 'right', marginRight: -5, height: 9 }}>
@@ -325,7 +331,7 @@ class Home extends Component {
                                                     this.state.candidate[element.id] ?
                                                         this.state.candidate[element.id].map((cand, i) => {
                                                             return (
-                                                                <td key={i} style={{ borderRight: "solid 1px #e6e5e5", paddingTop: 10, minHeight: 500 }} className={i == 8 ? "gutter-final-row" : "gutter-row"}>
+                                                                <td key={i} style={{ borderRight: "solid 1px #e6e5e5", paddingTop: 5 }} className={i == 8 ? "gutter-final-row" : "gutter-row"}>
                                                                     {this.state.candidate[element.id] ?
                                                                         <Droppable droppableId={DROPPABLE_KEY + element.id + DROPPABLE_SEPERATOR + i}>
                                                                             {(provided, snapshot) => (
