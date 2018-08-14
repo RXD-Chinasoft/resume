@@ -54,40 +54,64 @@ const getItemStyle = (isDragging, draggableStyle) => ({
     ...draggableStyle
 });
 
-const getCandidateStyle = (isDragging, draggableStyle, index) => ({
+const getCandidateStyle = (isDragging, draggableStyle) => ({
     // some basic styles to make the items look a bit nicer
     userSelect: 'none',
-    width: 108,
+    // width: 110,
     height: 100,
     marginBottom: 10,
     color: 'white',
     paddingTop: 5,
-    paddingLeft: 10,
+    paddingLeft: 5,
     paddingRight: 5,
-    // marginLeft: 3,
-    // marginRight: 3,
 
     // styles we need to apply on draggables
     ...draggableStyle
 });
 
-const getListStyle = (isDraggingOver, index) => ({
-    background: isDraggingOver ? '#93dbe6' : index == 8 ? 'transparent' : 'white',
-    // padding: 3,
+const getListStyle = isDraggingOver => ({
+    background: isDraggingOver ? '#93dbe6' : 'white',
+    padding: 3,
     width: '100%',
     minHeight: 110,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'column',
-    paddingTop: 5,
+    paddingTop: 0,
 });
 
 
 const DROPPABLE_KEY = "droppable";
 const DROPPABLE_SEPERATOR = "+";
 
-class Home extends Component {
+const columns = [
+    { title: 'Full Name', width: 100, dataIndex: 'name', key: 'name', fixed: 'left' },
+    { title: 'Age', width: 100, dataIndex: 'age', key: 'age', fixed: 'left' },
+    { title: 'Column 1', dataIndex: 'address', key: '1' },
+    { title: 'Column 2', dataIndex: 'address', key: '2' },
+    { title: 'Column 3', dataIndex: 'address', key: '3' },
+    { title: 'Column 4', dataIndex: 'address', key: '4' },
+    { title: 'Column 5', dataIndex: 'address', key: '5' },
+    { title: 'Column 6', dataIndex: 'address', key: '6' },
+    { title: 'Column 7', dataIndex: 'address', key: '7' },
+    { title: 'Column 8', dataIndex: 'address', key: '8' },
+    {
+        title: 'Action',
+        key: 'operation',
+        fixed: 'right',
+        width: 100,
+        render: () => <a href="javascript:;">action</a>,
+    },
+];
+const data = [{
+    key: '1',
+    name: 'John Brown',
+    age: 32,
+    address: 'New York Park',
+}, {
+    key: '2',
+    name: 'Jim Green',
+    age: 40,
+    address: 'London Park',
+}];
+class HomeTable extends Component {
     state = {
         requirements: [],
         candidate: [],
@@ -236,7 +260,7 @@ class Home extends Component {
     // Normally you would want to split things out into separate components.
     // But in this example everything is just done in one place for simplicity
     render() {
-        const columes = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+        const columes = [0, 0, 0, 0, 0, 0, 0, 0]
         for (const key in this.state.candidate) {
             this.state.candidate[key].forEach((element, index) => {
                 columes[index] = columes[index] + element.length
@@ -246,183 +270,8 @@ class Home extends Component {
         return (
             <div>
                 <ToolBar onSave={this.handleSave} ref="toolbar" />
-                <div className="panel border-tbl-radius border-tbr-radius border-tl-radius border-tr-radius" style={{ maxWidth: '100%', overflowX: 'auto', background: 'transparent' }}>
-                    <table style={{ minWidth: '1235px', width: 'auto', background: '-webkit-linear-gradient(right, #3168ad, #0558a6)', minHeight: 500}}>
-                        <thead>
-                            <tr>
-                                <th className="divWidth gutter-box border-tl-radius main-title">职位需求({this.state.requirements.length})
-                                <span style={{ float: 'right', marginRight: 10 }}>
-                                        <RequirementCreateForm
-                                            onSaveRqDone={() => {
-                                                this.getRqs()
-                                            }}
-                                        />
-                                    </span>
-                                </th>
-                                <th className="divWidth gutter-box flow-title">简历筛选({columes[0]})</th>
-                                <th className="divWidth gutter-box flow-title">内部面试({columes[1]})</th>
-                                <th className="divWidth gutter-box flow-title">内部通过({columes[2]})</th>
-                                <th className="divWidth gutter-box flow-title">推荐客户({columes[3]})</th>
-                                <th className="divWidth gutter-box flow-title">安排客户({columes[4]})</th>
-                                <th className="divWidth gutter-box flow-title">客户面试({columes[5]})</th>
-                                <th className="divWidth gutter-box flow-title">客户通过({columes[6]})</th>
-                                <th className="divWidth gutter-box flow-title">内部面试({columes[7]})</th>
-                                <th className="divWidth gutter-box done-gradient">入职({columes[8]})</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                this.state.requirements.map((element, index) => {
-                                    console.log('elementasd', element)
-                                    return (
-                                        <tr key={index} style={{ verticalAlign: 'top' }}>
-                                            <td>
-                                                <div className="requirementBox">
-                                                    <Row>
-                                                        <div style={{ float: 'right', marginRight: -5, height: 9 }}>
-                                                            <Badge status="error" />
-                                                        </div>
-                                                    </Row>
-                                                    <Row>
-                                                        <div>
-                                                            <Icon type="environment" style={{ color: '#347cb7' }} />
-                                                            <label style={{ textAlign: 'center' }}> {element.area}</label>
-                                                        </div>
-                                                    </Row>
-                                                    <Row>
-                                                        <div>
-                                                            <Icon type="user" style={{ color: '#347cb7' }} />
-                                                            <label style={{ textAlign: 'center' }}> {element.client}</label>
-                                                            <label style={{ float: 'right', color: 'red', fontSize: '1rem' }}> {element.count}</label>
-                                                        </div>
-                                                    </Row>
-                                                    <Row>
-                                                        <div>
-                                                            <Icon type="calendar" style={{ color: '#347cb7' }} />
-                                                            <label style={{ textAlign: 'center' }}> {element.createtime}</label>
-                                                        </div>
-                                                    </Row>
-                                                    <Row>
-                                                        <div>
-                                                            <span style={{ float: 'right' }}>
-                                                                <CandidateCreateForm
-                                                                    requirement={element.id}
-                                                                    onSaveDone={() => {
-                                                                        this.getRqs()
-                                                                    }}
-                                                                />
-                                                            </span>
-                                                            <span style={{ float: 'right', marginRight: 10 }}>
-                                                                <RequirementEditForm
-                                                                    requirement={element}
-                                                                    wrappedComponentRef={(reference) => {
-                                                                        this.requirementComponents[element.id] = reference
-                                                                    }}
-                                                                    onRQUpdateDone={this.onRQEditDone.bind(this, index)}
-                                                                />
-                                                            </span>
-
-                                                        </div>
-                                                    </Row>
-                                                </div>
-                                            </td>
-                                            <DragDropContext onDragEnd={this.onDragEnd1.bind(this, element)}>
-                                                {
-                                                    this.state.candidate[element.id] ?
-                                                        this.state.candidate[element.id].map((cand, i) => {
-                                                            return (
-                                                                <td key={i} style={{ borderRight: "solid 1px #e6e5e5", paddingTop: 5 }} className={i == 8 ? "gutter-final-row" : "gutter-row"}>
-                                                                    {this.state.candidate[element.id] ?
-                                                                        <Droppable droppableId={DROPPABLE_KEY + element.id + DROPPABLE_SEPERATOR + i}>
-                                                                            {(provided, snapshot) => (
-                                                                                <div
-                                                                                    ref={provided.innerRef}
-                                                                                    style={getListStyle(snapshot.isDraggingOver, i)}>
-                                                                                    {this.state.candidate[element.id][i].map((item, j) => (
-                                                                                        <Draggable
-                                                                                            key={item.id}
-                                                                                            draggableId={item.id}
-                                                                                            index={j}>
-                                                                                            {(provided, snapshot) => (
-                                                                                                <div ref={provided.innerRef}
-                                                                                                    {...provided.draggableProps}
-                                                                                                    {...provided.dragHandleProps}
-                                                                                                    style={getCandidateStyle(
-                                                                                                        snapshot.isDragging,
-                                                                                                        provided.draggableProps.style,
-                                                                                                        j
-                                                                                                    )}
-                                                                                                    className="candidateBox"
-                                                                                                >
-                                                                                                    <CandidateEditForm
-                                                                                                        candidate={item}
-                                                                                                        column={i}
-                                                                                                        wrappedComponentRef={(reference) => {
-                                                                                                            this.candidateComponents[item.id] = reference
-                                                                                                        }}
-                                                                                                        onUpdateDone={this.onEditDone.bind(this, element.id, i, j)}
-                                                                                                    />
-                                                                                                    <div className="left-middle-right" style={{ borderBottom: '1px solid white', paddingBottom: 3 }}>
-                                                                                                        <Badge style={{ height: 20, flexGrow: 1 }} status="success" />
-                                                                                                        <label style={{ fontSize: 12, flexGrow: 5, paddingTop: 1, width: 60 }} className="single-line-doc">{item.candidate}</label>
-                                                                                                        <label style={{ color: 'white', fontSize: 12, flexGrow: 1, paddingTop: 1 }}> 6/2</label>
-                                                                                                    </div>
-                                                                                                    <div className="left-middle-right" style={{ paddingBottom: 3, marginTop: 3 }}>
-                                                                                                        <Icon type="search" style={{ color: 'white', flexGrow: 1, paddingTop: 3 }} />
-                                                                                                        <label style={{ fontSize: 12, flexGrow: 5, paddingTop: 1, width: 60, paddingLeft: 3 }} className="single-line-doc">{item.gp}</label>
-                                                                                                        <label style={{ color: 'white', fontSize: 12, flexGrow: 1, paddingTop: 1 }}> 6/2</label>
-                                                                                                    </div>
-                                                                                                    <div className="left-middle-right" style={{ paddingBottom: 3, marginTop: 3 }}>
-                                                                                                        <Icon type="man" style={{ color: 'white', flexGrow: 1, paddingTop: 3 }} />
-                                                                                                        <label style={{ fontSize: 12, flexGrow: 5, paddingTop: 1, width: 60 }} className="single-line-doc">{item.price}</label>
-                                                                                                    </div>
-                                                                                                    <Row>
-                                                                                                        <div>
-                                                                                                            <span style={{ float: 'right' }}>
-                                                                                                                <Icon type="form" style={{ color: 'white' }} onClick={this.onCandidateClick.bind(this, item)} />
-                                                                                                            </span>
-
-                                                                                                        </div>
-                                                                                                    </Row>
-                                                                                                </div>
-                                                                                            )}
-                                                                                        </Draggable>
-                                                                                    ))}
-                                                                                    {provided.placeholder}
-                                                                                </div>
-                                                                            )}
-                                                                        </Droppable> : (
-                                                                            <div>
-
-                                                                            </div>
-                                                                        )}
-                                                                </td>
-                                                            )
-                                                        })
-                                                        : (<div></div>)
-                                                }
-                                            </DragDropContext>
-                                        </tr>
-                                    )
-                                })
-                            }
-                            <tr style={{ height: 20 }} key={10000}>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td className="gutter-final-row"></td>
-                            </tr>
-                        </tbody>
-
-                    </table>
-                </div>
-
+                {/* style={{ display: 'flex' }} */}
+                <Table columns={columns} dataSource={data} scroll={{ x: 1300 }} />
                 {/* <div className="panel border-tbl-radius border-tbr-radius" style={{ minHeight: this.state.requirements && this.state.requirements.length > 0 ? 0 : 500 }}>
                     <Row gutter={16} style={{ width: '100%', textAlign: 'center', }}>
                         <Col className="gutter-row gutter-row-padding-none" span={3}>
@@ -617,4 +466,4 @@ class Home extends Component {
     }
 }
 
-export default Home
+export default HomeTable
