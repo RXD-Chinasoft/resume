@@ -352,7 +352,7 @@ class Home extends Component {
                                                                                                         provided.draggableProps.style,
                                                                                                         j
                                                                                                     )}
-                                                                                                    className="candidateBox"
+                                                                                                    className={i != 8 ? "candidateBox" : "candidateBoxWhite"}
                                                                                                 >
                                                                                                     <CandidateEditForm
                                                                                                         candidate={item}
@@ -365,21 +365,21 @@ class Home extends Component {
                                                                                                     <div className="left-middle-right" style={{ borderBottom: '1px solid white', paddingBottom: 3 }}>
                                                                                                         <Badge style={{ height: 20, flexGrow: 1 }} status="success" />
                                                                                                         <label style={{ fontSize: 12, flexGrow: 5, paddingTop: 1, width: 60 }} className="single-line-doc">{item.candidate}</label>
-                                                                                                        <label style={{ color: 'white', fontSize: 12, flexGrow: 1, paddingTop: 1 }}> 6/2</label>
+                                                                                                        <label style={{ fontSize: 12, flexGrow: 1, paddingTop: 1 }}> 6/2</label>
                                                                                                     </div>
                                                                                                     <div className="left-middle-right" style={{ paddingBottom: 3, marginTop: 3 }}>
-                                                                                                        <Icon type="search" style={{ color: 'white', flexGrow: 1, paddingTop: 3 }} />
+                                                                                                        <Icon type="search" style={{ flexGrow: 1, paddingTop: 3 }} />
                                                                                                         <label style={{ fontSize: 12, flexGrow: 5, paddingTop: 1, width: 60, paddingLeft: 3 }} className="single-line-doc">{item.gp}</label>
-                                                                                                        <label style={{ color: 'white', fontSize: 12, flexGrow: 1, paddingTop: 1 }}> 6/2</label>
+                                                                                                        <label style={{ fontSize: 12, flexGrow: 1, paddingTop: 1 }}> 6/2</label>
                                                                                                     </div>
                                                                                                     <div className="left-middle-right" style={{ paddingBottom: 3, marginTop: 3 }}>
-                                                                                                        <Icon type="man" style={{ color: 'white', flexGrow: 1, paddingTop: 3 }} />
+                                                                                                        <Icon type="man" style={{ flexGrow: 1, paddingTop: 3 }} />
                                                                                                         <label style={{ fontSize: 12, flexGrow: 5, paddingTop: 1, width: 60 }} className="single-line-doc">{item.price}</label>
                                                                                                     </div>
                                                                                                     <Row>
                                                                                                         <div>
                                                                                                             <span style={{ float: 'right' }}>
-                                                                                                                <Icon type="form" style={{ color: 'white' }} onClick={this.onCandidateClick.bind(this, item)} />
+                                                                                                                <Icon type="form" style={{display:i == 8 ? 'none': 'block'}} onClick={this.onCandidateClick.bind(this, item)} />
                                                                                                             </span>
 
                                                                                                         </div>

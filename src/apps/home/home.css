@@ -90,6 +90,18 @@
     background: -ms-linear-gradient(#0558a6 0%, #539ede 100%);
     /** IE9 IE10 **/
 }
+.candidateBoxWhite {
+    background: white !important;
+    color: black !important;
+}
+
+.candidateBox Icon {
+    color: white
+}
+
+.candidateBoxWhite Icon {
+    color: #0558a6 !important
+}
 
 .candidateBox .ant-badge-status-dot {
     height: 10px;
