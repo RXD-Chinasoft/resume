@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Button, Modal, Form, Input, Radio, Row, Col, Select, Upload, Icon, notification, DatePicker } from 'antd';
 import './../newform.css';
 import { UpdateCandidateWithForm } from './../../service/homeService';
+import { DeleteCandidate } from './../../service/homeService';
 import { OpenNotificationWithIcon } from './../../service/utils';
 import moment from 'moment';
 
@@ -46,6 +47,7 @@ const CandidateEditForm = Form.create()(
         }
       }
       console.log("use dictionary = ", this.dictionaries)
+      console.log('this.props.candidate', this.props.candidate)
     }
 
     handleOk = (e) => {
@@ -75,8 +77,26 @@ const CandidateEditForm = Form.create()(
       }
     }
 
-    handleCancel = () => {
-      this.setState({ visible: false });
+    onDeleteDone = (candidate) => {
+      this.setState({ loading: false, visible: false, });
+      this.props.form.resetFields();
+      if (this.props.onDeleteCandidateDone) {
+        this.props.onDeleteCandidateDone(candidate)
+      }
+    }
+
+    deleteItem = (e) => {
+      e.preventDefault();
+      this.setState({ loading: true });
+      DeleteCandidate(this.props.candidate.id).then(res => {
+        OpenNotificationWithIcon('success', 'Notification', '删除成功')
+        console.log("UpdateCandidateWithForm", res)
+        this.onDeleteDone(res.data);
+      }).catch(e => {
+        console.log("UpdateCandidateWithForm error", e)
+        OpenNotificationWithIcon('warning', 'Notification', '删除失败，请联系管理员')
+        this.onDeleteDone(null)
+      });
     }
 
     // for form
@@ -122,6 +142,12 @@ const CandidateEditForm = Form.create()(
         return e.id === cur
       }) : null
       return result ? result.name : ""
+    }
+
+    handleCancel = () => {
+      this.setState({
+        visible: false,
+      });
     }
 
 
@@ -178,7 +204,7 @@ const CandidateEditForm = Form.create()(
                 保存
               </Button>,
               // <Button style={{ backgroundColor: '#d69250', color: 'white' }} key="copy" icon="copy" onClick={this.handleCancel}>复制</Button>,
-              <Button style={{ backgroundColor: '#d69250', color: 'white' }} key="del" icon="delete" onClick={this.handleCancel}>删除</Button>,
+              <Button style={{ backgroundColor: '#d69250', color: 'white' }} key="del" icon="delete" onClick={this.deleteItem}>删除</Button>,
               // <Button style={{ backgroundColor: '#d69250', color: 'white' }} key="trace" icon="rollback" onClick={this.handleCancel}>轨迹</Button>,
             ]}
           >
@@ -208,6 +234,7 @@ const CandidateEditForm = Form.create()(
                 </Col>
                 <Col span={8} style={{ paddingTop: 8, paddingLeft: 30 }}>
                   <span>职位</span>
+                  <span style={{ paddingLeft: 30, color: 'black' }}>{this.props.position}</span>
                 </Col>
                 <Col span={8} style={{ paddingTop: 8, textAlign: 'right' }}>
                   <span>2018/02/08</span>
@@ -470,7 +497,8 @@ const CandidateEditForm = Form.create()(
 );
 
 CandidateEditForm.propTypes = {
-  candidate: PropTypes.object.isRequired
+  candidate: PropTypes.object.isRequired,
+  position: PropTypes.string.isRequired
 }
 
 export default CandidateEditForm;

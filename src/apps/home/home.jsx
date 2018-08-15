@@ -207,6 +207,11 @@ class Home extends Component {
         candidate[requirement][coloum][index] = obj
         this.setState({ candidate: candidate })
     }
+    onCandidateDelete = (requirement, coloum, index, obj) => {
+        const { candidate } = this.state;
+        candidate[requirement][coloum].splice(index, 1)
+        this.setState({ candidate: candidate })
+    }
     onRQEditDone = (index, obj) => {
         const { requirements } = this.state;
         requirements[index] = obj
@@ -222,10 +227,6 @@ class Home extends Component {
             } catch (error) {
                 localStorage.setItem('dictionaries', JSON.stringify([]))
             }
-
-            // this.setState({
-            //     dictionaries: [].concat(response.data)
-            // })
             this.findDictionaries()
         })
 
@@ -313,7 +314,7 @@ class Home extends Component {
                                                     <Row>
                                                         <div>
                                                             <Icon type="user" style={{ color: '#347cb7' }} />
-                                                            <label style={{ textAlign: 'center' }}> {element.client}</label>
+                                                            <label style={{ textAlign: 'center' }}> {element.requirement}</label>
                                                             <label style={{ float: 'right', color: 'red', fontSize: '1rem' }}> {element.count}</label>
                                                         </div>
                                                     </Row>
@@ -328,6 +329,7 @@ class Home extends Component {
                                                             <span style={{ float: 'right' }}>
                                                                 <CandidateCreateForm
                                                                     requirement={element.id}
+                                                                    // position={element.requirement}
                                                                     onSaveDone={() => {
                                                                         this.getRqs()
                                                                     }}
@@ -381,7 +383,9 @@ class Home extends Component {
                                                                                                         wrappedComponentRef={(reference) => {
                                                                                                             this.candidateComponents[item.id] = reference
                                                                                                         }}
+                                                                                                        position={element.requirement}
                                                                                                         onUpdateDone={this.onEditDone.bind(this, element.id, i, j)}
+                                                                                                        onDeleteCandidateDone={this.onCandidateDelete.bind(this, element.id, i, j)}
                                                                                                     />
                                                                                                     <div className="left-middle-right" style={{ borderBottom: '1px solid white', paddingBottom: 3 }}>
                                                                                                         <Badge style={{ height: 20, flexGrow: 1 }} status="success" />

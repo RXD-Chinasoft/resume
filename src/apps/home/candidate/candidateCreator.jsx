@@ -426,7 +426,8 @@ const CandidateCreateForm = Form.create()(
 );
 
 CandidateCreateForm.propTypes = {
-  requirement: PropTypes.number.isRequired
+  requirement: PropTypes.number.isRequired,
+  // position: PropTypes.string.isRequired
 }
 
 export default CandidateCreateForm;

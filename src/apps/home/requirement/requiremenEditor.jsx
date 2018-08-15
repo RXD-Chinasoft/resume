@@ -208,7 +208,7 @@ const RequirementEditForm = Form.create()(
                   <Col span={8} style={{ paddingTop: 8 }}>
                     <FormItem
                       {...formItemLayout}
-                      label="需求ID"
+                      label="需求名称"
                       style={{ color: "white" }}
                     >
                       {getFieldDecorator('requirement', {
