@@ -299,13 +299,22 @@ class Home extends Component {
                             {
                                 this.state.requirements.map((element, index) => {
                                     console.log('elementasd', element)
+                                    const {rqtype} = element;
+                                    let st = 'success'
+                                    if (rqtype == 11) {
+                                        st = 'error'
+                                    } else if (rqtype == 12) {
+                                        st = 'warning'
+                                    } else if (rqtype == 13) {
+                                        st = 'success'
+                                    }
                                     return (
                                         <tr key={index} style={{ verticalAlign: 'top' }}>
                                             <td>
                                                 <div className="requirementBox">
                                                     <Row>
                                                         <div style={{ float: 'right', marginRight: -5, height: 9 }}>
-                                                            <Badge status="error" />
+                                                            <Badge status={st} />
                                                         </div>
                                                     </Row>
                                                     <Row>
