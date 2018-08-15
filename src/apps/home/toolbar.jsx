@@ -138,10 +138,10 @@ class ToolBar extends Component {
                     <span className="flex-center" style={{ paddingBottom: 4, paddingTop: 4 }}>
                         <Badge status="default" />
                         <Carousel autoplay vertical dots={false}>
-                            <div>牛逼</div>
-                            <div>非常牛</div>
-                            <div>血牛逼</div>
-                            <div>兽啊</div>
+                            <div>资讯</div>
+                            <div>周报</div>
+                            <div>日报</div>
+                            <div>总结</div>
                         </Carousel>
                     </span>
 

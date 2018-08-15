@@ -441,7 +441,7 @@ const RequirementEditForm = Form.create()(
                           }],
                         initialValue: entity.interviewaddr,
                       })(
-                        <Input placeholder="请输入面试地址" style={{ width: 500, marginLeft: '20px' }} />
+                        <Input placeholder="请输入面试地址" style={{ width: 542, marginLeft: '20px' }} />
                       )}
 
                     </FormItem>
@@ -457,7 +457,7 @@ const RequirementEditForm = Form.create()(
                           }],
                         initialValue: entity.projectaddr,
                       })(
-                        <Input placeholder="请输入项目地址" style={{ width: 500, marginLeft: '20px' }} />
+                        <Input placeholder="请输入项目地址" style={{ width: 542, marginLeft: '20px' }} />
                       )}
                     </FormItem>
                   </Col>
