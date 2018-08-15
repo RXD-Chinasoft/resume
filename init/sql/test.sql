@@ -26,12 +26,13 @@ CREATE TABLE IF NOT EXISTS requirement (
     descrpition text,
     matrix text[],
     clientrequirment character varying(100),
-    department integer
+    department integer,
+    PRIMARY KEY (id)
 ) WITH(OIDS=FALSE);
 
 CREATE TABLE IF NOT EXISTS candidate (
     id serial NOT NULL, 
-    requirement integer,
+    requirement integer references requirement on DELETE CASCADE,
     candidate character varying(100),
     hiringmanager integer,
     saler integer,
