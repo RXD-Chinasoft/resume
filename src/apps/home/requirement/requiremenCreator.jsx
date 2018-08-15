@@ -308,8 +308,11 @@ const RequirementCreateForm = Form.create()(
                           onChange={this.handleSelectChange}
                           style={{ width: '200px', marginLeft: '20px' }}
                         >
-                          <Option value="1">优先度1</Option>
-                          <Option value="2">优先度2</Option>
+                          {/* <Option value="1">优先度1</Option>
+                          <Option value="2">优先度2</Option> */}
+                          {
+                            this.getOptionsFromDics(6)
+                          }
                         </Select>
                       )}
                     </FormItem>
@@ -383,8 +386,9 @@ const RequirementCreateForm = Form.create()(
                           onChange={this.handleSelectChange}
                           style={{ width: '200px', marginLeft: '20px' }}
                         >
-                          <Option value="1">客轮面试1</Option>
-                          <Option value="2">客轮面试2</Option>
+                          {
+                            this.getOptionsFromDics(8)
+                          }
                         </Select>
                       )}
                     </FormItem>
@@ -449,8 +453,11 @@ const RequirementCreateForm = Form.create()(
                           onChange={this.handleSelectChange}
                           style={{ width: '200px', marginLeft: '20px' }}
                         >
-                          <Option value="1">部门1</Option>
-                          <Option value="2">部门2</Option>
+                          {/* <Option value="1">部门1</Option>
+                          <Option value="2">部门2</Option> */}
+                          {
+                            this.getOptionsFromDics(7)
+                          }
                         </Select>
                       )}
                     </FormItem>

@@ -226,7 +226,28 @@ class Home extends Component {
             // this.setState({
             //     dictionaries: [].concat(response.data)
             // })
+            this.findDictionaries()
         })
+
+    }
+
+    findDictionaries = () => {
+        if (!this.dictionaries || this.dictionaries.length === 0) {
+            try {
+                this.dictionaries = JSON.parse(localStorage.getItem('dictionaries'))
+            } catch (error) {
+                this.dictionaries = []
+            }
+        }
+        console.log("use dictionary = ", this.dictionaries)
+    }
+
+    getInitialValFromDics = (key, cur) => {
+        const result = this.dictionaries ? this.dictionaries[key].find(e => {
+            return e.id === cur
+        }) : null
+        console.log("result....", result, key, cur)
+        return result ? result.name : ""
     }
 
     showDetail() {
@@ -246,11 +267,11 @@ class Home extends Component {
         return (
             <div>
                 <ToolBar onSave={this.handleSave} ref="toolbar" />
-                <div className="panel border-tbl-radius border-tbr-radius border-tl-radius border-tr-radius" style={{ maxWidth: '100%', overflowX: 'auto', background: 'transparent' }}>
-                    <table style={{ minWidth: '1235px', width: 'auto', background: '-webkit-linear-gradient(right, #3168ad, #0558a6)', minHeight: 500}}>
+                <div className="panel border-tbl-radius border-tl-radius border-tbr-radius border-tr-radius" style={{ maxWidth: '100%', overflowX: 'auto', background: 'transparent' }}>
+                    <table className="border-tr-radius border-tbr-radius" style={{ minWidth: '1235px', width: 'auto', background: '-webkit-linear-gradient(right, #3168ad, #0558a6)', minHeight: 500 }}>
                         <thead>
                             <tr>
-                                <th className="divWidth gutter-box border-tl-radius main-title">职位需求({this.state.requirements.length})
+                                <th className="divWidth gutter-box main-title">职位需求({this.state.requirements.length})
                                 <span style={{ float: 'right', marginRight: 10 }}>
                                         <RequirementCreateForm
                                             onSaveRqDone={() => {
@@ -267,7 +288,7 @@ class Home extends Component {
                                 <th className="divWidth gutter-box flow-title">客户面试({columes[5]})</th>
                                 <th className="divWidth gutter-box flow-title">客户通过({columes[6]})</th>
                                 <th className="divWidth gutter-box flow-title">内部面试({columes[7]})</th>
-                                <th className="divWidth gutter-box done-gradient">入职({columes[8]})</th>
+                                <th className="divWidth gutter-box done-gradient border-tr-radius">入职({columes[8]})</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -368,18 +389,20 @@ class Home extends Component {
                                                                                                         <label style={{ fontSize: 12, flexGrow: 1, paddingTop: 1 }}> 6/2</label>
                                                                                                     </div>
                                                                                                     <div className="left-middle-right" style={{ paddingBottom: 3, marginTop: 3 }}>
-                                                                                                        <Icon type="search" style={{ flexGrow: 1, paddingTop: 3 }} />
-                                                                                                        <label style={{ fontSize: 12, flexGrow: 5, paddingTop: 1, width: 60, paddingLeft: 3 }} className="single-line-doc">{item.gp}</label>
+                                                                                                        {/* <Icon type="search" style={{ flexGrow: 1, paddingTop: 3 }} /> */}
+                                                                                                        <Icon type="user" style={{ flexGrow: 1, paddingTop: 3 }} />
+                                                                                                        <label style={{ fontSize: 12, flexGrow: 5, paddingTop: 1, width: 60, paddingLeft: 3 }} className="single-line-doc">{this.getInitialValFromDics(103, item.hiringmanager)}</label>
                                                                                                         <label style={{ fontSize: 12, flexGrow: 1, paddingTop: 1 }}> 6/2</label>
                                                                                                     </div>
                                                                                                     <div className="left-middle-right" style={{ paddingBottom: 3, marginTop: 3 }}>
-                                                                                                        <Icon type="man" style={{ flexGrow: 1, paddingTop: 3 }} />
-                                                                                                        <label style={{ fontSize: 12, flexGrow: 5, paddingTop: 1, width: 60 }} className="single-line-doc">{item.price}</label>
+                                                                                                        {/* <Icon type="man" style={{ flexGrow: 1, paddingTop: 3 }} /> */}
+                                                                                                        <Icon type="user" style={{ flexGrow: 1, paddingTop: 3 }} />
+                                                                                                        <label style={{ fontSize: 12, flexGrow: 5, paddingTop: 1, width: 60 }} className="single-line-doc">{this.getInitialValFromDics(101, item.saler)}</label>
                                                                                                     </div>
                                                                                                     <Row>
                                                                                                         <div>
                                                                                                             <span style={{ float: 'right' }}>
-                                                                                                                <Icon type="form" style={{display:i == 8 ? 'none': 'block'}} onClick={this.onCandidateClick.bind(this, item)} />
+                                                                                                                <Icon type="form" style={{ display: i == 8 ? 'none' : 'block' }} className={i == 8 ? "ant-badge-status-dot" : ""} onClick={this.onCandidateClick.bind(this, item)} />
                                                                                                             </span>
 
                                                                                                         </div>
@@ -416,7 +439,7 @@ class Home extends Component {
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td className="gutter-final-row"></td>
+                                <td className="gutter-final-row border-tbr-radius" ></td>
                             </tr>
                         </tbody>
 

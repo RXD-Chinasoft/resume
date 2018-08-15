@@ -91,3 +91,16 @@ INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('�
 INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('正常', 5, '风险等级', '', 14);
 INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('大量', 5, '风险等级', '', 15);
 INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('少量', 5, '风险等级', '', 16);
+
+INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('高', 6, '优先度', '', 17);
+INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('中', 6, '优先度', '', 18);
+INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('低', 6, '优先度', '', 19);
+
+INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('欧美事业部', 7, '所属部门', '', 20);
+INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('亚太事业部', 7, '所属部门', '', 21);
+INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('销售部', 7, '所属部门', '', 22);
+
+INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('第一轮', 8, '客轮面试', '', 23);
+INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('第二轮', 8, '客轮面试', '', 24);
+INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('第三轮', 8, '客轮面试', '', 25);
+

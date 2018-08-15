@@ -145,9 +145,9 @@ const CandidateCreateForm = Form.create()(
               <Button style={{ backgroundColor: '#d69250', color: 'white' }} key="save" icon="save" loading={loading} onClick={this.handleOk}>
                 保存
               </Button>,
-              <Button style={{ backgroundColor: '#d69250', color: 'white' }} key="copy" icon="copy" onClick={this.handleCancel}>复制</Button>,
-              <Button style={{ backgroundColor: '#d69250', color: 'white' }} key="del" icon="delete" onClick={this.handleCancel}>删除</Button>,
-              <Button style={{ backgroundColor: '#d69250', color: 'white' }} key="trace" icon="rollback" onClick={this.handleCancel}>轨迹</Button>,
+              // <Button style={{ backgroundColor: '#d69250', color: 'white' }} key="copy" icon="copy" onClick={this.handleCancel}>复制</Button>,
+              // <Button style={{ backgroundColor: '#d69250', color: 'white' }} key="del" icon="delete" onClick={this.handleCancel}>删除</Button>,
+              // <Button style={{ backgroundColor: '#d69250', color: 'white' }} key="trace" icon="rollback" onClick={this.handleCancel}>轨迹</Button>,
             ]}
           >
             <Form
@@ -157,7 +157,7 @@ const CandidateCreateForm = Form.create()(
                 <Col span={8}>
                   <FormItem
                     {...formItemLayout}
-                    label="需求ID"
+                    label="候选人名称"
                     style={{ color: "black" }}
                   >
                     {getFieldDecorator('candidate', {
