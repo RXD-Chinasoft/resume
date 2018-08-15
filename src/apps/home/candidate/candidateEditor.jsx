@@ -166,6 +166,7 @@ const CandidateEditForm = Form.create()(
       }
       return ""
     }
+    
 
     getCurrentStatus = () => {
       return (mapping[this.props.column].map((e, i) => {
