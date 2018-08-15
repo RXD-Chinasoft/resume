@@ -255,7 +255,7 @@ const CandidateEditForm = Form.create()(
                   >
                     {getFieldDecorator('hiringmanager', {
                       rules: [{ required: true, message: 'Please select one!' }],
-                      initialValue: this.getInitialValFromDics(103, entity.hiringmanager),
+                      initialValue: entity.hiringmanager,
                     })(
                       <Select
                         placeholder="Select a option"
@@ -276,7 +276,7 @@ const CandidateEditForm = Form.create()(
                   >
                     {getFieldDecorator('saler', {
                       rules: [{ required: true, message: 'Please select one!' }],
-                      initialValue: this.getInitialValFromDics(101, entity.saler),
+                      initialValue: entity.saler,
                     })(
                       <Select
                         placeholder="Select a option"
@@ -297,7 +297,7 @@ const CandidateEditForm = Form.create()(
                   >
                     {getFieldDecorator('dm', {
                       rules: [{ required: true, message: 'Please select one!' }],
-                      initialValue: this.getInitialValFromDics(102, entity.dm),
+                      initialValue: entity.dm,
                     })(
                       <Select
                         placeholder="Select a option"
@@ -343,7 +343,7 @@ const CandidateEditForm = Form.create()(
                   >
                     {getFieldDecorator('risk', {
                       rules: [{ required: true, message: 'Please select one!' }],
-                      initialValue: this.getInitialValFromDics(5, entity.risk),
+                      initialValue: entity.risk,
                     })(
                       <Select
                         placeholder="Select a option"
