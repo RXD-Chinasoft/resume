@@ -148,6 +148,9 @@ const CandidateEditForm = Form.create()(
       this.setState({
         visible: false,
       });
+      if (this.props.onDismiss) {
+        this.props.onDismiss()
+      }
     }
 
 
