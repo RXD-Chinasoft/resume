@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Row, Col, Button, Icon, Badge, Popover } from 'antd';
+import { Row, Col, Button, Icon, Badge, Popover, Card, Avatar } from 'antd';
 
 const content = (
     <div>
@@ -20,6 +20,22 @@ const notification = (
         <p>中软国际</p>
     </div>
 );
+
+const { Meta } = Card;
+const user = (
+    <div>
+        <Card
+            style={{ width: 300 }}
+            actions={[<Icon type="setting" />, <Icon type="edit" />, <Icon type="ellipsis" />]}
+        >
+            <Meta
+                avatar={<Avatar icon="smile-o" />}
+                title="User Name"
+                description="Charge in department"
+            />
+        </Card>
+    </div>
+);
 class Header extends React.Component {
 
     render() {
@@ -37,7 +53,7 @@ class Header extends React.Component {
             <div style={{ background: '#14539d', padding: 0, minHeight: 50 }}>
 
                 <div style={{ float: 'left', color: 'white', paddingLeft: 10, fontSize: 27 }}>Spectacular</div>
-                <Popover placement="bottomLeft" content={content} title="user"><span style={{ float: 'right', marginRight: 15, paddingTop: 10 }}><Icon type="user" style={{ fontSize: 20, color: '#fff' }} /><span style={{ color: 'white' }}>user</span></span></Popover>
+                <Popover placement="bottomLeft" content={user}><span style={{ float: 'right', marginRight: 15, paddingTop: 10 }}><Icon type="user" style={{ fontSize: 20, color: '#fff' }} /><span style={{ color: 'white' }}>user</span></span></Popover>
                 <Popover placement="bottomLeft" content={notification} title="消息" trigger="click"><span style={{ float: 'right', marginRight: 19, paddingTop: 10 }}><Badge count={5}><Icon type="mail" style={{ fontSize: 20, color: '#fff' }} /></Badge></span></Popover>
                 <Popover placement="bottomLeft" content={content} title="通知" trigger="click"><span style={{ float: 'right', marginRight: 19, paddingTop: 10 }}><Badge count={5}><Icon type="notification" style={{ fontSize: 20, color: '#fff' }} /></Badge></span></Popover>
             </div>
