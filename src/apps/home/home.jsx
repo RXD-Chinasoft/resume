@@ -68,7 +68,8 @@ const getCandidateStyle = (isDragging, draggableStyle, index) => ({
     // marginRight: 3,
 
     // styles we need to apply on draggables
-    ...draggableStyle
+    ...draggableStyle,
+    zIndex: 999
 });
 
 const getListStyle = (isDraggingOver, index) => ({
@@ -91,6 +92,7 @@ class Home extends Component {
     state = {
         requirements: [],
         candidate: [],
+        editDragDisabled: false,
     };
 
     constructor(props) {
@@ -195,6 +197,7 @@ class Home extends Component {
     onCandidateClick = (candidate) => {
         console.log(candidate, this.candidateComponents[candidate.id])
         this.candidateComponents[candidate.id].showModal()
+        this.setState({ editDragDisabled: true })
     }
 
     onRequirementClick = (requirement) => {
@@ -365,7 +368,8 @@ class Home extends Component {
                                                                                         <Draggable
                                                                                             key={item.id}
                                                                                             draggableId={item.id}
-                                                                                            index={j}>
+                                                                                            index={j}
+                                                                                            isDragDisabled={this.state.editDragDisabled}>
                                                                                             {(provided, snapshot) => (
                                                                                                 <div ref={provided.innerRef}
                                                                                                     {...provided.draggableProps}
@@ -386,6 +390,9 @@ class Home extends Component {
                                                                                                         position={element.requirement}
                                                                                                         onUpdateDone={this.onEditDone.bind(this, element.id, i, j)}
                                                                                                         onDeleteCandidateDone={this.onCandidateDelete.bind(this, element.id, i, j)}
+                                                                                                        onDismiss={()=> {
+                                                                                                            this.setState({editDragDisabled: false})
+                                                                                                        }}
                                                                                                     />
                                                                                                     <div className="left-middle-right" style={{ borderBottom: '1px solid white', paddingBottom: 3 }}>
                                                                                                         <Badge style={{ height: 20, flexGrow: 1 }} status="success" />
