@@ -4,7 +4,7 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { Button, Badge, Icon } from 'antd';
 import ToolBar from './toolbar'
 import { Row, Col } from 'antd';
-import { GetRequirements, NotifyMatrixChanged, GetDictionaries } from './../service/homeService';
+import { GetRequirements, NotifyMatrixChanged, GetDictionaries, CreateCandidate } from './../service/homeService';
 import './home.css';
 import CandidateCreateForm from './candidate/candidateCreator';
 import CandidateEditForm from './candidate/candidateEditor';
@@ -199,6 +199,15 @@ class Home extends Component {
         this.candidateComponents[candidate.id].showModal()
         this.setState({ editDragDisabled: true })
     }
+    onCandidateCopyClick = (candidate) => {
+        console.log('onCandidateCopyClick', candidate);
+        CreateCandidate(candidate).then(res => {
+            OpenNotificationWithIcon('success', 'Notification', '复制成功')
+            this.getRqs()
+        }).catch(e => {
+            OpenNotificationWithIcon('warning', 'Notification', '复制失败，请联系管理员')
+        });
+    }
 
     onRequirementClick = (requirement) => {
         console.log(requirement, this.requirementComponents[requirement.id])
@@ -299,7 +308,7 @@ class Home extends Component {
                             {
                                 this.state.requirements.map((element, index) => {
                                     console.log('elementasd', element)
-                                    const {rqtype} = element;
+                                    const { rqtype } = element;
                                     let st = 'success'
                                     if (rqtype == 11) {
                                         st = 'error'
@@ -399,8 +408,8 @@ class Home extends Component {
                                                                                                         position={element.requirement}
                                                                                                         onUpdateDone={this.onEditDone.bind(this, element.id, i, j)}
                                                                                                         onDeleteCandidateDone={this.onCandidateDelete.bind(this, element.id, i, j)}
-                                                                                                        onDismiss={()=> {
-                                                                                                            this.setState({editDragDisabled: false})
+                                                                                                        onDismiss={() => {
+                                                                                                            this.setState({ editDragDisabled: false })
                                                                                                         }}
                                                                                                     />
                                                                                                     <div className="left-middle-right" style={{ borderBottom: '1px solid white', paddingBottom: 3 }}>
@@ -421,10 +430,14 @@ class Home extends Component {
                                                                                                     </div>
                                                                                                     <Row>
                                                                                                         <div>
-                                                                                                            <span style={{ float: 'right' }}>
-                                                                                                                <Icon type="form" style={{ display: i == 8 ? 'none' : 'block' }} className={i == 8 ? "ant-badge-status-dot" : ""} onClick={this.onCandidateClick.bind(this, item)} />
-                                                                                                            </span>
-
+                                                                                                            <div>
+                                                                                                                <span style={{ float: 'right' }}>
+                                                                                                                    <Icon type="form" style={{ display: i == 8 ? 'none' : 'block' }} className={i == 8 ? "ant-badge-status-dot" : ""} onClick={this.onCandidateClick.bind(this, item)} />
+                                                                                                                </span>
+                                                                                                                <span style={{ float: 'right', marginRight: 10 }}>
+                                                                                                                    <Icon type="copy" style={{ display: i == 8 ? 'none' : 'block' }} className={i == 8 ? "ant-badge-status-dot" : ""} onClick={this.onCandidateCopyClick.bind(this, item)} />
+                                                                                                                </span>
+                                                                                                            </div>
                                                                                                         </div>
                                                                                                     </Row>
                                                                                                 </div>

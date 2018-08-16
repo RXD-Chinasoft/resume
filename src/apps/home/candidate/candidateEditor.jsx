@@ -169,7 +169,7 @@ const CandidateEditForm = Form.create()(
       }
       return ""
     }
-    
+
 
     getCurrentStatus = () => {
       return (mapping[this.props.column].map((e, i) => {
@@ -323,6 +323,7 @@ const CandidateEditForm = Form.create()(
                     {getFieldDecorator('status', {
                       rules: [{ required: true, message: 'Please select one!' }],
                       initialValue: this.getStatusInitialVal(entity.status),
+                      // initialValue: this.mapping[this.props.column][0].name,
                     })(
                       <Select
                         placeholder="Select a option"
