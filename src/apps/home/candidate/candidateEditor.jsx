@@ -75,6 +75,9 @@ const CandidateEditForm = Form.create()(
           this.props.onUpdateDone(candidate)
         }
       }
+      if (this.props.onDismiss) {
+        this.props.onDismiss()
+      }
     }
 
     onDeleteDone = (candidate) => {
@@ -82,6 +85,9 @@ const CandidateEditForm = Form.create()(
       this.props.form.resetFields();
       if (this.props.onDeleteCandidateDone) {
         this.props.onDeleteCandidateDone(candidate)
+      }
+      if (this.props.onDismiss) {
+        this.props.onDismiss()
       }
     }
 
@@ -165,9 +171,9 @@ const CandidateEditForm = Form.create()(
         return ele.id == cur
       })
       if (result) {
-        return result.name
+        return result.id
       }
-      return ""
+      return 0
     }
 
 
@@ -322,8 +328,7 @@ const CandidateEditForm = Form.create()(
                   >
                     {getFieldDecorator('status', {
                       rules: [{ required: true, message: 'Please select one!' }],
-                      initialValue: this.getStatusInitialVal(entity.status),
-                      // initialValue: this.mapping[this.props.column][0].name,
+                      initialValue: this.getStatusInitialVal(entity.status) ? this.getStatusInitialVal(entity.status) : mapping[this.props.column][0].id,
                     })(
                       <Select
                         placeholder="Select a option"

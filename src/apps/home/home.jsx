@@ -20,6 +20,17 @@ const reorder = (list, startIndex, endIndex) => {
 
     return result;
 };
+const mapping = [
+    [{ id: 10, name: "未筛选" }, { id: 11, name: "内筛通过" }, { id: 12, name: "内筛失败" }],
+    [{ id: 20, name: "未安排内面" }, { id: 21, name: "已安排内面" }, { id: 22, name: "已内面" }, { id: 23, name: "内面通过" }, { id: 24, name: "内面失败" }],
+    [{ id: 30, name: "未筛选" }, { id: 31, name: "内筛通过" }, { id: 32, name: "内筛失败" }],
+    [{ id: 40, name: "未推荐" }, { id: 41, name: "已推荐" }, { id: 42, name: "推荐通过" }, { id: 42, name: "推荐失败" }],
+    [{ id: 50, name: "未筛选" }, { id: 51, name: "内筛通过" }, { id: 52, name: "内筛失败" }],
+    [{ id: 60, name: "未安排面试" }, { id: 61, name: "已安排面试" }, { id: 62, name: "已客面" }, { id: 63, name: "客面通过" }, { id: 64, name: "客面失败" }],
+    [{ id: 70, name: "未筛选" }, { id: 71, name: "内筛通过" }, { id: 72, name: "内筛失败" }],
+    [{ id: 80, name: "未安排面试" }, { id: 81, name: "已安排面试" }, { id: 82, name: "已客面" }, { id: 83, name: "客面通过" }, { id: 84, name: "客面失败" }],
+    [{ id: 90, name: "等待入职" }, { id: 91, name: "二次审批" }, { id: 92, name: "正常入职" }, { id: 92, name: "入职失败" }]
+]
 
 /**
  * Moves an item from one list to another list.
@@ -99,6 +110,22 @@ class Home extends Component {
         super(props)
         this.candidateComponents = {}
         this.requirementComponents = {}
+        this.findDictionaries()
+        if (!this.dictionaries || this.dictionaries.length === 0) {
+            GetDictionaries().then(response => {
+                console.log('Dictionaries response ===>', response, this.state.requirements.length)
+                try {
+                    localStorage.setItem('dictionaries', JSON.stringify(response.data))
+                    this.dictionaries = response.data
+                } catch (error) {
+                    localStorage.setItem('dictionaries', JSON.stringify([]))
+                    this.dictionaries = []
+                }
+                if (this.state.requirements.length > 0) {
+                    this.forceUpdate()
+                }
+            })
+        }
     }
 
     handleSave = (doneCall) => {
@@ -232,15 +259,7 @@ class Home extends Component {
 
     componentDidMount() {
         this.getRqs()
-        GetDictionaries().then(response => {
-            console.log('Dictionaries response ===>', response)
-            try {
-                localStorage.setItem('dictionaries', JSON.stringify(response.data))
-            } catch (error) {
-                localStorage.setItem('dictionaries', JSON.stringify([]))
-            }
-            this.findDictionaries()
-        })
+
 
     }
 
@@ -261,6 +280,15 @@ class Home extends Component {
         }) : null
         console.log("result....", result, key, cur)
         return result ? result.name : ""
+    }
+    getStatusInitialVal = (cur) => {
+        const result = mapping[this.props.column].find(ele => {
+            return ele.id == cur
+        })
+        if (result) {
+            return result.name
+        }
+        return ""
     }
 
     showDetail() {
@@ -382,68 +410,72 @@ class Home extends Component {
                                                                                 <div
                                                                                     ref={provided.innerRef}
                                                                                     style={getListStyle(snapshot.isDraggingOver, i)}>
-                                                                                    {this.state.candidate[element.id][i].map((item, j) => (
-                                                                                        <Draggable
-                                                                                            key={item.id}
-                                                                                            draggableId={item.id}
-                                                                                            index={j}
-                                                                                            isDragDisabled={this.state.editDragDisabled}>
-                                                                                            {(provided, snapshot) => (
-                                                                                                <div ref={provided.innerRef}
-                                                                                                    {...provided.draggableProps}
-                                                                                                    {...provided.dragHandleProps}
-                                                                                                    style={getCandidateStyle(
-                                                                                                        snapshot.isDragging,
-                                                                                                        provided.draggableProps.style,
-                                                                                                        j
-                                                                                                    )}
-                                                                                                    className={i != 8 ? "candidateBox" : "candidateBoxWhite"}
-                                                                                                >
-                                                                                                    <CandidateEditForm
-                                                                                                        candidate={item}
-                                                                                                        column={i}
-                                                                                                        wrappedComponentRef={(reference) => {
-                                                                                                            this.candidateComponents[item.id] = reference
-                                                                                                        }}
-                                                                                                        position={element.requirement}
-                                                                                                        onUpdateDone={this.onEditDone.bind(this, element.id, i, j)}
-                                                                                                        onDeleteCandidateDone={this.onCandidateDelete.bind(this, element.id, i, j)}
-                                                                                                        onDismiss={() => {
-                                                                                                            this.setState({ editDragDisabled: false })
-                                                                                                        }}
-                                                                                                    />
-                                                                                                    <div className="left-middle-right" style={{ borderBottom: '1px solid white', paddingBottom: 3 }}>
-                                                                                                        <Badge style={{ height: 20, flexGrow: 1 }} status="success" />
-                                                                                                        <label style={{ fontSize: 12, flexGrow: 5, paddingTop: 1, width: 60 }} className="single-line-doc">{item.candidate}</label>
-                                                                                                        <label style={{ fontSize: 12, flexGrow: 1, paddingTop: 1 }}> 6/2</label>
-                                                                                                    </div>
-                                                                                                    <div className="left-middle-right" style={{ paddingBottom: 3, marginTop: 3 }}>
-                                                                                                        {/* <Icon type="search" style={{ flexGrow: 1, paddingTop: 3 }} /> */}
-                                                                                                        <Icon type="user" style={{ flexGrow: 1, paddingTop: 3 }} />
-                                                                                                        <label style={{ fontSize: 12, flexGrow: 5, paddingTop: 1, width: 60, paddingLeft: 3 }} className="single-line-doc">{this.getInitialValFromDics(103, item.hiringmanager)}</label>
-                                                                                                        <label style={{ fontSize: 12, flexGrow: 1, paddingTop: 1 }}> 6/2</label>
-                                                                                                    </div>
-                                                                                                    <div className="left-middle-right" style={{ paddingBottom: 3, marginTop: 3 }}>
-                                                                                                        {/* <Icon type="man" style={{ flexGrow: 1, paddingTop: 3 }} /> */}
-                                                                                                        <Icon type="user" style={{ flexGrow: 1, paddingTop: 3 }} />
-                                                                                                        <label style={{ fontSize: 12, flexGrow: 5, paddingTop: 1, width: 60 }} className="single-line-doc">{this.getInitialValFromDics(101, item.saler)}</label>
-                                                                                                    </div>
-                                                                                                    <Row>
-                                                                                                        <div>
-                                                                                                            <div>
-                                                                                                                <span style={{ float: 'right' }}>
-                                                                                                                    <Icon type="form" style={{ display: i == 8 ? 'none' : 'block' }} className={i == 8 ? "ant-badge-status-dot" : ""} onClick={this.onCandidateClick.bind(this, item)} />
-                                                                                                                </span>
-                                                                                                                <span style={{ float: 'right', marginRight: 10 }}>
-                                                                                                                    <Icon type="copy" style={{ display: i == 8 ? 'none' : 'block' }} className={i == 8 ? "ant-badge-status-dot" : ""} onClick={this.onCandidateCopyClick.bind(this, item)} />
-                                                                                                                </span>
-                                                                                                            </div>
+                                                                                    {this.state.candidate[element.id][i].map((item, j) => {
+                                                                                        const hireMan = this.getInitialValFromDics(103, item.hiringmanager);
+                                                                                        const salerMan = this.getInitialValFromDics(101, item.saler)
+                                                                                        return (
+                                                                                            <Draggable
+                                                                                                key={item.id}
+                                                                                                draggableId={item.id}
+                                                                                                index={j}
+                                                                                                isDragDisabled={this.state.editDragDisabled}>
+                                                                                                {(provided, snapshot) => (
+                                                                                                    <div ref={provided.innerRef}
+                                                                                                        {...provided.draggableProps}
+                                                                                                        {...provided.dragHandleProps}
+                                                                                                        style={getCandidateStyle(
+                                                                                                            snapshot.isDragging,
+                                                                                                            provided.draggableProps.style,
+                                                                                                            j
+                                                                                                        )}
+                                                                                                        className={i != 8 ? "candidateBox" : "candidateBoxWhite"}
+                                                                                                    >
+                                                                                                        <CandidateEditForm
+                                                                                                            candidate={item}
+                                                                                                            column={i}
+                                                                                                            wrappedComponentRef={(reference) => {
+                                                                                                                this.candidateComponents[item.id] = reference
+                                                                                                            }}
+                                                                                                            position={element.requirement}
+                                                                                                            onUpdateDone={this.onEditDone.bind(this, element.id, i, j)}
+                                                                                                            onDeleteCandidateDone={this.onCandidateDelete.bind(this, element.id, i, j)}
+                                                                                                            onDismiss={() => {
+                                                                                                                this.setState({ editDragDisabled: false })
+                                                                                                            }}
+                                                                                                        />
+                                                                                                        <div className="left-middle-right" style={{ borderBottom: '1px solid white', paddingBottom: 3 }}>
+                                                                                                            <Badge style={{ height: 20, flexGrow: 1 }} status="success" />
+                                                                                                            <label style={{ fontSize: 12, flexGrow: 5, paddingTop: 1, width: 60 }} className="single-line-doc">{item.candidate}</label>
+                                                                                                            <label style={{ fontSize: 12, flexGrow: 1, paddingTop: 1 }}> 6/2</label>
                                                                                                         </div>
-                                                                                                    </Row>
-                                                                                                </div>
-                                                                                            )}
-                                                                                        </Draggable>
-                                                                                    ))}
+                                                                                                        <div className="left-middle-right" style={{ paddingBottom: 3, marginTop: 3 }}>
+                                                                                                            {/* <Icon type="search" style={{ flexGrow: 1, paddingTop: 3 }} /> */}
+                                                                                                            <Icon type="user" style={{ flexGrow: 1, paddingTop: 3 }} />
+                                                                                                            <label style={{ fontSize: 12, flexGrow: 5, paddingTop: 1, width: 60, paddingLeft: 3 }} className="single-line-doc">{hireMan}</label>
+                                                                                                            <label style={{ fontSize: 12, flexGrow: 1, paddingTop: 1 }}> 6/2</label>
+                                                                                                        </div>
+                                                                                                        <div className="left-middle-right" style={{ paddingBottom: 3, marginTop: 3 }}>
+                                                                                                            {/* <Icon type="man" style={{ flexGrow: 1, paddingTop: 3 }} /> */}
+                                                                                                            <Icon type="exclamation-circle" style={{ flexGrow: 1, paddingTop: 3 }} />
+                                                                                                            <label style={{ fontSize: 12, flexGrow: 5, paddingTop: 1, width: 60 }} className="single-line-doc">{salerMan}</label>
+                                                                                                        </div>
+                                                                                                        <Row>
+                                                                                                            <div>
+                                                                                                                <div>
+                                                                                                                    <span style={{ float: 'right' }}>
+                                                                                                                        <Icon type="form" style={{ display: i == 8 ? 'none' : 'block' }} className={i == 8 ? "ant-badge-status-dot" : ""} onClick={this.onCandidateClick.bind(this, item)} />
+                                                                                                                    </span>
+                                                                                                                    <span style={{ float: 'right', marginRight: 10 }}>
+                                                                                                                        <Icon type="copy" style={{ display: i == 8 ? 'none' : 'block' }} className={i == 8 ? "ant-badge-status-dot" : ""} onClick={this.onCandidateCopyClick.bind(this, item)} />
+                                                                                                                    </span>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </Row>
+                                                                                                    </div>
+                                                                                                )}
+                                                                                            </Draggable>
+                                                                                        )
+                                                                                    })}
                                                                                     {provided.placeholder}
                                                                                 </div>
                                                                             )}
@@ -475,199 +507,8 @@ class Home extends Component {
                                 <td className="gutter-final-row border-tbr-radius" ></td>
                             </tr>
                         </tbody>
-
                     </table>
                 </div>
-
-                {/* <div className="panel border-tbl-radius border-tbr-radius" style={{ minHeight: this.state.requirements && this.state.requirements.length > 0 ? 0 : 500 }}>
-                    <Row gutter={16} style={{ width: '100%', textAlign: 'center', }}>
-                        <Col className="gutter-row gutter-row-padding-none" span={3}>
-                            <div className="gutter-box border-tl-radius main-title">职位需求({this.state.requirements.length})
-                                <span style={{ float: 'right', marginRight: 10 }}>
-                                    <RequirementCreateForm
-                                        // requirement={element.id}
-                                        onSaveRqDone={() => {
-                                            this.getRqs()
-                                        }}
-                                    />
-                                </span>
-                            </div>
-                        </Col>
-                        <Col className="gutter-row gutter-row-padding-none" span={19}>
-                            <Col className="gutter-row gutter-row-padding-none" span={3}>
-                                <div className="gutter-box flow-title">简历筛选({columes[0]})</div>
-                            </Col>
-                            <Col className="gutter-row gutter-row-padding-none" span={3}>
-                                <div className="gutter-box flow-title">内部面试({columes[1]})</div>
-                            </Col>
-                            <Col className="gutter-row gutter-row-padding-none" span={3}>
-                                <div className="gutter-box flow-title">内部通过({columes[2]})</div>
-                            </Col>
-                            <Col className="gutter-row gutter-row-padding-none" span={3}>
-                                <div className="gutter-box flow-title">推荐客户({columes[3]})</div>
-                            </Col>
-                            <Col className="gutter-row gutter-row-padding-none" span={3}>
-                                <div className="gutter-box flow-title">安排客户({columes[4]})</div>
-                            </Col>
-                            <Col className="gutter-row gutter-row-padding-none" span={3}>
-                                <div className="gutter-box flow-title">客户面试({columes[5]})</div>
-                            </Col>
-                            <Col className="gutter-row gutter-row-padding-none" span={3}>
-                                <div className="gutter-box flow-title">客户通过({columes[6]})</div>
-                            </Col>
-                            <Col className="gutter-row gutter-row-padding-none" span={3}>
-                                <div className="gutter-box flow-title">Offer({columes[7]})</div>
-                            </Col>
-                        </Col>
-                        <Col className="gutter-row gutter-row-padding-none" span={2}>
-                            <div className="gutter-box done-gradient border-tr-radius">入职(7)</div>
-                        </Col>
-                    </Row>
-                    {
-
-                        this.state.requirements.map((element, index) => {
-                            console.log('element', this.state.requirements)
-                            console.log('candidate', this.state.candidate)
-                            console.log('elementid', element.id)
-
-                            return (
-                                <Row key={element.id} gutter={16} style={{ width: '100%', display: 'flex' }}>
-
-                                    <Col span={3} className="backgroundColor first-colum border-tbl-radius">
-                                        <div className="requirementBox">
-                                            <Row>
-                                                <div style={{ float: 'right', marginRight: -5, height: 9 }}>
-                                                    <Badge status="error" />
-                                                </div>
-                                            </Row>
-                                            <Row>
-                                                <div>
-                                                    <Icon type="environment" style={{ color: '#347cb7' }} />
-                                                    <label style={{ textAlign: 'center' }}> {element.area}</label>
-                                                </div>
-                                            </Row>
-                                            <Row>
-                                                <div>
-                                                    <Icon type="user" style={{ color: '#347cb7' }} />
-                                                    <label style={{ textAlign: 'center' }}> {element.client}</label>
-                                                    <label style={{ float: 'right', color: 'red', fontSize: '1rem' }}> {element.count}</label>
-                                                </div>
-                                            </Row>
-                                            <Row>
-                                                <div>
-                                                    <Icon type="calendar" style={{ color: '#347cb7' }} />
-                                                    <label style={{ textAlign: 'center' }}> {element.createtime}</label>
-                                                </div>
-                                            </Row>
-                                            <Row>
-
-                                                <div>
-                                                    <span style={{ float: 'right' }}>
-                                                        <CandidateCreateForm
-                                                            requirement={element.id}
-                                                            onSaveDone={() => {
-                                                                this.getRqs()
-                                                            }}
-                                                        />
-                                                    </span>
-                                                    <span style={{ float: 'right', marginRight: 10 }}>
-                                                        <RequirementEditForm
-                                                            requirement={element}
-                                                            wrappedComponentRef={(reference) => {
-                                                                this.requirementComponents[element.id] = reference
-                                                            }}
-                                                            onRQUpdateDone={this.onRQEditDone.bind(this, index)}
-                                                        />
-                                                    </span>
-
-                                                </div>
-                                            </Row>
-                                        </div>
-                                    </Col>
-                                    <DragDropContext onDragEnd={this.onDragEnd1.bind(this, element)}>
-                                        <Col className="gutter-row" span={19} style={{ display: 'flex', borderBottom: "solid 1px #e6e5e5" }}>
-                                            {
-                                                this.state.candidate[element.id] ?
-                                                    this.state.candidate[element.id].map((cand, i) => {
-                                                        return (
-                                                            <Col key={i} className="gutter-row" span={3} style={{ borderRight: "solid 1px #e6e5e5", paddingTop: 10 }}>
-
-                                                                {this.state.candidate[element.id] ?
-                                                                    <Droppable droppableId={DROPPABLE_KEY + element.id + DROPPABLE_SEPERATOR + i}>
-                                                                        {(provided, snapshot) => (
-                                                                            <div
-                                                                                ref={provided.innerRef}
-                                                                                style={getListStyle(snapshot.isDraggingOver)}>
-                                                                                {this.state.candidate[element.id][i].map((item, j) => (
-                                                                                    <Draggable
-                                                                                        key={item.id}
-                                                                                        draggableId={item.id}
-                                                                                        index={j}>
-                                                                                        {(provided, snapshot) => (
-                                                                                            <div ref={provided.innerRef}
-                                                                                                {...provided.draggableProps}
-                                                                                                {...provided.dragHandleProps}
-                                                                                                style={getCandidateStyle(
-                                                                                                    snapshot.isDragging,
-                                                                                                    provided.draggableProps.style
-                                                                                                )}
-                                                                                                className="candidateBox"
-                                                                                            >
-                                                                                                <CandidateEditForm
-                                                                                                    candidate={item}
-                                                                                                    wrappedComponentRef={(reference) => {
-                                                                                                        this.candidateComponents[item.id] = reference
-                                                                                                    }}
-                                                                                                    onUpdateDone={this.onEditDone.bind(this, element.id, i, j)}
-                                                                                                />
-                                                                                                <div className="left-middle-right" style={{ borderBottom: '1px solid white', paddingBottom: 3 }}>
-                                                                                                    <Badge style={{ height: 20, flexGrow: 1 }} status="success" />
-                                                                                                    <label style={{ fontSize: 12, flexGrow: 5, paddingTop: 1, width: 60 }} className="single-line-doc">{item.candidate}</label>
-                                                                                                    <label style={{ color: 'white', fontSize: 12, flexGrow: 1, paddingTop: 1 }}> 6/2</label>
-                                                                                                </div>
-                                                                                                <div className="left-middle-right" style={{ paddingBottom: 3, marginTop: 3 }}>
-                                                                                                    <Icon type="search" style={{ color: 'white', flexGrow: 1, paddingTop: 3 }} />
-                                                                                                    <label style={{ fontSize: 12, flexGrow: 5, paddingTop: 1, width: 60, paddingLeft: 3 }} className="single-line-doc">{item.gp}</label>
-                                                                                                    <label style={{ color: 'white', fontSize: 12, flexGrow: 1, paddingTop: 1 }}> 6/2</label>
-                                                                                                </div>
-                                                                                                <div className="left-middle-right" style={{ paddingBottom: 3, marginTop: 3 }}>
-                                                                                                    <Icon type="man" style={{ color: 'white', flexGrow: 1, paddingTop: 3 }} />
-                                                                                                    <label style={{ fontSize: 12, flexGrow: 5, paddingTop: 1, width: 60 }} className="single-line-doc">{item.price}</label>
-                                                                                                </div>
-                                                                                                <Row>
-                                                                                                    <div>
-                                                                                                        <span style={{ float: 'right' }}>
-                                                                                                            <Icon type="form" style={{ color: 'white' }} onClick={this.onCandidateClick.bind(this, item)} />
-                                                                                                        </span>
-
-                                                                                                    </div>
-                                                                                                </Row>
-                                                                                            </div>
-                                                                                        )}
-                                                                                    </Draggable>
-                                                                                ))}
-                                                                                {provided.placeholder}
-                                                                            </div>
-                                                                        )}
-                                                                    </Droppable> : (
-                                                                        <div>
-
-                                                                        </div>
-                                                                    )}
-                                                            </Col>
-                                                        )
-                                                    })
-                                                    : (<div></div>)
-                                            }
-                                        </Col>
-                                    </DragDropContext>
-                                    <Col className="gutter-row done-gradient border-tbr-radius" style={{ minHeight: this.state.requirements && this.state.requirements.length > 0 ? 0 : 500 }} span={2}>
-                                    </Col>
-                                </Row>
-                            )
-                        })
-                    }
-                </div> */}
             </div >
         );
     }
