@@ -10,14 +10,14 @@ const Option = Select.Option;
 const { TextArea } = Input;
 const Search = Input.Search;
 const mapping = [
-  [{ id: 10, name: "未筛选" }, { id: 11, name: "内筛通过" }, { id: 12, name: "内筛失败" }],
+  [{ id: 10, name: "未内筛" }, { id: 11, name: "内筛通过" }, { id: 12, name: "内筛失败" }],
   [{ id: 20, name: "未安排内面" }, { id: 21, name: "已安排内面" }, { id: 22, name: "已内面" }, { id: 23, name: "内面通过" }, { id: 24, name: "内面失败" }],
-  [{ id: 30, name: "未筛选" }, { id: 31, name: "内筛通过" }, { id: 32, name: "内筛失败" }],
-  [{ id: 40, name: "未推荐" }, { id: 41, name: "已推荐" }, { id: 42, name: "推荐通过" }, { id: 42, name: "推荐失败" }],
-  [{ id: 50, name: "未筛选" }, { id: 51, name: "内筛通过" }, { id: 52, name: "内筛失败" }],
-  [{ id: 60, name: "未安排面试" }, { id: 61, name: "已安排面试" }, { id: 62, name: "已客面" }, { id: 63, name: "客面通过" }, { id: 64, name: "客面失败" }],
-  [{ id: 70, name: "未筛选" }, { id: 71, name: "内筛通过" }, { id: 72, name: "内筛失败" }],
-  [{ id: 80, name: "未安排面试" }, { id: 81, name: "已安排面试" }, { id: 82, name: "已客面" }, { id: 83, name: "客面通过" }, { id: 84, name: "客面失败" }],
+  [{ id: 30, name: "未推荐" }, { id: 31, name: "已推荐" }, { id: 32, name: "推荐通过" }, { id: 33, name: "推荐失败" }],
+  [{ id: 40, name: "未安排客户面" }, { id: 41, name: "已安排客户面" }, { id: 42, name: "已面客" }, { id: 43, name: "客面通过" }, { id: 44, name: "客面失败" }],
+  [{ id: 50, name: "未报价" }, { id: 51, name: "已报价" }, { id: 52, name: "报价通过" }, { id: 53, name: "报价失败" }],
+  [{ id: 60, name: "未审批" }, { id: 61, name: "审批中" }, { id: 62, name: "审批通过" }, { id: 63, name: "审批失败" }],
+  [{ id: 70, name: "未筛Offer" }, { id: 71, name: "已Offer" }, { id: 72, name: "接受Offer" }, { id: 73, name: "拒绝Offer" }],
+  [{ id: 80, name: "未进行" }, { id: 81, name: "进行中" }, { id: 82, name: "检调合格" }, { id: 83, name: "体检审批" }, { id: 84, name: "背调审批" }, { id: 85, name: "体检失败" }, { id: 86, name: "背调失败" }],
   [{ id: 90, name: "等待入职" }, { id: 91, name: "二次审批" }, { id: 92, name: "正常入职" }, { id: 92, name: "入职失败" }]
 ]
 const CandidateCreateForm = Form.create()(
@@ -124,7 +124,7 @@ const CandidateCreateForm = Form.create()(
 
     getCurrentStatus = () => {
       return (mapping[0].map((e, i) => {
-        return <Option key={e.pKey} value={e.id}>{e.name}</Option>
+        return <Option key={e.id} value={e.id}>{e.name}</Option>
       }))
     }
 

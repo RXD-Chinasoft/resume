@@ -21,14 +21,14 @@ const reorder = (list, startIndex, endIndex) => {
     return result;
 };
 const mapping = [
-    [{ id: 10, name: "未筛选" }, { id: 11, name: "内筛通过" }, { id: 12, name: "内筛失败" }],
+    [{ id: 10, name: "未内筛" }, { id: 11, name: "内筛通过" }, { id: 12, name: "内筛失败" }],
     [{ id: 20, name: "未安排内面" }, { id: 21, name: "已安排内面" }, { id: 22, name: "已内面" }, { id: 23, name: "内面通过" }, { id: 24, name: "内面失败" }],
-    [{ id: 30, name: "未筛选" }, { id: 31, name: "内筛通过" }, { id: 32, name: "内筛失败" }],
-    [{ id: 40, name: "未推荐" }, { id: 41, name: "已推荐" }, { id: 42, name: "推荐通过" }, { id: 42, name: "推荐失败" }],
-    [{ id: 50, name: "未筛选" }, { id: 51, name: "内筛通过" }, { id: 52, name: "内筛失败" }],
-    [{ id: 60, name: "未安排面试" }, { id: 61, name: "已安排面试" }, { id: 62, name: "已客面" }, { id: 63, name: "客面通过" }, { id: 64, name: "客面失败" }],
-    [{ id: 70, name: "未筛选" }, { id: 71, name: "内筛通过" }, { id: 72, name: "内筛失败" }],
-    [{ id: 80, name: "未安排面试" }, { id: 81, name: "已安排面试" }, { id: 82, name: "已客面" }, { id: 83, name: "客面通过" }, { id: 84, name: "客面失败" }],
+    [{ id: 30, name: "未推荐" }, { id: 31, name: "已推荐" }, { id: 32, name: "推荐通过" }, { id: 33, name: "推荐失败" }],
+    [{ id: 40, name: "未安排客户面" }, { id: 41, name: "已安排客户面" }, { id: 42, name: "已面客" }, { id: 43, name: "客面通过" }, { id: 44, name: "客面失败" }],
+    [{ id: 50, name: "未报价" }, { id: 51, name: "已报价" }, { id: 52, name: "报价通过" }, { id: 53, name: "报价失败" }],
+    [{ id: 60, name: "未审批" }, { id: 61, name: "审批中" }, { id: 62, name: "审批通过" }, { id: 63, name: "审批失败" }],
+    [{ id: 70, name: "未筛Offer" }, { id: 71, name: "已Offer" }, { id: 72, name: "接受Offer" }, { id: 73, name: "拒绝Offer" }],
+    [{ id: 80, name: "未进行" }, { id: 81, name: "进行中" }, { id: 82, name: "检调合格" }, { id: 83, name: "体检审批" }, { id: 84, name: "背调审批" }, { id: 85, name: "体检失败" }, { id: 86, name: "背调失败" }],
     [{ id: 90, name: "等待入职" }, { id: 91, name: "二次审批" }, { id: 92, name: "正常入职" }, { id: 92, name: "入职失败" }]
 ]
 
@@ -69,10 +69,10 @@ const getCandidateStyle = (isDragging, draggableStyle, index) => ({
     // some basic styles to make the items look a bit nicer
     userSelect: 'none',
     width: 108,
-    height: 100,
+    minHeight: 100,
     marginBottom: 10,
     color: 'white',
-    paddingTop: 5,
+    paddingTop: 6,
     paddingLeft: 10,
     paddingRight: 5,
     // marginLeft: 3,
@@ -281,14 +281,15 @@ class Home extends Component {
         console.log("result....", result, key, cur)
         return result ? result.name : ""
     }
-    getStatusInitialVal = (cur) => {
-        const result = mapping[this.props.column].find(ele => {
+    getStatusInitialVal = (cur, index) => {
+        console.log('asdasd', cur, index)
+        const result = mapping[index].find(ele => {
             return ele.id == cur
         })
         if (result) {
             return result.name
         }
-        return ""
+        return mapping[index][0] ? mapping[index][0].name : ""
     }
 
     showDetail() {
@@ -323,12 +324,12 @@ class Home extends Component {
                                 </th>
                                 <th className="divWidth gutter-box flow-title">简历筛选({columes[0]})</th>
                                 <th className="divWidth gutter-box flow-title">内部面试({columes[1]})</th>
-                                <th className="divWidth gutter-box flow-title">内部通过({columes[2]})</th>
-                                <th className="divWidth gutter-box flow-title">推荐客户({columes[3]})</th>
-                                <th className="divWidth gutter-box flow-title">安排客户({columes[4]})</th>
-                                <th className="divWidth gutter-box flow-title">客户面试({columes[5]})</th>
-                                <th className="divWidth gutter-box flow-title">客户通过({columes[6]})</th>
-                                <th className="divWidth gutter-box flow-title">内部面试({columes[7]})</th>
+                                <th className="divWidth gutter-box flow-title">推荐客户({columes[2]})</th>
+                                <th className="divWidth gutter-box flow-title">客户面试({columes[3]})</th>
+                                <th className="divWidth gutter-box flow-title">报价({columes[4]})</th>
+                                <th className="divWidth gutter-box flow-title">入职审批({columes[5]})</th>
+                                <th className="divWidth gutter-box flow-title">Offer({columes[6]})</th>
+                                <th className="divWidth gutter-box flow-title">体检背调({columes[7]})</th>
                                 <th className="divWidth gutter-box done-gradient border-tr-radius">入职({columes[8]})</th>
                             </tr>
                         </thead>
@@ -412,7 +413,7 @@ class Home extends Component {
                                                                                     style={getListStyle(snapshot.isDraggingOver, i)}>
                                                                                     {this.state.candidate[element.id][i].map((item, j) => {
                                                                                         const hireMan = this.getInitialValFromDics(103, item.hiringmanager);
-                                                                                        const salerMan = this.getInitialValFromDics(101, item.saler)
+                                                                                        const currentStatus = this.getStatusInitialVal(item.status, i);
                                                                                         return (
                                                                                             <Draggable
                                                                                                 key={item.id}
@@ -456,17 +457,17 @@ class Home extends Component {
                                                                                                         </div>
                                                                                                         <div className="left-middle-right" style={{ paddingBottom: 3, marginTop: 3 }}>
                                                                                                             {/* <Icon type="man" style={{ flexGrow: 1, paddingTop: 3 }} /> */}
-                                                                                                            <Icon type="exclamation-circle" style={{ flexGrow: 1, paddingTop: 3 }} />
-                                                                                                            <label style={{ fontSize: 12, flexGrow: 5, paddingTop: 1, width: 60 }} className="single-line-doc">{salerMan}</label>
+                                                                                                            <Icon type="filter" style={{ flexGrow: 1, paddingTop: 3 }} />
+                                                                                                            <label style={{ fontSize: 12, flexGrow: 5, paddingTop: 1, width: 60 }} className="single-line-doc">{currentStatus}</label>
                                                                                                         </div>
                                                                                                         <Row>
                                                                                                             <div>
                                                                                                                 <div>
-                                                                                                                    <span style={{ float: 'right' }}>
-                                                                                                                        <Icon type="form" style={{ display: i == 8 ? 'none' : 'block' }} className={i == 8 ? "ant-badge-status-dot" : ""} onClick={this.onCandidateClick.bind(this, item)} />
+                                                                                                                    <span style={{ float: 'right', marginTop: -4 }}>
+                                                                                                                        <Icon type="form" className={i == 8 ? "ant-badge-status-dot" : ""} onClick={this.onCandidateClick.bind(this, item)} />
                                                                                                                     </span>
                                                                                                                     <span style={{ float: 'right', marginRight: 10 }}>
-                                                                                                                        <Icon type="copy" style={{ display: i == 8 ? 'none' : 'block' }} className={i == 8 ? "ant-badge-status-dot" : ""} onClick={this.onCandidateCopyClick.bind(this, item)} />
+                                                                                                                        <Icon type="copy" style={{ display: i == 0 ? 'block' : 'none' }} className={i == 8 ? "ant-badge-status-dot" : ""} onClick={this.onCandidateCopyClick.bind(this, item)} />
                                                                                                                     </span>
                                                                                                                 </div>
                                                                                                             </div>
