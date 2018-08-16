@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button, Modal, Form, Input, Radio, Row, Col, Select, Cascader, InputNumber, Icon, notification, Checkbox } from 'antd';
 import moment from 'moment';
 import './../newform.css';
-import { UpdateRequirement } from './../../service/homeService';
+import { UpdateRequirement, DeleteRequirement } from './../../service/homeService';
 import PropTypes from 'prop-types';
 
 const FormItem = Form.Item;
@@ -73,6 +73,27 @@ const RequirementEditForm = Form.create()(
 
     handleCancel = () => {
       this.setState({ visible: false });
+    }
+
+    handleDeletion = (e) => {
+      e.preventDefault();
+      this.setState({ loading: true });
+      DeleteRequirement(this.props.requirement.id).then(res => {
+        openNotificationWithIcon('success', 'Notification', '删除成功')
+        this.onDeleteDone(res.data);
+      }).catch(e => {
+        openNotificationWithIcon('warning', 'Notification', '删除失败，请联系管理员')
+        this.onDeleteDone(null)
+      });
+    }
+
+    onDeleteDone = (requirement) => {
+      this.setState({ loading: false, visible: false, });
+      this.props.form.resetFields();
+      console.log(requirement)
+      if (this.props.onDeletion) {
+        this.props.onDeletion(requirement)
+      }
     }
 
     handleSelectChange = (value) => {
@@ -194,7 +215,7 @@ const RequirementEditForm = Form.create()(
                 保存
             </Button>,
               // <Button style={{ backgroundColor: '#d69250', color: 'white' }} key="copy" icon="copy" onClick={this.handleCancel}>复制</Button>,
-              <Button style={{ backgroundColor: '#d69250', color: 'white' }} key="del" icon="delete" onClick={this.handleCancel}>删除</Button>,
+              <Button style={{ backgroundColor: '#d69250', color: 'white' }} key="del" icon="delete" onClick={this.handleDeletion}>删除</Button>,
               // <Button style={{ backgroundColor: '#d69250', color: 'white' }} key="trace" icon="rollback" onClick={this.handleCancel}>轨迹</Button>,
             ]}
           >

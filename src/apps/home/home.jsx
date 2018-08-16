@@ -391,6 +391,9 @@ class Home extends Component {
                                                                     wrappedComponentRef={(reference) => {
                                                                         this.requirementComponents[element.id] = reference
                                                                     }}
+                                                                    onDeletion={() => {
+                                                                        this.getRqs()
+                                                                    }}
                                                                     onRQUpdateDone={this.onRQEditDone.bind(this, index)}
                                                                 />
                                                             </span>
