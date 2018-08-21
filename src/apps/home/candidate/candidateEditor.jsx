@@ -20,7 +20,7 @@ const mapping = [
   [{ id: 60, name: "未审批" }, { id: 61, name: "审批中" }, { id: 62, name: "审批通过" }, { id: 63, name: "审批失败" }],
   [{ id: 70, name: "未筛Offer" }, { id: 71, name: "已Offer" }, { id: 72, name: "接受Offer" }, { id: 73, name: "拒绝Offer" }],
   [{ id: 80, name: "未进行" }, { id: 81, name: "进行中" }, { id: 82, name: "检调合格" }, { id: 83, name: "体检审批" }, { id: 84, name: "背调审批" }, { id: 85, name: "体检失败" }, { id: 86, name: "背调失败" }],
-  [{ id: 90, name: "等待入职" }, { id: 91, name: "二次审批" }, { id: 92, name: "正常入职" }, { id: 92, name: "入职失败" }]
+  [{ id: 90, name: "等待入职" }, { id: 91, name: "二次审批" }, { id: 92, name: "正常入职" }, { id: 93, name: "入职失败" }]
 ]
 const CandidateEditForm = Form.create()(
   class extends React.Component {
