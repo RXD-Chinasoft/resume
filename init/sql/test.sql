@@ -76,32 +76,36 @@ INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('�
 INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('招聘人1', 103, '招聘负责人', '', 106);
 INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('招聘人2', 103, '招聘负责人', '', 107);
 
-INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('读写熟练', 1, '英语', '', 1);
-INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('一般', 1, '英语', '', 2);
-INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('流利沟通', 1, '英语', '', 3);
-INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('紧急', 2, '需求类型', '', 4);
-INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('一般', 2, '需求类型', '', 5);
-INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('低级', 2, '需求类型', '', 6);
-INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('正常', 3, '需求状态', '', 7);
-INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('大量', 3, '需求状态', '', 8);
-INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('少量', 3, '需求状态', '', 9);
-INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('为筛选', 4, '当前状态', '', 10);
-INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('面试中', 4, '当前状态', '', 11);
-INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('录用', 4, '当前状态', '', 12);
-INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('弃用', 4, '当前状态', '', 13);
-INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('正常', 5, '风险等级', '', 14);
-INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('大量', 5, '风险等级', '', 15);
-INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('少量', 5, '风险等级', '', 16);
+INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('不要求', 1, '英语', '', 1);
+INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('一般读写即可', 1, '英语', '', 2);
+INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('读写熟练', 1, '英语', '', 3);
+INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('听说读写熟练', 1, '英语', '', 4);
 
-INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('高', 6, '优先度', '', 17);
-INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('中', 6, '优先度', '', 18);
-INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('低', 6, '优先度', '', 19);
 
-INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('欧美事业部', 7, '所属部门', '', 20);
-INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('亚太事业部', 7, '所属部门', '', 21);
-INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('销售部', 7, '所属部门', '', 22);
+INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('Replacement', 2, '需求类型', '', 5);
+INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('New sale', 2, '需求类型', '', 6);
+INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('Up sale', 2, '需求类型', '', 7);
+INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('正常', 3, '需求状态', '', 8);
+INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('挂起', 3, '需求状态', '', 9);
+INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('取消', 3, '需求状态', '', 10);
+INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('未筛选', 4, '当前状态', '', 11);
+INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('面试中', 4, '当前状态', '', 12);
+INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('录用', 4, '当前状态', '', 13);
+INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('弃用', 4, '当前状态', '', 14);
+INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('正常', 5, '风险等级', '', 15);
+INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('大量', 5, '风险等级', '', 16);
+INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('少量', 5, '风险等级', '', 17);
 
-INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('第一轮', 8, '客轮面试', '', 23);
-INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('第二轮', 8, '客轮面试', '', 24);
-INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('第三轮', 8, '客轮面试', '', 25);
+INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('紧急', 6, '优先度', '', 18);
+INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('高', 6, '优先度', '', 19);
+INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('中', 6, '优先度', '', 20);
+INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('低', 6, '优先度', '', 21);
+
+INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('欧美事业部', 7, '所属部门', '', 22);
+INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('亚太事业部', 7, '所属部门', '', 23);
+INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('销售部', 7, '所属部门', '', 24);
+
+INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('第一轮', 8, '客轮面试', '', 25);
+INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('第二轮', 8, '客轮面试', '', 26);
+INSERT INTO dictionary (name, type, descrpition, extendedfield, pkey) VALUES ('第三轮', 8, '客轮面试', '', 27);
 

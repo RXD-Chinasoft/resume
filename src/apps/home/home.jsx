@@ -4,7 +4,7 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { Button, Badge, Icon } from 'antd';
 import ToolBar from './toolbar'
 import { Row, Col } from 'antd';
-import { GetRequirements, NotifyMatrixChanged, GetDictionaries, CreateCandidate } from './../service/homeService';
+import { GetRequirements, NotifyMatrixChanged, GetDictionaries, CreateCandidate, CreateRequirement } from './../service/homeService';
 import './home.css';
 import CandidateCreateForm from './candidate/candidateCreator';
 import CandidateEditForm from './candidate/candidateEditor';
@@ -27,7 +27,7 @@ const mapping = [
     [{ id: 40, name: "未安排客户面" }, { id: 41, name: "已安排客户面" }, { id: 42, name: "已面客" }, { id: 43, name: "客面通过" }, { id: 44, name: "客面失败" }],
     [{ id: 50, name: "未报价" }, { id: 51, name: "已报价" }, { id: 52, name: "报价通过" }, { id: 53, name: "报价失败" }],
     [{ id: 60, name: "未审批" }, { id: 61, name: "审批中" }, { id: 62, name: "审批通过" }, { id: 63, name: "审批失败" }],
-    [{ id: 70, name: "未筛Offer" }, { id: 71, name: "已Offer" }, { id: 72, name: "接受Offer" }, { id: 73, name: "拒绝Offer" }],
+    [{ id: 70, name: "未Offer" }, { id: 71, name: "已Offer" }, { id: 72, name: "接受Offer" }, { id: 73, name: "拒绝Offer" }],
     [{ id: 80, name: "未进行" }, { id: 81, name: "进行中" }, { id: 82, name: "检调合格" }, { id: 83, name: "体检审批" }, { id: 84, name: "背调审批" }, { id: 85, name: "体检失败" }, { id: 86, name: "背调失败" }],
     [{ id: 90, name: "等待入职" }, { id: 91, name: "二次审批" }, { id: 92, name: "正常入职" }, { id: 93, name: "入职失败" }]
 ]
@@ -227,12 +227,27 @@ class Home extends Component {
         this.setState({ editDragDisabled: true })
     }
     onCandidateCopyClick = (candidate) => {
-        console.log('onCandidateCopyClick', candidate);
-        CreateCandidate(candidate).then(res => {
-            OpenNotificationWithIcon('success', 'Notification', '复制成功')
+        let tmp = JSON.parse(JSON.stringify(candidate))
+        tmp.file = "";
+        tmp.filename = "";
+        console.log('onCandidateCopyClick', tmp);
+        CreateCandidate(tmp).then(res => {
+            OpenNotificationWithIcon('success', 'Notification', '复制候选人成功')
             this.getRqs()
         }).catch(e => {
-            OpenNotificationWithIcon('warning', 'Notification', '复制失败，请联系管理员')
+            OpenNotificationWithIcon('warning', 'Notification', '复制候选人失败，请联系管理员')
+        });
+    }
+    onCandidateCopyRQClick = (requirement) => {
+        let tmp = JSON.parse(JSON.stringify(requirement))
+        delete tmp.id;
+        tmp.matrix = ['', '', '', '', '', '', '', '', ''];
+        console.log('onCandidateCopyRQClick', tmp);
+        CreateRequirement(tmp).then(res => {
+            OpenNotificationWithIcon('success', 'Notification', '复制职位成功')
+            this.getRqs()
+        }).catch(e => {
+            OpenNotificationWithIcon('warning', 'Notification', '复制职位失败，请联系管理员')
         });
     }
 
@@ -337,13 +352,15 @@ class Home extends Component {
                             {
                                 this.state.requirements.map((element, index) => {
                                     console.log('elementasd', element)
-                                    const { rqtype } = element;
+                                    const { priority } = element;
                                     let st = 'success'
-                                    if (rqtype == 11) {
+                                    if (priority == 25) {
                                         st = 'error'
-                                    } else if (rqtype == 12) {
+                                    } else if (priority == 26) {
                                         st = 'warning'
-                                    } else if (rqtype == 13) {
+                                    } else if (priority == 27) {
+                                        st = 'processing'
+                                    } else if (priority == 28) {
                                         st = 'success'
                                     }
                                     return (
@@ -396,6 +413,9 @@ class Home extends Component {
                                                                     }}
                                                                     onRQUpdateDone={this.onRQEditDone.bind(this, index)}
                                                                 />
+                                                            </span>
+                                                            <span style={{ float: 'right', marginRight: 10, marginTop: 4 }}>
+                                                                <Icon type="copy" style={{ display: 'block', color: '#347cb7' }} onClick={this.onCandidateCopyRQClick.bind(this, element)} />
                                                             </span>
 
                                                         </div>
@@ -470,7 +490,8 @@ class Home extends Component {
                                                                                                                         <Icon type="form" className={i == 8 ? "ant-badge-status-dot" : ""} onClick={this.onCandidateClick.bind(this, item)} />
                                                                                                                     </span>
                                                                                                                     <span style={{ float: 'right', marginRight: 10 }}>
-                                                                                                                        <Icon type="copy" style={{ display: i == 0 ? 'block' : 'none' }} className={i == 8 ? "ant-badge-status-dot" : ""} onClick={this.onCandidateCopyClick.bind(this, item)} />
+                                                                                                                        {/* style={{ display: i == 0 ? 'block' : 'none' }} */}
+                                                                                                                        <Icon type="copy" style={{ display: 'block' }} className={i == 8 ? "ant-badge-status-dot" : ""} onClick={this.onCandidateCopyClick.bind(this, item)} />
                                                                                                                     </span>
                                                                                                                 </div>
                                                                                                             </div>

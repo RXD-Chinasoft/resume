@@ -156,7 +156,7 @@ const RequirementEditForm = Form.create()(
         projectaddr: formData.projectaddr,//项目地址
         createtime: "20180725",
         descrpition: '',
-        matrix: ['', '', '', '', '', '', '', '', ''],
+        matrix: this.props.requirement.matrix,
         clientrequirment: "123",
         department: Number(formData.department)//所属部门
       }
