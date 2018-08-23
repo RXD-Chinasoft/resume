@@ -51,6 +51,23 @@ func GetRequirement(rqmId int64) (requirement Requirement, err error) {
 	return
 }
 
+func CreateRequirement(rqmt Requirement) (int64, error) {
+	log.Printf("require %v", rqmt)
+	var id int64
+	err := db.QueryRow("INSERT INTO requirement (requirement, area, count, saler, dm, priority, english, rqtype, rqstatus, client, salaryscope, challengetarget, resumetarget, turn, teamrange, candidate, contact," + 
+		" interviewaddr, projectaddr, createtime, descrpition, matrix, clientrequirment, department) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24) RETURNING id", 
+		rqmt.Requirement, rqmt.Area, rqmt.Count, rqmt.Saler, rqmt.Dm, rqmt.Priority, rqmt.English, rqmt.Rqtype, rqmt.Rqstatus, rqmt.Client, rqmt.Salaryscope, rqmt.Challengetarget, rqmt.Resumetarget, 
+		rqmt.Turn, rqmt.Teamrange, rqmt.Candidate, rqmt.Contact, rqmt.Interviewaddr, rqmt.Projectaddr, rqmt.Createtime, rqmt.Descrpition, pq.Array(rqmt.Matrix), rqmt.Clientrequirment, rqmt.Department).Scan(&id)
+	if id <= 0 {
+		return 0, err
+	}
+	if err != nil {
+		log.Printf("insert error %s", err)
+		return 0, err
+	}
+	return id,nil
+}
+
 func NewRequirement(rqmt Requirement) error {
 	log.Printf("require %v", rqmt)
 	_, err := db.Exec("INSERT INTO requirement (requirement, area, count, saler, dm, priority, english, rqtype, rqstatus, client, salaryscope, challengetarget, resumetarget, turn, teamrange, candidate, contact," + 

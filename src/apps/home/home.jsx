@@ -232,20 +232,25 @@ class Home extends Component {
         tmp.filename = "";
         console.log('onCandidateCopyClick', tmp);
         CreateCandidate(tmp).then(res => {
+            console.log('asdasdsa', res)
             OpenNotificationWithIcon('success', 'Notification', '复制候选人成功')
             this.getRqs()
+            this.auto = res.data.lastId
+            // this.setState({ editDragDisabled: true })
         }).catch(e => {
             OpenNotificationWithIcon('warning', 'Notification', '复制候选人失败，请联系管理员')
         });
     }
-    onCandidateCopyRQClick = (requirement) => {
+    onRequirementCopyClick = (requirement) => {
         let tmp = JSON.parse(JSON.stringify(requirement))
         delete tmp.id;
         tmp.matrix = ['', '', '', '', '', '', '', '', ''];
-        console.log('onCandidateCopyRQClick', tmp);
+        console.log('onRequirementCopyClick', tmp);
         CreateRequirement(tmp).then(res => {
+            console.log('ggggggggggrrrrr', res)
             OpenNotificationWithIcon('success', 'Notification', '复制职位成功')
             this.getRqs()
+            this.auto = res.data.lastId
         }).catch(e => {
             OpenNotificationWithIcon('warning', 'Notification', '复制职位失败，请联系管理员')
         });
@@ -407,6 +412,10 @@ class Home extends Component {
                                                                     requirement={element}
                                                                     wrappedComponentRef={(reference) => {
                                                                         this.requirementComponents[element.id] = reference
+                                                                        if (this.auto && element.id === this.auto) {
+                                                                            reference.showModal()
+                                                                            this.auto = null
+                                                                        }
                                                                     }}
                                                                     onDeletion={() => {
                                                                         this.getRqs()
@@ -415,7 +424,7 @@ class Home extends Component {
                                                                 />
                                                             </span>
                                                             <span style={{ float: 'right', marginRight: 10, marginTop: 4 }}>
-                                                                <Icon type="copy" style={{ display: 'block', color: '#347cb7' }} onClick={this.onCandidateCopyRQClick.bind(this, element)} />
+                                                                <Icon type="copy" style={{ display: 'block', color: '#347cb7' }} onClick={this.onRequirementCopyClick.bind(this, element)} />
                                                             </span>
 
                                                         </div>
@@ -459,6 +468,10 @@ class Home extends Component {
                                                                                                             column={i}
                                                                                                             wrappedComponentRef={(reference) => {
                                                                                                                 this.candidateComponents[item.id] = reference
+                                                                                                                if (this.auto && item.id === this.auto) {
+                                                                                                                    reference.showModal()
+                                                                                                                    this.auto = null
+                                                                                                                }
                                                                                                             }}
                                                                                                             position={element.requirement}
                                                                                                             onUpdateDone={this.onEditDone.bind(this, element.id, i, j)}

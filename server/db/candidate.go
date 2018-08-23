@@ -57,6 +57,35 @@ func GetCandidatesByRequirements(requirements []Requirement) ([]Candidate, error
 	return list, err
 }
 
+func CreateCandidate(candidate Candidate) (int64, error) {
+	log.Printf("require %v", candidate)
+	requirement, err := GetRequirement(candidate.Requirement)
+	if err != nil {
+		return 0, err
+	}
+	tx, err := db.Begin()
+	if err != nil {
+		return 0, err
+	}
+	var id int64
+	tx.QueryRow("INSERT INTO candidate (requirement, candidate, hiringmanager, saler, dm, status, risk, descrpition, file, filename, filesize, filetype, createtime, message, interviewtime, price, gp, takeintime) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18) RETURNING id",
+		candidate.Requirement, candidate.Candidate, candidate.Hiringmanager, candidate.Saler, candidate.Dm, candidate.Status, candidate.Risk, candidate.Descrpition, candidate.File, candidate.Filename, candidate.Filesize, candidate.Filetype, candidate.Createtime, 
+		candidate.Message, candidate.InterviewTime, candidate.Price, candidate.Gp, candidate.TakeinTime).Scan(&id)
+	log.Printf("candidate LastInsertId %d", id)
+	if id <= 0 {
+		return 0, errors.New("insert candidate failure")
+	}
+	err1 := AppendRequirementMatrix(tx, requirement, id)
+	err2 := tx.Commit()
+	hasErr := err1 != nil || err2 != nil
+	if hasErr {
+		log.Println("insert error , roll back")
+		err = tx.Rollback()
+		return 0, errors.New("transation error")
+	}
+	return id, nil
+}
+
 func NewCandidate(candidate Candidate) error {
 	log.Printf("require %v", candidate)
 	requirement, err := GetRequirement(candidate.Requirement)

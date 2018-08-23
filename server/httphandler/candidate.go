@@ -45,8 +45,14 @@ func newCandidateHandleFunc(w http.ResponseWriter, r *http.Request, bodyBytes []
 			}
 			candidate.File = filepath
 		}
-		err = db.NewCandidate(candidate)
+		lastId, err := db.CreateCandidate(candidate)
 		if err != nil {
+			http.Error(w, err.Error(), 500)
+			return
+		}
+		result := struct{LastId int64 `json:"lastId"`}{lastId}
+		if err := json.NewEncoder(w).Encode(result);err != nil {
+			log.Printf("err ===> %v \n", err)
 			http.Error(w, err.Error(), 500)
 		}
 	}

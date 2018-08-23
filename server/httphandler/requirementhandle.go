@@ -36,9 +36,14 @@ func newRequirementHandleFunc(w http.ResponseWriter, r *http.Request, bodyBytes 
 		log.Printf("error ===> %s \n", err)
 		http.Error(w, http.StatusText(400), 400)
 	} else {
-		err = db.NewRequirement(requirement)
+		lastId, err := db.CreateRequirement(requirement)
 		if err != nil {
 			http.Error(w, http.StatusText(500), 500)
+		}
+		result := struct{LastId int64 `json:"lastId"`}{lastId}
+		if err := json.NewEncoder(w).Encode(result);err != nil {
+			log.Printf("err ===> %v \n", err)
+			http.Error(w, err.Error(), 500)
 		}
 	}
 	
